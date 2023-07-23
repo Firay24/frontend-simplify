@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
-function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick }) {
+function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, sendGender }) {
   const [flock, setFlock] = useState({
     name: '',
     placesBirth: '',
@@ -35,6 +35,10 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick }) 
   useEffect(() => {
     onInputChange(flock)
   }, [buttonOnClick, flock, onInputChange])
+
+  useEffect(() => {
+    sendGender(flock.gender)
+  }, [flock, sendGender])
 
   useEffect(() => {
     if (buttonOnClick) {

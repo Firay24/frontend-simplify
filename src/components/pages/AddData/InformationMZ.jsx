@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 // import PropTypes from 'prop-types'
 
-function InformationMZ({ onInputChange, buttonOnClick }) {
+function InformationMZ({ onInputChange, buttonOnClick, receiveGender }) {
     const [informationTN, setInformationTN] = useState({
         mzOrigin: '',
         yearEnteredTN: '',
         suluk: '',
         kaji: ''
     })
+
+    const kaji = ['Ismuzat', 'Lataif', 'Wukuf', 'Muraqabah Itlaq', 'D1', 'Petoto', 'Pentawajjuh', 'Pentareqat', 'PZ']
 
     const handleInputChange = (event) => {
         const { name, value } = event.target
@@ -81,7 +83,18 @@ function InformationMZ({ onInputChange, buttonOnClick }) {
                                 value={informationTN.kaji}
                                 onChange={handleInputChange}
                                 className='rounded text-xs border-gray-400' >
-                                <option value="">Kaji</option>
+                                <option value="" selected>Pilih</option>
+                                {
+                                    receiveGender === 'perempuan' ? (
+                                        kaji.slice(0, 5).map((itemKaji, index) => (
+                                            <option key={index} value={itemKaji} >{itemKaji}</option>
+                                        ))
+                                    ) : (
+                                        kaji.map((itemKaji, index) => (
+                                            <option key={index} value={itemKaji} >{itemKaji}</option>
+                                        ))
+                                    )
+                                }
                             </select>
                         </div>
                     </div>

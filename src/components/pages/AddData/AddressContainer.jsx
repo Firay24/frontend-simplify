@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
-function AddressContainer({ onInputChange, buttonOnClick }) {
+function AddressContainer({ onInputChange, buttonOnClick, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward }) {
     const [flock, setFlock] = useState({
         address: {
             province: '',
@@ -22,6 +22,24 @@ function AddressContainer({ onInputChange, buttonOnClick }) {
             }
         }))
     }
+
+    const convertToTitleCase = (str) => {
+        const lowerCaseStr = str.toLowerCase();
+        const titleCaseStr = lowerCaseStr.replace(/(?:^|\s)\w/g, (match) => match.toUpperCase());
+        return titleCaseStr;
+    }
+
+    useEffect(() => {
+        selectedProvince(flock.address.province)
+    }, [flock, selectedProvince])
+
+    useEffect(() => {
+        selectedRegency(flock.address.regency)
+    }, [flock, selectedRegency])
+
+    useEffect(() => {
+        selectedSubdistrict(flock.address.subdistrict)
+    }, [flock, selectedSubdistrict])
 
     useEffect(() => {
         onInputChange(flock)
@@ -54,7 +72,12 @@ function AddressContainer({ onInputChange, buttonOnClick }) {
                         value={flock.address.province}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value=""></option>
+                            <option value='' selected>Pilih</option>
+                        {
+                            province.data.map((item) => (
+                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>
@@ -65,7 +88,12 @@ function AddressContainer({ onInputChange, buttonOnClick }) {
                         value={flock.address.regency}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value=""></option>
+                        <option value='' selected>Pilih</option>
+                        {
+                            regency.data.map((item) => (
+                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>
@@ -76,18 +104,28 @@ function AddressContainer({ onInputChange, buttonOnClick }) {
                         value={flock.address.subdistrict}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value=""></option>
+                        <option value='' selected>Pilih</option>
+                        {
+                            subdistrict.data.map((item) => (
+                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>
                     <label htmlFor="ward">Kelurahan</label>
                     <select
-                        name=""
+                        name="ward"
                         id="ward"
                         value={flock.address.ward}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value=""></option>
+                        <option value='' selected>Pilih</option>
+                        {
+                            ward.data.map((item) => (
+                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>

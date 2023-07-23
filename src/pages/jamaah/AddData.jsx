@@ -3,6 +3,7 @@ import Header from '../../components/pages/AddData/Header'
 import ConfirmAddData from '../../components/pages/AddData/ConfirmAddData'
 import InputDataSection from '../../components/pages/AddData/InputDataSection'
 import { getFunctionals, addFlock, addFunctional, updateFlock } from '../../utils/apiData'
+import { getProvince, getRegency, getSubdistrict, getWard } from '../../utils/apiLocation'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,6 +28,15 @@ function AddData() {
     fathersName: ''
   })
 
+
+  // data location
+  const [province, setProvince] = useState({ data: [] })
+  const [selectedProvince, setSelectedProvince] = useState('')
+  const [regency, setRegency] = useState({ data: [] })
+  const [selectedRegency, setSelectedRegency] = useState('')
+  const [subdistrict, setSubdistrict] = useState({ data: [] })
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState('')
+  const [ward, setWard] = useState({ data: [] })
 
   // confirm data process
   const handleOptionChange = (newValue) => {
@@ -65,6 +75,28 @@ function AddData() {
       nik: nik,
       fathersName: fathersName
     })
+  }
+
+  //  data location 
+  const handleSelectedProvince = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedProvince = province.data.find((itemProvince) => itemProvince.name === value)
+      setSelectedProvince(idSelectedProvince.id)
+    }
+  }
+
+  const handleSelectedRegency = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedRegency = regency.data.find((itemRegency) => itemRegency.name === value)
+      setSelectedRegency(idSelectedRegency.id)
+    }
+  }
+
+  const handleSelectedSubdistrict = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedSubdistrict = subdistrict.data.find((itemSubdistrict) => itemSubdistrict.name === value)
+      setSelectedSubdistrict(idSelectedSubdistrict.id)
+    }
   }
 
   // confirm data process
@@ -118,6 +150,55 @@ function AddData() {
     });
   };
 
+  // get data location
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getProvince()
+        setProvince(result)
+      } catch (error) {
+        setProvince({ data: [] }) 
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getRegency(selectedProvince)
+        setRegency(result)
+      } catch (error) {
+        setRegency({ data: [] }) 
+      }
+    };
+    fetchData();
+  }, [selectedProvince]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getSubdistrict(selectedRegency)
+        setSubdistrict(result)
+      } catch (error) {
+        setSubdistrict({ data: [] })
+      }
+    }
+    fetchData()
+  }, [selectedRegency])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getWard(selectedSubdistrict)
+        setWard(result)
+      } catch (error) {
+        setWard({ data: [] })
+      }
+    }
+    fetchData()
+  }, [selectedSubdistrict])
+
   if (isLoading) {
     return <div>Waiting...</div>;
   }
@@ -140,10 +221,20 @@ function AddData() {
             isFunctional={selectedOptionFunctional} 
             isAvailable={isAvailable}
             addFlock={handleAddFlock}
+
+            province={province && province}
+            selectedProvince={handleSelectedProvince}
+            regency={regency && regency}
+            selectedRegency={handleSelectedRegency}
+            subdistrict = {subdistrict && subdistrict}
+            selectedSubdistrict = {handleSelectedSubdistrict}
+            ward = {ward && ward}
+
             addFunctional={handleAddFunctional}
             updatePersonalData={updatePersonalData}
             personalData={personalData}
-            putFlock={updateFlock} />
+            putFlock={updateFlock}
+             />
         </div>
       </div>
       <ToastContainer 

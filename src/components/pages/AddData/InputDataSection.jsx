@@ -6,9 +6,26 @@ import SubmitButton from '../../shared/Button/submitButton'
 import FunctionalContainer from './FunctionalContainer'
 import AnotherBiodata from './AnotherBiodata'
 
-function InputDataSection({ isFunctional, isAvailable, addFlock, putFlock, addFunctional, updatePersonalData, personalData, flockData }) {
+function InputDataSection({ 
+  isFunctional, 
+  isAvailable, 
+  addFlock, 
+  putFlock, 
+  addFunctional, 
+  updatePersonalData, 
+  personalData, 
+  flockData, 
+  province, 
+  selectedProvince, 
+  regency, 
+  selectedRegency,
+  subdistrict,
+  selectedSubdistrict,
+  ward }) {
+    
   const [dataComponent, setDataComponent] = useState({})
   const [buttonOnClick, setButtonOnClik] = useState(false)
+  const [selectedGender, setSelectedGender] = useState('')
 
   const handleInputChange = useCallback((data) => {
     setDataComponent((prevState) => ({
@@ -16,6 +33,10 @@ function InputDataSection({ isFunctional, isAvailable, addFlock, putFlock, addFu
       ...data
     }));
   }, []);
+
+  const handlerSelectedGender = (value) => {
+    setSelectedGender(value)
+  }
 
   const handleSubmit = () => {
     addFlock(dataComponent)
@@ -36,14 +57,23 @@ function InputDataSection({ isFunctional, isAvailable, addFlock, putFlock, addFu
           <div>
             <div className='grid grid-cols-2 gap-x-5 mt-5'>
               <div>
-                  <BiodataContainer updatePersonalData={updatePersonalData} onInputChange={handleInputChange} buttonOnClick={buttonOnClick} />
+                  <BiodataContainer updatePersonalData={updatePersonalData} onInputChange={handleInputChange} buttonOnClick={buttonOnClick} sendGender={handlerSelectedGender} />
               </div>
               <div>
-                  <AddressContainer onInputChange={handleInputChange} buttonOnClick={buttonOnClick} />
+                  <AddressContainer 
+                    onInputChange={handleInputChange} 
+                    buttonOnClick={buttonOnClick} 
+                    province={province}
+                    selectedProvince={selectedProvince} 
+                    regency={regency}
+                    selectedRegency={selectedRegency}
+                    subdistrict={subdistrict}
+                    selectedSubdistrict={selectedSubdistrict}
+                    ward={ward} />
               </div>
             </div>
             <div className='mt-5'>
-              <InformationMZ onInputChange={handleInputChange} buttonOnClick={buttonOnClick} />
+              <InformationMZ onInputChange={handleInputChange} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
             </div>
             <div className='mt-8 mb-8 flex justify-end'>
                 <SubmitButton onClick={handleSubmit} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
