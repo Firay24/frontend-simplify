@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
@@ -20,6 +19,16 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, se
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
+    if (name==='nik') {
+      if (!/^\S*$/.test(value)) {
+        return;
+      } else {
+        setFlock((prevFlock) => ({
+          ...prevFlock,
+          [name]: value.replace(/\s/g, '')
+        }))
+      }
+    }
     setFlock((prevFlock) => ({
       ...prevFlock,
       [name]: value
@@ -71,19 +80,21 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, se
             name='name'
             value={flock.name}
             onChange={handleInputChange}
+            required
             placeholder='John Doe'
             className='rounded text-xs border-gray-400' />
         </div>
         <div className='grid grid-cols-2 items-center'>
           <label htmlFor="nik">NIK</label>
           <input
-            type="text"
+            type="number"
             id='nik'
             name='nik'
             value={flock.nik}
             onChange={handleInputChange}
+            required
             placeholder='3651001234567'
-            className='rounded text-xs border-gray-400' />
+            className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
         </div>
         <div className='grid grid-cols-2 items-center'>
           <label htmlFor="fathersName">Nama bapak kandung</label>
@@ -93,6 +104,7 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, se
             name='fathersName'
             value={flock.fathersName}
             onChange={handleInputChange}
+            required
             placeholder='John Mark'
             className='rounded text-xs border-gray-400' />
         </div>
@@ -144,13 +156,13 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, se
         <div className='grid grid-cols-2 items-center'>
           <label htmlFor="numberPhone">Nomer HP</label>
           <input
-            type="text"
+            type="number"
             id='numberPhone'
             name='numberPhone'
             value={flock.numberPhone}
             onChange={handleInputChange}
             placeholder='0852312345678'
-            className='rounded text-xs border-gray-400' />
+            className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
-function AnotherBiodata({ putFlock, id }) {
+function AnotherBiodata({ onInputChange, buttonOnClick }) {
     const [flock, setFlock] = useState({
         gender: '',
         job: '',
@@ -9,6 +9,8 @@ function AnotherBiodata({ putFlock, id }) {
         suluk: '',
         kaji: ''
     })
+
+    const kaji = ['Ismuzat', 'Lataif', 'Wukuf', 'Muraqabah Itlaq', 'D1', 'Petoto', 'Pentawajjuh', 'Pentareqat', 'PZ']
 
     const handleInputChange = (event) => {
         const { name, value } = event.target
@@ -18,23 +20,26 @@ function AnotherBiodata({ putFlock, id }) {
         }))
     }
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault()
-        putFlock({...flock, id})
+    useEffect(() => {
+        onInputChange(flock)
+    }, [buttonOnClick, flock, onInputChange])
 
-        setFlock({
-            gender: '',
-            job: '',
-            yearEnteredTN: '',
-            suluk: '',
-            kaji: ''
-        })
-    }
+    useEffect(() => {
+        if (buttonOnClick) {
+            setFlock({
+                gender: '',
+                job: '',
+                yearEnteredTN: '',
+                suluk: '',
+                kaji: ''
+            })
+        }
+    }, [buttonOnClick])
 
     return (
         <div className='text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey'>
             <p className='text-sm font-medium text-basic-blue mb-5'>Identitas Pribadi</p>
-            <form action="" onSubmit={handleFormSubmit}>
+            <form action="">
                 <div className='grid grid-cols-2 gap-x-14'>
                     <div className='flex flex-col gap-y-2'>
                         <div className='grid grid-cols-2 items-center'>
@@ -45,7 +50,7 @@ function AnotherBiodata({ putFlock, id }) {
                                 value={flock.gender}
                                 onChange={handleInputChange}
                                 className='rounded text-xs border-gray-400'>
-                                <option value="" disabled>pilih</option>
+                                <option value="">pilih</option>
                                 <option value="laki-laki">Laki-laki</option>
                                 <option value="perempuan">Perempuan</option>
                             </select>
@@ -87,14 +92,20 @@ function AnotherBiodata({ putFlock, id }) {
                         </div>
                         <div className='grid grid-cols-2 items-center'>
                             <label htmlFor="kaji">Kaji</label>
-                            <input
-                                type="text"
-                                id='kaji'
-                                name='kaji'
-                                value={flock.kaji}
-                                onChange={handleInputChange}
-                                placeholder='Wukuf'
-                                className='rounded text-xs border-gray-400' />
+                            <select name="kaji" id="kaji" value={flock.kaji} onChange={handleInputChange} className='rounded text-xs border-gray-400' >
+                                <option value="" selected>Pilih</option>
+                                {
+                                    flock.gender === 'perempuan' ? (
+                                        kaji.slice(0, 5).map((itemKaji, index) => (
+                                            <option key={index} value={itemKaji} >{itemKaji}</option>
+                                        ))
+                                    ) : (
+                                        kaji.map((itemKaji, index) => (
+                                            <option key={index} value={itemKaji} >{itemKaji}</option>
+                                        ))
+                                    )
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,8 @@ async function addFlock({ name, placesBirth, datesBirth, nik, fathersName, gende
 }
 
 async function updateFlock({ id, gender, job, yearEnteredTN, suluk, kaji }) {
-    const response = await fetch(`${BASE_URL}/flocks/updateFlock/${id}`, {
+    console.log(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`)
+    const response = await fetch(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -50,8 +51,10 @@ async function updateFlock({ id, gender, job, yearEnteredTN, suluk, kaji }) {
 
     if (responseJson.status !== 'success') {
         alert(responseJson.message)
-        return { error: false, data: responseJson.data }
+        return { error: false, data: [] }
     }
+
+    return {error: false, data: responseJson.data}
 }
 
 // FUNCTIONAL

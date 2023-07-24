@@ -9,43 +9,68 @@ import AnotherBiodata from './AnotherBiodata'
 function InputDataSection({ 
   isFunctional, 
   isAvailable, 
-  addFlock, 
-  putFlock, 
+  addFlock,
   addFunctional, 
+  putFlock,  
   updatePersonalData, 
-  personalData, 
-  flockData, 
+  personalData,  
   province, 
   selectedProvince, 
   regency, 
   selectedRegency,
   subdistrict,
   selectedSubdistrict,
-  ward }) {
+  ward,
+  anotherBio }) {
     
   const [dataComponent, setDataComponent] = useState({})
+  const [dataFunctional, setDataFunctional] = useState({})
   const [buttonOnClick, setButtonOnClik] = useState(false)
   const [selectedGender, setSelectedGender] = useState('')
+  const [dataAnotherBio, setDataAnotherBio] = useState({})
 
-  const handleInputChange = useCallback((data) => {
+  const handleInputChangeFlock = useCallback((data) => {
     setDataComponent((prevState) => ({
       ...prevState,
       ...data
     }));
   }, []);
 
+  const handleInputChangeFunc = useCallback((data) => {
+    setDataFunctional(data)
+  }, [])
+
+  const handlerInputChangeAnotherBio = useCallback((data) => {
+    setDataAnotherBio(data)
+  },[])
+
   const handlerSelectedGender = (value) => {
     setSelectedGender(value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmitFlock = () => {
     addFlock(dataComponent)
+    setButtonOnClik(true)
+  }
+
+  const handleSubmitFunc = () => {
+    addFlock(dataComponent)
+    addFunctional(dataFunctional)
+    setButtonOnClik(true)
+  }
+
+  const handleSubmitAnotherBio = () => {
+    const addDataFlock = {
+      id: anotherBio._id,
+      ...dataAnotherBio
+    }
+    putFlock(addDataFlock)
     setButtonOnClik(true)
   }
 
   useEffect(() => {
     setButtonOnClik(false)
-  },[dataComponent])
+  },[dataComponent, dataFunctional])
  
   return (
     <div>
@@ -57,11 +82,15 @@ function InputDataSection({
           <div>
             <div className='grid grid-cols-2 gap-x-5 mt-5'>
               <div>
-                  <BiodataContainer updatePersonalData={updatePersonalData} onInputChange={handleInputChange} buttonOnClick={buttonOnClick} sendGender={handlerSelectedGender} />
+                  <BiodataContainer 
+                    updatePersonalData={updatePersonalData} 
+                    onInputChange={handleInputChangeFlock} 
+                    buttonOnClick={buttonOnClick} 
+                    sendGender={handlerSelectedGender} />
               </div>
               <div>
                   <AddressContainer 
-                    onInputChange={handleInputChange} 
+                    onInputChange={handleInputChangeFlock} 
                     buttonOnClick={buttonOnClick} 
                     province={province}
                     selectedProvince={selectedProvince} 
@@ -73,25 +102,20 @@ function InputDataSection({
               </div>
             </div>
             <div className='mt-5'>
-              <InformationMZ onInputChange={handleInputChange} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
+              <InformationMZ onInputChange={handleInputChangeFlock} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
             </div>
             <div className='mt-8 mb-8 flex justify-end'>
-                <SubmitButton onClick={handleSubmit} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
-                {/* <button type='submit' onClick={handleSubmit} >Submit</button> */}
+              <SubmitButton onClick={handleSubmitFlock} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
             </div>
           </div>
         ) : isFunctional === 'functional' && isAvailable ? 
           (
             <div>
               <div className='mt-5'>
-                    <AnotherBiodata putFlock={putFlock} id={flockData?._id} />
-              </div>
-              <hr className='border-1 border-gray-200 my-10' />
-              <div>
-                <FunctionalContainer addFunctional={addFunctional} personalData={personalData} />
+                <AnotherBiodata onInputChange={handlerInputChangeAnotherBio} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                  <SubmitButton bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton onClick={handleSubmitAnotherBio} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           ) :
@@ -103,21 +127,34 @@ function InputDataSection({
             <div>
               <div className='grid grid-cols-2 gap-x-5 mt-5'>
                 <div>
-                    <BiodataContainer addFlock={addFlock} updatePersonalData={updatePersonalData} />
+                  <BiodataContainer 
+                      updatePersonalData={updatePersonalData} 
+                      onInputChange={handleInputChangeFlock} 
+                      buttonOnClick={buttonOnClick} 
+                      sendGender={handlerSelectedGender} />
                 </div>
                 <div>
-                    <AddressContainer addFlock={addFlock} />
+                  <AddressContainer 
+                      onInputChange={handleInputChangeFlock} 
+                      buttonOnClick={buttonOnClick} 
+                      province={province}
+                      selectedProvince={selectedProvince} 
+                      regency={regency}
+                      selectedRegency={selectedRegency}
+                      subdistrict={subdistrict}
+                      selectedSubdistrict={selectedSubdistrict}
+                      ward={ward} />
                 </div>
               </div>
               <div className='mt-5'>
-                <InformationMZ addFlock={addFlock} />
+                <InformationMZ onInputChange={handleInputChangeFlock} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
               </div>
               <hr className='border-1 border-gray-200 my-10' />
               <div>
-                <FunctionalContainer addFunctional={addFunctional} personalData={personalData} />
+                <FunctionalContainer personalData={personalData} onInputChange={handleInputChangeFunc} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                  <SubmitButton bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton onClick={handleSubmitFunc} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           )

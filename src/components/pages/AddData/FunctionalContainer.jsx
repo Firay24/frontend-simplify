@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
-function FunctionalContainer({ addFunctional, personalData }) {
+function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
     const [functional, setFunctional] = useState({
         petoto: {
             status: '',
@@ -47,53 +47,54 @@ function FunctionalContainer({ addFunctional, personalData }) {
         }))
     }
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault()
+    useEffect(() => {
         const dataToSubmit = {
-            ...functional,
-            ...personalData
+            ...personalData,
+            ...functional
         }
+        onInputChange(dataToSubmit)
+    }, [buttonOnClick, functional, onInputChange, personalData])
 
-        addFunctional(dataToSubmit)
-
-        setFunctional({
-            petoto: {
-                status: '',
-                time: '',
-                timeLifted: '',
-                location: '',
-                notes: ''
-            },
-            pentawajuh: {
-                status: '',
-                time: '',
-                timeLifted: '',
-                location: '',
-                notes: ''
-            },
-            pentarekat: {
-                status: '',
-                time: '',
-                timeLifted: '',
-                location: '',
-                notes: ''
-            },
-            pz: {
-                status: '',
-                time: '',
-                timeLifted: '',
-                location: '',
-                notes: ''
-            },
-        })
-
-    }
+    useEffect(() => {
+        if (buttonOnClick) {
+            setFunctional({
+                petoto: {
+                    status: '',
+                    time: '',
+                    timeLifted: '',
+                    location: '',
+                    notes: ''
+                },
+                pentawajuh: {
+                    status: '',
+                    time: '',
+                    timeLifted: '',
+                    location: '',
+                    notes: ''
+                },
+                pentarekat: {
+                    status: '',
+                    time: '',
+                    timeLifted: '',
+                    location: '',
+                    notes: ''
+                },
+                pz: {
+                    status: '',
+                    time: '',
+                    timeLifted: '',
+                    location: '',
+                    notes: ''
+                },
+            })
+        }
+    }, [buttonOnClick])
 
     return (
         <div>
             <h1 className='font-semibold text-xl text-basic-grey'>Tambah Data</h1>
             <p className='text-grey-light text-xs font-light'>BKMZ Jawa Timur</p>
-            <form action="" onSubmit={handleFormSubmit}>
+            <form>
                 <div className='grid grid-cols-2 gap-5 mt-5'>
                     <div className='text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey'>
                         <p className='text-sm font-medium text-basic-blue mb-5'>Petoto</p>
@@ -101,11 +102,12 @@ function FunctionalContainer({ addFunctional, personalData }) {
                             <div className='grid grid-cols-2 items-center'>
                                 <label htmlFor="statusPtt">Status</label>
                                 <select
-                                    name="status"
+                                    name="petoto.status"
                                     id="statusPtt"
-                                    value={functional.petoto.status}
                                     onChange={handleInputChange}
+                                    value={functional.petoto.status}
                                     className='rounded text-xs border-gray-400'>
+                                    <option value="">pilih</option>
                                     <option value="aktif">Aktif</option>
                                     <option value="non-aktif">Non-Aktif</option>
                                 </select>
@@ -115,7 +117,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timePtt'
-                                    name='time'
+                                    name='petoto.time'
                                     value={functional.petoto.time}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -125,7 +127,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timeLiftedPtt'
-                                    name='timeLifted'
+                                    name='petoto.timeLifted'
                                     value={functional.petoto.timeLifted}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -135,7 +137,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input 
                                     type="text"
                                     id='locationPtt'
-                                    name='location'
+                                    name='petoto.location'
                                     value={functional.petoto.location}
                                     onChange={handleInputChange}
                                     placeholder='Mayang'
@@ -146,7 +148,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='notesPtt'
-                                    name='notes'
+                                    name='petoto.notes'
                                     value={functional.petoto.notes}
                                     onChange={handleInputChange}
                                     placeholder='baik dari segi ...'
@@ -160,13 +162,14 @@ function FunctionalContainer({ addFunctional, personalData }) {
                             <div className='grid grid-cols-2 items-center'>
                                 <label htmlFor="statusPtw">Status</label>
                                 <select
-                                    name="status"
+                                    name="pentawajuh.status"
                                     id="statusPtw"
                                     value={functional.pentawajuh.status}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400'>
+                                    <option value="">pilih</option>
                                     <option value="aktif">Aktif</option>
-                                    <option value="non-aktif">Non-aktif</option>
+                                    <option selected value="non-aktif">Non-aktif</option>
                                 </select>
                             </div>
                             <div className='grid grid-cols-2 items-center'>
@@ -174,7 +177,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timePtw'
-                                    name='time'
+                                    name='pentawajuh.time'
                                     value={functional.pentawajuh.time}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -184,7 +187,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timeLiftedPtw'
-                                    name='timeLifted'
+                                    name='pentawajuh.timeLifted'
                                     value={functional.pentawajuh.timeLifted}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -194,7 +197,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='locationPtw'
-                                    name='location'
+                                    name='pentawajuh.location'
                                     value={functional.pentawajuh.location}
                                     onChange={handleInputChange}
                                     placeholder='Mayang'
@@ -205,7 +208,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='notesPtw'
-                                    name='notes'
+                                    name='pentawajuh.notes'
                                     value={functional.pentawajuh.notes}
                                     onChange={handleInputChange}
                                     placeholder='baik dari segi ...'
@@ -219,13 +222,14 @@ function FunctionalContainer({ addFunctional, personalData }) {
                             <div className='grid grid-cols-2 items-center'>
                                 <label htmlFor="statusPtq">Status</label>
                                 <select
-                                    name="status"
+                                    name="pentarekat.status"
                                     id="statusPtq"
                                     value={functional.pentarekat.status}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400'>
+                                    <option value="">pilih</option>
                                     <option value="aktif">Aktif</option>
-                                    <option value="non-aktif">Non-aktif</option>
+                                    <option selected value="non-aktif">Non-aktif</option>
                                 </select>
                             </div>
                             <div className='grid grid-cols-2 items-center'>
@@ -233,7 +237,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timePtq'
-                                    name='time'
+                                    name='pentarekat.time'
                                     value={functional.pentarekat.time}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -243,7 +247,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timeLiftedPtq'
-                                    name='timeLifted'
+                                    name='pentarekat.timeLifted'
                                     value={functional.pentarekat.timeLifted}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -253,7 +257,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='locationPtq'
-                                    name='location'
+                                    name='pentarekat.location'
                                     value={functional.pentarekat.location}
                                     onChange={handleInputChange}
                                     placeholder='Mayang'
@@ -264,7 +268,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='notesPtq'
-                                    name='notes'
+                                    name='pentarekat.notes'
                                     value={functional.pentarekat.notes}
                                     onChange={handleInputChange}
                                     placeholder='Baik dari segi ...'
@@ -278,11 +282,12 @@ function FunctionalContainer({ addFunctional, personalData }) {
                             <div className='grid grid-cols-2 items-center'>
                                 <label htmlFor="statusPZ">Status</label>
                                 <select
-                                    name="status"
+                                    name="pz.status"
                                     id="statusPZ"
                                     value={functional.pz.status}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400'>
+                                    <option value="">pilih</option>
                                     <option value="aktif">Aktif</option>
                                     <option value="non-aktif">Non-aktif</option>
                                 </select>
@@ -292,7 +297,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timePZ'
-                                    name='time'
+                                    name='pz.time'
                                     value={functional.pz.time}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -302,7 +307,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="date"
                                     id='timeLiftedPZ'
-                                    name='timeLifted'
+                                    name='pz.timeLifted'
                                     value={functional.pz.timeLifted}
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400' />
@@ -312,7 +317,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='locationPZ'
-                                    name='location'
+                                    name='pz.location'
                                     value={functional.pz.location}
                                     onChange={handleInputChange}
                                     placeholder='Mayang'
@@ -323,7 +328,7 @@ function FunctionalContainer({ addFunctional, personalData }) {
                                 <input
                                     type="text"
                                     id='notesPZ'
-                                    name='notes'
+                                    name='pz.notes'
                                     value={functional.pz.notes}
                                     onChange={handleInputChange}
                                     placeholder='Baik dari segi ...'

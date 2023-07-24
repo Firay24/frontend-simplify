@@ -4,12 +4,21 @@ import { useLocation } from 'react-router-dom'
 function Navigation() {
     const location = useLocation()
     const paths = location.pathname.split('/')
+    console.log(paths)
 
     return (
         <div className='flex text-sm'>
-            {  
+            {
                 paths.map((path, index) => (
-                    index === 1 ? <div key={index}>{`Data ${path}`}</div> : 
+                    index === 1 ? (path === '' ? 
+                        <div className='flex'>
+                            <div key={index}>Data jamaah</div>
+                            <div className='flex ml-2 gap-x-2'>
+                                <div>&gt;</div>
+                                <div className='font-medium text-basic-blue'>Lihat data</div>
+                            </div>
+                        </div>
+                        : <div key={index}>{`Data ${path}`}</div>) : 
                     index === 2 ? <div key={index}>
                         { path === 'addData' ? 
                         <div className='flex ml-2 gap-x-2'>

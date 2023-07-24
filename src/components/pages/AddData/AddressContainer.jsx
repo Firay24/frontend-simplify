@@ -131,7 +131,7 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
                 <div className='grid grid-cols-2 items-center'>
                     <label htmlFor="linkGmaps">Link Gmaps</label>
                     <input
-                        type="text"
+                        type="url"
                         id='linkGmaps'
                         name='linkGmaps'
                         value={flock.address.linkGmaps}

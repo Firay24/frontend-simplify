@@ -54,26 +54,26 @@ function InformationMZ({ onInputChange, buttonOnClick, receiveGender }) {
                         <div className='grid grid-cols-2 items-center'>
                             <label htmlFor="yearEnteredTN">Tahun masuk TN</label>
                             <input
-                                type="text"
+                                type="number"
                                 id='yearEnteredTN'
                                 name='yearEnteredTN'
                                 value={informationTN.yearEnteredTN}
                                 onChange={handleInputChange}
                                 placeholder='2017'
-                                className='rounded text-xs border-gray-400' />
+                                className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
                         </div>
                     </div>
                     <div className='flex flex-col gap-y-2'>
                         <div className='grid grid-cols-2 items-center'>
                             <label htmlFor="suluk">Suluk</label>
                             <input
-                                type="text"
+                                type="number"
                                 id='suluk'
                                 name='suluk'
                                 value={informationTN.suluk}
                                 onChange={handleInputChange}
                                 placeholder='3'
-                                className='rounded text-xs border-gray-400' />
+                                className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
                         </div>
                         <div className='grid grid-cols-2 items-center'>
                             <label htmlFor="kaji">Kaji</label>

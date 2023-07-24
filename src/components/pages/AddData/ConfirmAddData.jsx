@@ -74,6 +74,7 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
                                         name='nik'
                                         value={formData.nik}
                                         onChange={handleInputChange}
+                                        required
                                         className='rounded text-xs border-gray-400 mt-2' />
                                 </div>
                                 <div className='flex flex-col'>
@@ -84,6 +85,7 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
                                         name='fathersName'
                                         value={formData.fathersName}
                                         onChange={handleInputChange}
+                                        required
                                         className='rounded text-xs border-gray-400 mt-2' />
                                 </div>
                             </div>

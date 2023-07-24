@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/pages/AddData/Header'
 import ConfirmAddData from '../../components/pages/AddData/ConfirmAddData'
 import InputDataSection from '../../components/pages/AddData/InputDataSection'
-import { getFunctionals, addFlock, addFunctional, updateFlock } from '../../utils/apiData'
+import { getFlocks, getFunctionals, addFlock, addFunctional, updateFlock } from '../../utils/apiData'
 import { getProvince, getRegency, getSubdistrict, getWard } from '../../utils/apiLocation'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -27,7 +27,8 @@ function AddData() {
     nik: '',
     fathersName: ''
   })
-
+  const [flocks, setFlocks] = useState({ error: false, data: [] })
+  const [anotherBio, setAnotherBio] = useState('')
 
   // data location
   const [province, setProvince] = useState({ data: [] })
@@ -54,8 +55,10 @@ function AddData() {
   const handleAddFlock = async (flockData) => {
     try {
       const response = await addFlock(flockData)
+      notifySuccessAddData()
       console.log('Data berhasil ditambahkan', response)
     } catch (error) {
+      notifyErrordAddData()
       console.log('Gagal menambahkan data', error.message)
     }
   }
@@ -66,6 +69,16 @@ function AddData() {
       console.log('Data fungsional berhasil ditambahkan', response)
     } catch (error) {
       console.log('Gagal menambahkan data fungsional', error.message)
+    }
+  }
+
+  const handleAddAnotherBio = async (anotherData) => {
+    try {
+      const response = await updateFlock(anotherData)
+      notifySuccessAddData()
+      console.log('Data biodata lainnya berhasil ditambahkan', response)
+    } catch (error) {
+      console.log('Gagal menambahkan data biodata lainnya', error.message)
     }
   }
 
@@ -125,20 +138,73 @@ function AddData() {
     if (hasSubmitted) {
       const isDataAvailable = functionals.data && functionals.data.functionals && functionals.data.functionals.some(
         (item) =>
-          item.nik === formData.nik && item.fathersName === formData.fathersName
+          item.nik === formData.nik && item.fathersName.toLowerCase() === formData.fathersName.toLowerCase()
       );
       setIsAvailable(isDataAvailable);
-      notify(isDataAvailable)
+      notifyIsAvailableData(isDataAvailable)
     }
   }, [hasSubmitted, formData.nik, formData.fathersName, functionals.data, dataFunctional]);
 
-  const notify = (isAvailable) => {
+  // add data process
+  useEffect(() => {
+    const fetchData = async() => {
+      try {
+        const result = await getFlocks()
+        setFlocks(result)
+        // const flockByNik = result.data.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName)
+        // setAnotherBio(flockByNik)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    fetchData()
+  }, [formData])
+
+  const { dataOfFlock } = flocks
+  const dataFlocks = dataOfFlock && dataOfFlock.flocks
+
+  useEffect(() => {
+    const flockByNik = flocks.data && flocks.data.flocks && flocks.data.flocks.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName)
+    setAnotherBio(flockByNik)
+  }, [flocks, anotherBio, formData, hasSubmitted, dataFlocks])
+
+  const notifyIsAvailableData = (isAvailable) => {
     let message = '';
     isAvailable
       ? (message = 'Data tersedia sebagai fungsional')
       : (message = 'Data tidak tersedia sebagai fungsional');
 
     toast.info(message, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light'
+    });
+  };
+
+  const notifySuccessAddData = () => {
+    let message = 'Data berhasil ditambahkan';
+
+    toast.success(message, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light'
+    });
+  };
+
+  const notifyErrordAddData = () => {
+    let message = 'Data gagal ditambahkan';
+
+    toast.error(message, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -221,6 +287,11 @@ function AddData() {
             isFunctional={selectedOptionFunctional} 
             isAvailable={isAvailable}
             addFlock={handleAddFlock}
+            addFunctional={handleAddFunctional}
+            putFlock={handleAddAnotherBio}
+            updatePersonalData={updatePersonalData}
+            personalData={personalData}
+            anotherBio={anotherBio && anotherBio}
 
             province={province && province}
             selectedProvince={handleSelectedProvince}
@@ -229,11 +300,6 @@ function AddData() {
             subdistrict = {subdistrict && subdistrict}
             selectedSubdistrict = {handleSelectedSubdistrict}
             ward = {ward && ward}
-
-            addFunctional={handleAddFunctional}
-            updatePersonalData={updatePersonalData}
-            personalData={personalData}
-            putFlock={updateFlock}
              />
         </div>
       </div>
