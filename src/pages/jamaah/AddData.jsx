@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/pages/AddData/Header'
 import ConfirmAddData from '../../components/pages/AddData/ConfirmAddData'
 import InputDataSection from '../../components/pages/AddData/InputDataSection'
-import { getFlocks, getFunctionals, addFlock, addFunctional, updateFlock } from '../../utils/apiData'
+import { getFlocks, getFunctionals, addFlock, addFunctional, updateFlock, importFileFlocks } from '../../utils/apiData'
 import { getProvince, getRegency, getSubdistrict, getWard } from '../../utils/apiLocation'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -79,6 +79,16 @@ function AddData() {
       console.log('Data biodata lainnya berhasil ditambahkan', response)
     } catch (error) {
       console.log('Gagal menambahkan data biodata lainnya', error.message)
+    }
+  }
+
+  const handleImportDataFlock = async (file) => {
+    try {
+      const response = await importFileFlocks(file)
+      notifySuccessAddData()
+      console.log('Data berhasil ditambahkan', response)
+    } catch (error) {
+      console.log('Gagal menambahkan data', error.message)
     }
   }
 
@@ -273,7 +283,7 @@ function AddData() {
     <>
       <div className='mt-4 mr-10'>
         <div>
-          <Header />
+          <Header importFileFlocks={handleImportDataFlock} />
         </div>
         <div>
           <ConfirmAddData

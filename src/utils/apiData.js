@@ -57,6 +57,24 @@ async function updateFlock({ id, gender, job, yearEnteredTN, suluk, kaji }) {
     return {error: false, data: responseJson.data}
 }
 
+async function importFileFlocks(file) {
+    const formData = new FormData()
+    formData.append('file', file)
+    const response = await fetch(`${BASE_URL}/flocks/importFlocks`, {
+        method: 'POST',
+        body: formData
+    })
+
+    const responseJson = await response.json()
+
+    if (response.status !== 'success') {
+        alert(responseJson.message)
+        return { error: false, data: [] }
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
 // FUNCTIONAL
 async function getFunctionals() {
     const response = await fetch(`${BASE_URL}/functionals/getFunctionals`)
@@ -91,6 +109,7 @@ export {
     getFlocks,
     addFlock,
     updateFlock,
+    importFileFlocks,
 
     getFunctionals,
     addFunctional
