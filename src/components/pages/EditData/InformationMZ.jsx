@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 
-function AnotherBiodata({ onInputChange, buttonOnClick }) {
-    const [flock, setFlock] = useState({
-        gender: '',
-        job: '',
+function InformationMZ({ onInputChange, buttonOnClick, receiveGender, prevFlock }) {
+    const [informationTN, setInformationTN] = useState({
+        mzOrigin: '',
         yearEnteredTN: '',
         suluk: '',
         kaji: ''
@@ -12,58 +10,44 @@ function AnotherBiodata({ onInputChange, buttonOnClick }) {
 
     const kaji = ['Ismuzat', 'Lataif', 'Wukuf', 'Muraqabah Itlaq', 'D1', 'Petoto', 'Pentawajjuh', 'Pentareqat', 'PZ']
 
+    useEffect(() => {
+        if (prevFlock !== null) {
+            setInformationTN({
+                mzOrigin: prevFlock.mzOrigin,
+                yearEnteredTN: prevFlock.yearEnteredTN,
+                suluk: prevFlock.suluk,
+                kaji: prevFlock.kaji
+            })
+        }
+    }, [prevFlock])
+
     const handleInputChange = (event) => {
         const { name, value } = event.target
-        setFlock((prevFlock) => ({
-            ...prevFlock,
-            [name]: value
+        setInformationTN((prevState) => ({
+            ...prevState,
+            [name] : value
         }))
     }
 
     useEffect(() => {
-        onInputChange(flock)
-    }, [buttonOnClick, flock, onInputChange])
-
-    useEffect(() => {
-        if (buttonOnClick) {
-            setFlock({
-                gender: '',
-                job: '',
-                yearEnteredTN: '',
-                suluk: '',
-                kaji: ''
-            })
-        }
-    }, [buttonOnClick])
+        onInputChange(informationTN)
+    }, [buttonOnClick, informationTN, onInputChange])
 
     return (
         <div className='text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey'>
-            <p className='text-sm font-medium text-basic-blue mb-5'>Identitas Pribadi</p>
-            <form action="">
+            <p className='text-sm font-medium text-basic-blue mb-5'>Informasi MZ</p>
+            <form>
                 <div className='grid grid-cols-2 gap-x-14'>
                     <div className='flex flex-col gap-y-2'>
                         <div className='grid grid-cols-2 items-center'>
-                            <label htmlFor="gender">Jenis Kelamin</label>
-                            <select
-                                name="gender"
-                                id="gender"
-                                value={flock.gender}
-                                onChange={handleInputChange}
-                                className='rounded text-xs border-gray-400'>
-                                <option value="">pilih</option>
-                                <option value="laki-laki">Laki-laki</option>
-                                <option value="perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                        <div className='grid grid-cols-2 items-center'>
-                            <label htmlFor="job">Pekerjaan</label>
+                            <label htmlFor="mzOrigin">Asal MZ</label>
                             <input
                                 type="text"
-                                id='job'
-                                name='job'
-                                value={flock.job}
+                                id='mzOrigin'
+                                name='mzOrigin'
+                                value={informationTN.mzOrigin}
                                 onChange={handleInputChange}
-                                placeholder='Frelancer'
+                                placeholder='Mayang'
                                 className='rounded text-xs border-gray-400' />
                         </div>
                         <div className='grid grid-cols-2 items-center'>
@@ -72,30 +56,35 @@ function AnotherBiodata({ onInputChange, buttonOnClick }) {
                                 type="number"
                                 id='yearEnteredTN'
                                 name='yearEnteredTN'
-                                value={flock.yearEnteredTN}
+                                value={informationTN.yearEnteredTN}
                                 onChange={handleInputChange}
-                                placeholder='1996'
+                                placeholder='2017'
                                 className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
                         </div>
                     </div>
                     <div className='flex flex-col gap-y-2'>
                         <div className='grid grid-cols-2 items-center'>
-                            <label htmlFor="suluk">Suluk ke</label>
+                            <label htmlFor="suluk">Suluk</label>
                             <input
                                 type="number"
                                 id='suluk'
                                 name='suluk'
-                                value={flock.suluk}
+                                value={informationTN.suluk}
                                 onChange={handleInputChange}
-                                placeholder='2'
+                                placeholder='3'
                                 className='rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
                         </div>
                         <div className='grid grid-cols-2 items-center'>
                             <label htmlFor="kaji">Kaji</label>
-                            <select name="kaji" id="kaji" value={flock.kaji} onChange={handleInputChange} className='rounded text-xs border-gray-400' >
+                            <select
+                                name="kaji"
+                                id="kaji"
+                                value={informationTN.kaji}
+                                onChange={handleInputChange}
+                                className='rounded text-xs border-gray-400' >
                                 <option value="" selected>Pilih</option>
                                 {
-                                    flock.gender === 'perempuan' ? (
+                                    receiveGender === 'perempuan' ? (
                                         kaji.slice(0, 5).map((itemKaji, index) => (
                                             <option key={index} value={itemKaji} >{itemKaji}</option>
                                         ))
@@ -114,8 +103,4 @@ function AnotherBiodata({ onInputChange, buttonOnClick }) {
     )
 }
 
-AnotherBiodata.propTypes = {
-    putFlock: PropTypes.func.isRequired
-}
-
-export default AnotherBiodata
+export default InformationMZ

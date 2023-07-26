@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/shared/Navigation'
 import ListDataJamaah from './pages/jamaah/ListData'
 import AddDataJamaah from './pages/jamaah/AddData'
+import DetailData from './pages/jamaah/DetailData';
+import EditData from './pages/jamaah/EditData';
 import ListDataMz from './pages/mz/ListData'
 import AddDataMz from './pages/mz/AddData'
 import ListDataFunc from './pages/fungsional/ListData'
@@ -20,8 +22,12 @@ function App() {
           <Route path='/' element={<ListDataJamaah />}></Route>
           <Route path='/jamaah/listData' element={<ListDataJamaah />}></Route>
           <Route path='/jamaah/addData' element={<AddDataJamaah />}></Route>
+          <Route path='/jamaah/detailData/:id' element={<DetailData />}></Route>
+          <Route path='/jamaah/editData/:id' element={<EditData />}></Route>
+
           <Route path='/mz/listData' element={<ListDataMz />}></Route>
           <Route path='/mz/addData' element={<AddDataMz />}></Route>
+
           <Route path='/fungsional/listData' element={<ListDataFunc />}></Route>
           <Route path='/fungsional/addData' element={<AddDataFunc />}></Route>
         </Routes>

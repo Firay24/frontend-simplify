@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
 import convertToTitleCase from '../../../utils/convertToTitleCase'
 
-function AddressContainer({ onInputChange, buttonOnClick, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward }) {
+function AddressContainer({ onInputChange, buttonOnClick, prevFlock, province, regency, selectedProvince, selectedRegency, subdistrict, selectedSubdistrict, ward }) {
     const [flock, setFlock] = useState({
         address: {
             province: '',
@@ -14,46 +14,46 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
         }
     })
 
+    useEffect(() => {
+        if (prevFlock !== null && prevFlock.address !== null) {
+            setFlock({
+                address: {
+                    province: prevFlock.address.province,
+                    regency: prevFlock.address.regency,
+                    subdistrict: prevFlock.address.subdistrict,
+                    ward: prevFlock.address.ward,
+                    linkGmaps: prevFlock.address.linkGmaps,
+                    details: prevFlock.address.details
+                }
+            })
+        }
+    }, [prevFlock])
+
+    useEffect(() => {
+        selectedProvince(flock.address.province)
+    }, [prevFlock, selectedProvince, flock])
+
+    useEffect(() => {
+        selectedRegency(flock.address.regency)
+    }, [prevFlock, selectedRegency, flock])
+
+    useEffect(() => {
+        selectedSubdistrict(flock.address.subdistrict)
+    }, [prevFlock, selectedSubdistrict, flock])
+
     const handleInputChange = (event) => {
         const { name, value } = event.target
-        setFlock((prevFlock) => ({
+        setFlock((prevState) => ({
             address: {
-                ...prevFlock.address,
-                [name]: value
+                ...prevState.address,
+                [name] : value
             }
         }))
     }
 
     useEffect(() => {
-        selectedProvince(flock.address.province)
-    }, [flock, selectedProvince])
-
-    useEffect(() => {
-        selectedRegency(flock.address.regency)
-    }, [flock, selectedRegency])
-
-    useEffect(() => {
-        selectedSubdistrict(flock.address.subdistrict)
-    }, [flock, selectedSubdistrict])
-
-    useEffect(() => {
         onInputChange(flock)
     }, [buttonOnClick, flock, onInputChange])
-
-    useEffect(() => {
-        if (buttonOnClick) {
-            setFlock({
-                address: {
-                    province: '',
-                    regency: '',
-                    subdistrict: '',
-                    ward: '',
-                    linkGmaps: '',
-                    details: ''
-                }
-            })
-        }
-    }, [buttonOnClick])
 
     return (
         <div className='text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey'>
@@ -64,15 +64,14 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
                     <select
                         name="province"
                         id="province"
-                        value={flock.address.province}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                            <option value='' selected>Pilih</option>
-                        {
-                            province.data.map((item) => (
-                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
-                            ))
-                        }
+                            <option value={prevFlock && prevFlock.address.province} selected>{prevFlock && prevFlock.address.province}</option>
+                            {
+                                province && province.data.map((item, index) => (
+                                    <option key={index} value={item.name}>{item.name}</option>
+                                ))
+                            }
                     </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>
@@ -80,13 +79,12 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
                     <select 
                         name="regency"
                         id="regency"
-                        value={flock.address.regency}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value='' selected>Pilih</option>
+                        <option value={prevFlock && prevFlock.address.regency} selected>{prevFlock && prevFlock.address.regency}</option>
                         {
-                            regency.data.map((item) => (
-                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            regency && regency.data.map((item, index) => (
+                                <option key={index} value={item.name}>{item.name}</option>
                             ))
                         }
                     </select>
@@ -96,13 +94,12 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
                     <select
                         name="subdistrict"
                         id="subdistrict"
-                        value={flock.address.subdistrict}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value='' selected>Pilih</option>
+                        <option value={prevFlock && prevFlock.address.subdistrict} selected>{prevFlock && prevFlock.address.subdistrict}</option>
                         {
-                            subdistrict.data.map((item) => (
-                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            subdistrict && subdistrict.data.map((item, index) => (
+                                <option key={index} value={item.name}>{item.name}</option>
                             ))
                         }
                     </select>
@@ -112,13 +109,12 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
                     <select
                         name="ward"
                         id="ward"
-                        value={flock.address.ward}
                         onChange={handleInputChange}
                         className='rounded text-xs border-gray-400'>
-                        <option value='' selected>Pilih</option>
+                        <option value={prevFlock && prevFlock.address.ward} selected>{prevFlock && prevFlock.address.ward}</option>
                         {
-                            ward.data.map((item) => (
-                                <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                            ward && ward.data.map((item, index) => (
+                                <option key={index} value={item.name}>{convertToTitleCase(item.name)}</option>
                             ))
                         }
                     </select>
@@ -148,10 +144,6 @@ function AddressContainer({ onInputChange, buttonOnClick, province, selectedProv
             </form>
         </div>
     )
-}
-
-AddressContainer.propTypes = {
-    addFlock: PropTypes.func.isRequired
 }
 
 export default AddressContainer

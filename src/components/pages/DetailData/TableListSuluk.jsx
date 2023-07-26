@@ -1,37 +1,33 @@
 import React from 'react'
-import RowItem from './RowItem'
+import RowItemSuluk from './RowItemSuluk'
 
-function TableList({ flocks }) {
+function TableListSuluk({ suluks }) {
   return (
     <div class="relative overflow-x-auto mt-5 drop-shadow-sm">
         <table class="w-full text-xs text-left text-gray-500">
             <thead class="bg-[#F2F4F8] text-gray-700 uppercase">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Nama
+                        Suluk ke
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Asal MZ
+                        Pelaksanaan
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Lokasi
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Kaji
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Kabupaten
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Action
                     </th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    flocks.map((flock) =>(
-                        <RowItem
-                        key={flock._id}
-                        {...flock}
-                        id={flock._id}
-                        regency={flock.address.regency} />
+                    suluks && suluks.sulukInfo.map((suluk, index) =>(
+                        <RowItemSuluk
+                        key={index}
+                        {...suluk}
+                         />
                     ))
                 }
             </tbody>
@@ -40,4 +36,4 @@ function TableList({ flocks }) {
   )
 }
 
-export default TableList
+export default TableListSuluk

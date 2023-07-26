@@ -15,6 +15,13 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
 
     const handleInputChange = (event) => {
         const { name, value } = event.target
+        if (name==='nik') {
+            if (!/^\S*$/.test(value)) {
+            return;
+            } else {
+                setFormData({ ...formData, [name]: value.replace(/\s/g, '')  })
+            }
+        }
         setFormData({ ...formData, [name]: value  })
     }
 
@@ -69,13 +76,13 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
                                 <div className='flex flex-col'>
                                     <label htmlFor="nik">NIK</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id='nik'
                                         name='nik'
                                         value={formData.nik}
                                         onChange={handleInputChange}
                                         required
-                                        className='rounded text-xs border-gray-400 mt-2' />
+                                        className='rounded text-xs border-gray-400 mt-2 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none' />
                                 </div>
                                 <div className='flex flex-col'>
                                     <label htmlFor="fathersName">Nama bapak kandung</label>

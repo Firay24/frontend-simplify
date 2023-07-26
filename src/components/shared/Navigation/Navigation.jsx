@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 function Navigation() {
     const location = useLocation()
     const paths = location.pathname.split('/')
-    console.log(paths)
 
     return (
         <div className='flex text-sm'>

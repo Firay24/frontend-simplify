@@ -10,19 +10,21 @@ function ListData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getFlocks();
+        const result = await getFlocks()
         setFlocks(result);
       } catch (error) {
-        setFlocks({ error: true, data: [] });
+        setFlocks({ error: true, data: [] })
       }
     }
 
     fetchData()
   },[])
 
-  const { data } = flocks;
-  const dataFlock = data && data.flocks; // Add a check for data
-  
+  const { data } = flocks
+  const dataFlock = data.flocks || [] // Add a check for data
+  const dataFlockFilter = dataFlock && dataFlock.filter((item) => (
+    item.gender !== '' || item.gender !== ''
+  ))
 
   if (!dataFlock || dataFlock.length === 0) {
     return console.log('waiting');
@@ -37,7 +39,7 @@ function ListData() {
         <SearchField />
       </div>
       <div>
-        <TableList flocks={dataFlock} />
+        <TableList flocks={dataFlockFilter} id='' />
       </div>
     </div>
   )

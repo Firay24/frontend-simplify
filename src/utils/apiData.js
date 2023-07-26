@@ -13,6 +13,18 @@ async function getFlocks() {
     return {error: false, data: responseJson.data}
 }
 
+async function getFlock(id) {
+    const response = await fetch(`${BASE_URL}/flocks/getFlock/${id}`)
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: null}
+    }
+
+    return {error: false, data: responseJson.data }
+}
+
 async function addFlock({ name, placesBirth, datesBirth, nik, fathersName, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address }) {
     const response = await fetch(`${BASE_URL}/flocks/addFlock`, {
         method: 'POST',
@@ -37,14 +49,13 @@ async function addFlock({ name, placesBirth, datesBirth, nik, fathersName, gende
     return {error: false, data: responseJson.data.flock}
 }
 
-async function updateFlock({ id, gender, job, yearEnteredTN, suluk, kaji }) {
-    console.log(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`)
+async function updateFlock({ id, name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address }) {
     const response = await fetch(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ gender, job, yearEnteredTN, suluk, kaji })
+        body: JSON.stringify({ name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address })
     })
 
     const responseJson = await response.json()
@@ -105,12 +116,99 @@ async function addFunctional({ name, nik, fathersName, petoto, pentawajuh, penta
     }
 }
 
+async function updateFunctional({ _id, name, nik, fathersName, petoto, pentawajuh, pentarekat, pz }) {
+    console.log(`${BASE_URL}/functionals/updateFunctionalkWithoutVerify/${_id}`)
+    const response = await fetch(`${BASE_URL}/functionals/updateFunctionalkWithoutVerify/${_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, nik, fathersName, petoto, pentawajuh, pentarekat, pz })
+    })
+
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message)
+        return { error: false, data: [] }
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
+// SULUK
+async function getSuluks() {
+    const response = await fetch(`${BASE_URL}/suluk/getSuluks`)
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: []}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
+async function updateSuluk({_id, name, nik, fathersName, sulukInfo}) {
+    const response = await fetch(`${BASE_URL}/suluk/updateSulukWithoutVerify/${_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, nik, fathersName, sulukInfo})
+    })
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: []}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
+// CLASS
+async function getClasses() {
+    const response = await fetch(`${BASE_URL}/class/getClasses`)
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: []}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
+async function updateClass({ _id, name, nik, fathersName, classInfo }) {
+    const response = await fetch(`${BASE_URL}/class/updateClassWithoutVerify/${_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, nik, fathersName, classInfo })
+    })
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: []}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
 export {
     getFlocks,
     addFlock,
     updateFlock,
     importFileFlocks,
-
+    getFlock,
     getFunctionals,
-    addFunctional
+    addFunctional,
+    updateFunctional,
+    getSuluks,
+    updateSuluk,
+    getClasses,
+    updateClass
 }
