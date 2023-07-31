@@ -134,7 +134,7 @@ function AddData() {
         setfunctional(result)
         setIsLoading(false)
       } catch (error) {
-        setfunctional({ error: false, data: [] })
+        setfunctional({ error: true, data: [] })
         setIsLoading(false); 
       }
     };

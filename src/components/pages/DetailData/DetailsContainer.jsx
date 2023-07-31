@@ -4,7 +4,7 @@ import AddressSection from './AddressSection'
 import InformationMZ from './InformationMZ'
 import EditButton from '../../shared/Button/editButton'
 
-function DetailsContainer({ id, flock }) {
+function DetailsContainer({ id, flock, functional }) {
   return (
     <div>
         <div className='bg-white mt-5 p-6 drop-shadow-sm rounded'>

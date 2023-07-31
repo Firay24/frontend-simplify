@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/pages/DetailData/Header'
 import DetailsContainer from '../../components/pages/DetailData/DetailsContainer'
-import { getFlock, getSuluks, getClasses } from '../../utils/apiData'
+import { getFlock, getSuluks, getClasses, getFunctionals } from '../../utils/apiData'
 import { useParams } from 'react-router-dom'
 import TableListSuluk from '../../components/pages/DetailData/TableListSuluk'
 import TableListClass from '../../components/pages/DetailData/TableListClass'
@@ -9,6 +9,8 @@ import TableListClass from '../../components/pages/DetailData/TableListClass'
 function DetailData() {
     const [flock, setFlock] = useState({ error: false, data: [] })
     const [suluk, setSuluk] = useState({ error: false, data: [] })
+    const [functionals, setFunctionals] = useState({ error: false, data: [] })
+    const [functional, setFunctional] = useState({ error: false, data: [] })
     const [detailSuluk, setDetailSuluk] = useState(null)
     const [classes, setClasses] = useState({ error: false, data: [] })
     const [detailClass, setDetailClass] = useState(null)
@@ -26,7 +28,6 @@ function DetailData() {
 
         fetchData(id)
     },[id])
-
     const detailFlock = flock && flock.data && flock.data.flock
 
     useEffect(() => {
@@ -41,7 +42,6 @@ function DetailData() {
 
         fetchData()
     },[])
-
     const dataSuluk = suluk && suluk.data && suluk.data.suluks
 
     useEffect(() => {
@@ -50,7 +50,7 @@ function DetailData() {
     }, [detailSuluk, dataSuluk, detailFlock])
 
     useEffect(() => {
-        const fetchData = async (id) => {
+        const fetchData = async () => {
             try {
                 const result = await getClasses()
                 setClasses(result)
@@ -69,13 +69,33 @@ function DetailData() {
         setDetailClass(detailValue)
     }, [detailClass, dataClass, detailFlock])
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await getFunctionals()
+                setFunctionals(result)
+            } catch (error) {
+                setFunctionals({ error: true, data: [] })
+            }
+        }
+        fetchData()
+    }, [])
+    const dataFunctional = functionals && functionals.data && functionals.data.functionals
+
+    useEffect(() => {
+        const detailFunctional = detailFlock && dataFunctional && dataFunctional.find((functional) => functional.nik === detailFlock.nik && functional.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase())
+        if (detailFunctional) {
+            setFunctional(detailFunctional)
+        }
+    }, [dataFunctional, detailFlock])
+
     return (
         <div className='mt-4 mr-10 mb-6'>
             <div>
                 <Header />
             </div>
             <div>
-                <DetailsContainer id={id} flock={detailFlock && detailFlock} />
+                <DetailsContainer id={id} flock={detailFlock && detailFlock} functional={functional} />
             </div>
             <div>
                 <h2 className='text-base text-basic-blue font-medium'>Informasi suluk</h2>

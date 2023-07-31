@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/pages/EditData/Header'
 import EditDataSection from '../../components/pages/EditData/EditDataSection'
-import { getFlock, getFunctionals, getClasses, getSuluks } from '../../utils/apiData'
+import { getFlock, getClasses, getSuluks } from '../../utils/apiData'
 import { getProvince, getRegency, getSubdistrict, getWard } from '../../utils/apiLocation'
 import { updateFlock, updateFunctional, updateClass, updateSuluk } from '../../utils/apiData'
 import { useParams } from 'react-router-dom'
@@ -11,8 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function EditData() {
   const [flock, setFlock] = useState({ error: false, data: null })
-  const [functionals, setFunctionals] = useState({ error: false, data: [] })
-  const [functional, setFunctional] = useState({ error: false, data: null })
   const [classes, setClasses] = useState({ error: false, data: [] })
   const [classItem, setClassItem] = useState({ error: false, data: null })
   const [suluks, setSuluks] = useState({ error: false, data: [] })
@@ -81,7 +79,7 @@ function EditData() {
   const handleUpdateSuluk = async (value) => {
     try {
       const response = await updateSuluk(value)
-      console.log('Data kelas berhasil diperbarui', response)
+      console.log('Data suluk berhasil diperbarui', response)
     } catch (error) {
       console.log('Data suluk gagal diperbarui', error.message)
     }
@@ -100,20 +98,6 @@ function EditData() {
     fetchData(id)
   }, [id])
   const detailFlock = flock && flock.data && flock.data.flock
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getFunctionals()
-        setFunctionals(result)
-      } catch (error) {
-        setFunctionals({error: true, data: []})
-      }
-    }
-
-    fetchData()
-  },[])
-  const dataFunctionals = functionals && functionals.data && functionals.data.functionals
 
   useEffect(() => {
     const fetchData = async () => {
@@ -141,11 +125,6 @@ function EditData() {
     fetchData()
   })
   const dataSuluk = suluks && suluks.data && suluks.data.suluks
-
-  useEffect(() => {
-    const detailFunctional = detailFlock && dataFunctionals && dataFunctionals.find((functional) => functional.nik === detailFlock.nik && functional.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase())
-    setFunctional(detailFunctional)
-  }, [dataFunctionals, detailFlock])
 
   useEffect(() => {
     const detailClass = detailFlock && dataClasses && dataClasses.find((classItem) => classItem.nik === detailFlock.nik && classItem.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase())
@@ -248,7 +227,6 @@ function EditData() {
         <div>
           <EditDataSection 
             flock={detailFlock && detailFlock}
-            functional={functional && functional}
             classes={classItem && classItem}
             suluk={suluk && suluk}
             updateFlock={handleUpdateFlock}

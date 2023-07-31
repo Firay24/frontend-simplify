@@ -2,7 +2,7 @@ import React from 'react'
 import { RxDotFilled } from "react-icons/rx";
 import { Link } from 'react-router-dom';
 
-function RowItem({ name, mzOrigin, kaji, regency, id }) {
+function RowItem({ name, mzOrigin, kaji, regency, id, idNote }) {
   return (
     <tr class="bg-white border-b">
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -26,7 +26,9 @@ function RowItem({ name, mzOrigin, kaji, regency, id }) {
             </div>
             <div className='bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'>
                 <RxDotFilled className='text-base text-green-500' />
-                <button className='text-gray-900'>Catatan</button>
+                <button className='text-gray-900'>
+                    <Link to={`/jamaah/catatan/listData/${idNote}`}>Catatan</Link>
+                </button>
             </div>
         </td>
     </tr>
