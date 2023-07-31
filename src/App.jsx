@@ -9,7 +9,10 @@ import ListDataMz from './pages/mz/ListData'
 import AddDataMz from './pages/mz/AddData'
 import ListDataFunc from './pages/fungsional/ListData'
 import AddDataFunc from './pages/fungsional/AddData'
-import NoteData from './pages/jamaah/NoteData';
+import NoteData from './pages/jamaah/NoteData/NoteData';
+import DetailDataNote from './pages/jamaah/NoteData/DetailData'
+import EditDataNote from './pages/jamaah/NoteData/EditData';
+import AddDataNote from './pages/jamaah/NoteData/AddData'
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path='/jamaah/detailData/:id' element={<DetailData />}></Route>
           <Route path='/jamaah/editData/:id' element={<EditData />}></Route>
           <Route path='/jamaah/catatan/listData/:id' element={<NoteData />}></Route>
+          <Route path='/jamaah/catatan/detailData/:id/:idNote' element={<DetailDataNote />}></Route>
+          <Route path='/jamaah/catatan/editData/:id/:idNote' element={<EditDataNote />}></Route>
+          <Route path='/jamaah/catatan/addData/:id' element={<AddDataNote />}></Route>
 
           <Route path='/mz/listData' element={<ListDataMz />}></Route>
           <Route path='/mz/addData' element={<AddDataMz />}></Route>

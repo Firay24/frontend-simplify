@@ -1,7 +1,7 @@
 import React from 'react'
 import RowItem from './RowItem'
 
-function TableList({ notes }) {
+function TableList({ notes, idFlock }) {
     return (
         <div class="relative overflow-x-auto mt-5 drop-shadow-sm">
             <table class="w-full text-xs text-left text-gray-500">
@@ -31,6 +31,7 @@ function TableList({ notes }) {
                     {
                         notes && notes.notesInfo && notes.notesInfo.map((note) =>(
                             <RowItem
+                            idFlock={idFlock}
                             key={note._id}
                             {...note}
                             id={note._id}

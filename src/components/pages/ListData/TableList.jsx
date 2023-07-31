@@ -2,10 +2,8 @@ import React from 'react'
 import RowItem from './RowItem'
 
 function TableList({ flocks, notesFlock }) {
-    console.log(notesFlock)
     const getIdFromNotesFlock = (flock) => {
         const detailNote = flock && notesFlock && notesFlock.find(note => flock.nik === note.nik && flock.fathersName === note.fathersName);
-        console.log(flock.name, detailNote)
         return detailNote ? detailNote._id : null;
     }
 

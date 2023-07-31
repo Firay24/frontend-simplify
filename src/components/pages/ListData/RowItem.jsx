@@ -27,7 +27,7 @@ function RowItem({ name, mzOrigin, kaji, regency, id, idNote }) {
             <div className='bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'>
                 <RxDotFilled className='text-base text-green-500' />
                 <button className='text-gray-900'>
-                    <Link to={`/jamaah/catatan/listData/${idNote}`}>Catatan</Link>
+                    <Link to={idNote ? `/jamaah/catatan/listData/${idNote}` : `/jamaah/catatan/listData/${id}`}>Catatan</Link>
                 </button>
             </div>
         </td>

@@ -223,6 +223,43 @@ async function getNoteFlock(id) {
     return {error: false, data: responseJson.data }
 }
 
+async function updateNoteFlock({ _id, name, nik, fathersName, notesInfo }) {
+    const response = await fetch(`${BASE_URL}/noteFlock/updatedNote/${_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, nik, fathersName, notesInfo })
+    })
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        console.log(responseJson.message)
+        return {error: true, data: []}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
+async function addNoteFlock({ name, nik, fathersName, notesInfo }) {
+    const response = await fetch(`${BASE_URL}/noteFlock/addNote`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, nik, fathersName, notesInfo })
+    })
+
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message)
+        return { error: true, data: [] }
+    }
+
+    return {error: false, data: responseJson.data.flock}
+}
+
 export {
     getFlocks,
     addFlock,
@@ -237,5 +274,7 @@ export {
     getClasses,
     updateClass,
     getNotesFlock,
-    getNoteFlock
+    getNoteFlock,
+    updateNoteFlock,
+    addNoteFlock
 }

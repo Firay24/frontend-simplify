@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../../components/pages/NoteData/Header'
-import SearchField from '../../components/pages/NoteData/SearchField'
-import TableList from '../../components/pages/NoteData/TableList'
-import { getNoteFlock } from '../../utils/apiData'
+import Header from '../../../components/pages/NoteData/ListData/Header'
+import SearchField from '../../../components/pages/NoteData/ListData/SearchField'
+import TableList from '../../../components/pages/NoteData/ListData/TableList'
+import { getNoteFlock } from '../../../utils/apiData'
 
 function NoteData() {
   const [noteFlock, setNoteFlock] = useState({ error: false, data: [] })
@@ -30,13 +30,13 @@ function NoteData() {
   return (
     <div className='mt-4 mr-10'>
       <div>
-        <Header />
+        <Header id={id} />
       </div>
       <div>
         <SearchField />
       </div>
       <div>
-        <TableList notes={detailNote && detailNote} />
+        <TableList notes={detailNote && detailNote} idFlock={id} />
       </div>
     </div>
   )

@@ -104,8 +104,17 @@ function BiodataContainer({ onInputChange, buttonOnClick, sendGender, prevFlock 
                     value={flock.gender}
                     onChange={handleInputChange}
                     className='rounded text-xs border-gray-400'>
-                    <option value="perempuan">Perempuan</option> 
-                    <option value="laki-laki">Laki-laki</option>
+                        {flock.gender === 'perempuan' ? (
+                            <>
+                            <option value="perempuan">Perempuan</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            </>
+                        ) : (
+                            <>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                            </>
+                        )}
                 </select>
                 </div>
                 <div className='grid grid-cols-2 items-center'>

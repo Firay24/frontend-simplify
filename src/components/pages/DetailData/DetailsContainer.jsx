@@ -20,7 +20,7 @@ function DetailsContainer({ id, flock, functional }) {
             </div>
         </div>
         <div className='flex justify-end mt-8 mb-5'>
-            <EditButton id={id} />
+            <EditButton path={`/jamaah/editData/${id}`} />
         </div>
     </div>
   )
