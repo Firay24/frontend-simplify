@@ -105,7 +105,7 @@ function InputDataSection({
               <InformationMZ onInputChange={handleInputChangeFlock} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
             </div>
             <div className='mt-8 mb-8 flex justify-end'>
-              <SubmitButton onClick={handleSubmitFlock} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+              <SubmitButton title='Submit' onClick={handleSubmitFlock} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
             </div>
           </div>
         ) : isFunctional === 'functional' && isAvailable ? 
@@ -115,7 +115,7 @@ function InputDataSection({
                 <AnotherBiodata onInputChange={handlerInputChangeAnotherBio} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                <SubmitButton onClick={handleSubmitAnotherBio} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton title='Submit' onClick={handleSubmitAnotherBio} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           ) :
@@ -154,7 +154,7 @@ function InputDataSection({
                 <FunctionalContainer personalData={personalData} onInputChange={handleInputChangeFunc} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                <SubmitButton onClick={handleSubmitFunc} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton title='Submit' onClick={handleSubmitFunc} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           )

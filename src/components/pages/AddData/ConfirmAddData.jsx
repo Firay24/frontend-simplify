@@ -97,7 +97,7 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
                                 </div>
                             </div>
                             <div className='flex justify-end mt-3'>
-                                <SubmitButton bgColor='bg-slate-300 hover:bg-slate-400' />
+                                <SubmitButton title='Submit' bgColor='w-1/4 bg-slate-300 hover:bg-slate-400' />
                             </div>
                         </div>
                     </form>

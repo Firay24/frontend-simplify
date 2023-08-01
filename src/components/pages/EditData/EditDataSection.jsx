@@ -106,7 +106,7 @@ function EditDataSection({ flock, functional, classes, suluk, updateFlock, updat
             buttonOnClick={buttonOnClick} />
         </div>
         <div className='mt-8 mb-8 flex justify-end'>
-            <SubmitButton onClick={handleSubmitButton} bgColor='bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+            <SubmitButton title='Submit' onClick={handleSubmitButton} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
         </div>
     </div>
   )
