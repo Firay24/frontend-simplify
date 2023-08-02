@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import SubmitButton from '../../shared/Button/submitButton'
 
-function LoginInputContainer() {
+function LoginInputContainer({ login }) {
   const [user, setUser] = useState({
     username: '',
-    pasword: ''
+    password: ''
   })
 
   const handleInputChange = (event) => {
@@ -15,9 +15,14 @@ function LoginInputContainer() {
     }))
   }
 
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+    login(user)
+  }
+
   return (
     <div className='bg-white mt-8 px-6 py-10 drop-shadow-sm rounded w-full'>
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <div className='flex flex-col text-xs gap-y-2'>
             <label htmlFor="username">Username</label>
             <input 
@@ -34,7 +39,7 @@ function LoginInputContainer() {
               name='password' 
               id='password' 
               type="password"
-              value={user.pasword} 
+              value={user.password} 
               onChange={handleInputChange}
               className='rounded border-gray-400' />
         </div>

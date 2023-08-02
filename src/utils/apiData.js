@@ -1,8 +1,75 @@
 const BASE_URL = process.env.REACT_APP_API_DATA
 
+// USER
+function getAccessToken() {
+    return localStorage.getItem('accessToken')
+}
+
+function putAccessToken(accessToken) {
+    return localStorage.setItem('accessToken', accessToken)
+}
+
+async function fetchWithToken(url, options = {}) {
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...options.headers,
+            Authorization: `Bearer ${getAccessToken()}`
+        }
+    })
+}
+
+async function login({ username, password }) {
+    const response = await fetch(`${BASE_URL}/users/loginUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    const responseJson = await response.json()
+
+    if (!responseJson) {
+        alert(responseJson.message)
+        return {error: true, data: null }
+    }
+    
+    return {error: false, data: responseJson}
+}
+
+async function register({ name, username, password, role, region }) {
+    const response = await fetch(`${BASE_URL}/users/addUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, username, password, role, region })
+    })
+
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message)
+        return {error: true}
+    }
+
+    return {error: false}
+}
+
+async function getUserLogged() {
+    const response = await fetchWithToken(`${BASE_URL}/users/getUser`)
+    const responseJson = await response.json()
+
+    if (responseJson.status !== 'success') {
+        return {error: true, data: null}
+    }
+
+    return {error: false, data: responseJson.data}
+}
+
 // FLOCKS
 async function getFlocks() {
-    const response = await fetch(`${BASE_URL}/flocks/getFlocks`)
+    const response = await fetchWithToken(`${BASE_URL}/flocks/getFlocks`)
     const responseJson = await response.json()
 
     if (responseJson.status !== 'success') {
@@ -261,6 +328,10 @@ async function addNoteFlock({ name, nik, fathersName, notesInfo }) {
 }
 
 export {
+    login,
+    register,
+    putAccessToken,
+    getUserLogged,
     getFlocks,
     addFlock,
     updateFlock,

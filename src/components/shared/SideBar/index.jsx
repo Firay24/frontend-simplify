@@ -4,7 +4,7 @@ import LogoBar from './LogoBar'
 import MenuBar from './MenuBar'
 import ProfilBar from './ProfilBar'
 
-function index() {
+function index({ user }) {
   const pages = [
     {
       path: 'jamaah',
@@ -39,7 +39,7 @@ function index() {
               </div>
             </div>
             <div>
-              <ProfilBar />
+              <ProfilBar user={user} />
             </div>
         </div>
     </div>

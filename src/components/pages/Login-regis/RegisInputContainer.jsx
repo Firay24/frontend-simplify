@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SubmitButton from '../../shared/Button/submitButton'
 
-function RegisInputContainer() {
+function RegisInputContainer({ register }) {
   const [user, setUser] = useState({
     username: '',
     name: '',
@@ -18,9 +18,14 @@ function RegisInputContainer() {
     }))
   }
 
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+    register(user)
+  }
+
   return (
     <div className='bg-white mt-8 p-6 drop-shadow-sm rounded w-full'>
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <div className='flex flex-col text-xs gap-y-2'>
             <label htmlFor="username">Username</label>
             <input 
