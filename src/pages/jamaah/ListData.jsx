@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/pages/ListData/Header'
-import SearchField from '../../components/pages/ListData/SearchField'
-import TableList from '../../components/pages/ListData/TableList'
+import Header from '../../components/pages/jamaah/ListData/Header'
+import SearchField from '../../components/pages/jamaah/ListData/SearchField'
+import TableList from '../../components/pages/jamaah/ListData/TableList'
 import { getFlocks, getNotesFlock } from '../../utils/apiData'
+import Loading from '../../components/shared/Loading'
 
 function ListData() {
   const [flocks, setFlocks] = useState({ error: false, data: []})
   const [notesFlock, setNotesFlock] = useState({ error: false, data: [] })
-  // const [idNoteFlock, setIdNoteFlock] = useState('')
-  // const [noteFlock, setNoteFlock] = useState({ error: false, data: null })
+  const [isLoading, setIsLoading] = useState(true)
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await getFlocks()
         setFlocks(result);
+        setIsLoading(false)
       } catch (error) {
         setFlocks({ error: true, data: [] })
       }
@@ -34,6 +35,7 @@ function ListData() {
       try {
         const result = await getNotesFlock()
         setNotesFlock(result)
+        setIsLoading(false)
       } catch (error) {
         setNotesFlock({ error: true, data: [] })
       }
@@ -42,15 +44,9 @@ function ListData() {
   }, [])
   const dataNotesFlock = notesFlock && notesFlock.data && notesFlock.data.notes
 
-  // useEffect(() => {
-  //   const detailNoteFlock = dataNotesFlock && dataFlock
-  // })
-
   if (!dataFlock || dataFlock.length === 0) {
     return console.log('waiting');
   }
-
-
 
   return (
     <div className='mt-4 mr-10'>
@@ -61,7 +57,10 @@ function ListData() {
         <SearchField />
       </div>
       <div>
-        <TableList flocks={dataFlockFilter} notesFlock={dataNotesFlock} />
+        {
+          isLoading ? <Loading /> : 
+          <TableList flocks={dataFlockFilter} notesFlock={dataNotesFlock} />
+        }
       </div>
     </div>
   )

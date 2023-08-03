@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../../../components/pages/NoteData/EditData/Header'
-import InputContainer from '../../../components/pages/NoteData/EditData/InputContainer'
+import Header from '../../../components/pages/jamaah/NoteData/EditData/Header'
+import InputContainer from '../../../components/pages/jamaah/NoteData/EditData/InputContainer'
 import { getNoteFlock, updateNoteFlock } from '../../../utils/apiData'
 
 import { ToastContainer, toast } from 'react-toastify';

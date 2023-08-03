@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../../../components/pages/NoteData/ListData/Header'
-import SearchField from '../../../components/pages/NoteData/ListData/SearchField'
-import TableList from '../../../components/pages/NoteData/ListData/TableList'
+import Header from '../../../components/pages/jamaah/NoteData/ListData/Header'
+import SearchField from '../../../components/pages/jamaah/NoteData/ListData/SearchField'
+import TableList from '../../../components/pages/jamaah/NoteData/ListData/TableList'
 import { getNoteFlock } from '../../../utils/apiData'
+import Loading from '../../../components/shared/Loading'
 
 function NoteData() {
   const [noteFlock, setNoteFlock] = useState({ error: false, data: [] })
   const { id } = useParams()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async (id) => {
@@ -15,6 +17,7 @@ function NoteData() {
             const result = await getNoteFlock(id)
             if (result) {
               setNoteFlock(result)
+              setIsLoading(false)
             }
         } catch (error) {
             setNoteFlock({ error: true, data: null})
@@ -35,8 +38,10 @@ function NoteData() {
       <div>
         <SearchField />
       </div>
-      <div>
-        <TableList notes={detailNote && detailNote} idFlock={id} />
+      <div className='bg-slate-400 min'>
+        {
+          isLoading ? <Loading /> : <TableList notes={detailNote && detailNote} idFlock={id} />
+        }
       </div>
     </div>
   )

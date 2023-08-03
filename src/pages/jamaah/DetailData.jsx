@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/pages/DetailData/Header'
-import DetailsContainer from '../../components/pages/DetailData/DetailsContainer'
+import Header from '../../components/pages/jamaah/DetailData/Header'
+import DetailsContainer from '../../components/pages/jamaah/DetailData/DetailsContainer'
 import { getFlock, getSuluks, getClasses, getFunctionals } from '../../utils/apiData'
 import { useParams } from 'react-router-dom'
-import TableListSuluk from '../../components/pages/DetailData/TableListSuluk'
-import TableListClass from '../../components/pages/DetailData/TableListClass'
+import TableListSuluk from '../../components/pages/jamaah/DetailData/TableListSuluk'
+import TableListClass from '../../components/pages/jamaah/DetailData/TableListClass'
 
 function DetailData() {
     const [flock, setFlock] = useState({ error: false, data: [] })

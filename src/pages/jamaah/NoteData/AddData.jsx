@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../../components/pages/NoteData/AddData/Header'
-import InputContainer from '../../../components/pages/NoteData/AddData/InputContainer'
+import Header from '../../../components/pages/jamaah/NoteData/AddData/Header'
+import InputContainer from '../../../components/pages/jamaah/NoteData/AddData/InputContainer'
 import { getNoteFlock, getFlock, updateNoteFlock, addNoteFlock } from '../../../utils/apiData'
 import { useParams } from 'react-router-dom';
 

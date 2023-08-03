@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/pages/AddData/Header'
-import ConfirmAddData from '../../components/pages/AddData/ConfirmAddData'
-import InputDataSection from '../../components/pages/AddData/InputDataSection'
+import Header from '../../components/pages/jamaah/AddData/Header'
+import ConfirmAddData from '../../components/pages/jamaah/AddData/ConfirmAddData'
+import InputDataSection from '../../components/pages/jamaah/AddData/InputDataSection'
 import { getFlocks, getFunctionals, addFlock, addFunctional, updateFlock, importFileFlocks } from '../../utils/apiData'
 import { getProvince, getRegency, getSubdistrict, getWard } from '../../utils/apiLocation'
+import Loading from '../../components/shared/Loading'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -293,24 +294,27 @@ function AddData() {
           />
         </div>
         <div>
-          <InputDataSection 
-            isFunctional={selectedOptionFunctional} 
-            isAvailable={isAvailable}
-            addFlock={handleAddFlock}
-            addFunctional={handleAddFunctional}
-            putFlock={handleAddAnotherBio}
-            updatePersonalData={updatePersonalData}
-            personalData={personalData}
-            anotherBio={anotherBio && anotherBio}
+          {
+            isLoading ? <Loading /> :
+              <InputDataSection 
+                isFunctional={selectedOptionFunctional} 
+                isAvailable={isAvailable}
+                addFlock={handleAddFlock}
+                addFunctional={handleAddFunctional}
+                putFlock={handleAddAnotherBio}
+                updatePersonalData={updatePersonalData}
+                personalData={personalData}
+                anotherBio={anotherBio && anotherBio}
 
-            province={province && province}
-            selectedProvince={handleSelectedProvince}
-            regency={regency && regency}
-            selectedRegency={handleSelectedRegency}
-            subdistrict = {subdistrict && subdistrict}
-            selectedSubdistrict = {handleSelectedSubdistrict}
-            ward = {ward && ward}
-             />
+                province={province && province}
+                selectedProvince={handleSelectedProvince}
+                regency={regency && regency}
+                selectedRegency={handleSelectedRegency}
+                subdistrict = {subdistrict && subdistrict}
+                selectedSubdistrict = {handleSelectedSubdistrict}
+                ward = {ward && ward}
+              />
+          }
         </div>
       </div>
       <ToastContainer 
