@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import SubmitButton from '../../../shared/Button/submitButton'
+import React, { useState } from 'react';
+import SubmitButton from '../../../Button/buttonClik';
 
 function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, onSubmit }) {
     const [visible, setVisible] = useState('')
@@ -97,7 +97,7 @@ function ConfirmAddData({ selectedOptionFunctional, onOptionChangeFunctional, on
                                 </div>
                             </div>
                             <div className='flex justify-end mt-3'>
-                                <SubmitButton title='Submit' bgColor='w-1/4 bg-slate-300 hover:bg-slate-400' />
+                                <SubmitButton text='Submit' bgColor='w-1/4 bg-slate-300 hover:bg-slate-400' />
                             </div>
                         </div>
                     </form>
