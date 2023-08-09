@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import SubmitButton from '../../shared/Button/submitButton'
+import LoadingButton from '../../shared/Button/loadingButton'
 
-function LoginInputContainer({ login }) {
+function LoginInputContainer({ login, isLoading }) {
   const [user, setUser] = useState({
     username: '',
     password: ''
@@ -24,27 +25,29 @@ function LoginInputContainer({ login }) {
     <div className='bg-white mt-8 px-6 py-10 drop-shadow-sm rounded w-full'>
       <form onSubmit={onSubmitHandler}>
         <div className='flex flex-col text-xs gap-y-2'>
-            <label htmlFor="username">Username</label>
-            <input 
-              name='username' 
-              id='username' 
-              type="text" 
-              value={user.username}
-              onChange={handleInputChange}
-              className='rounded border-gray-400' />
+          <label htmlFor="username">Username</label>
+          <input 
+            name='username' 
+            id='username' 
+            type="text" 
+            value={user.username}
+            onChange={handleInputChange}
+            className='rounded border-gray-400' />
         </div>
         <div className='flex flex-col text-xs gap-y-2 mt-3'>
-            <label htmlFor="password">Password</label>
-            <input 
-              name='password' 
-              id='password' 
-              type="password"
-              value={user.password} 
-              onChange={handleInputChange}
-              className='rounded border-gray-400' />
+          <label htmlFor="password">Password</label>
+          <input 
+            name='password' 
+            id='password' 
+            type="password"
+            value={user.password} 
+            onChange={handleInputChange}
+            className='rounded border-gray-400' />
         </div>
         <div className='mt-5 w-full'>
-            <SubmitButton title='Login' bgColor='w-full bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+          {
+            isLoading ? <LoadingButton /> : <SubmitButton title='Login' bgColor='w-full bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+          }
         </div>
         {/* <div className='mt-3'>
             <p className='text-xs mb-3 text-basic-blue'>Belum memiliki akun?</p>

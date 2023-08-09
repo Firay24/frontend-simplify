@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/pages/Login-regis/Header'
 import LoginInputContainer from '../../components/pages/Login-regis/LoginInputContainer'
 import { login } from '../../utils/apiData'
@@ -9,16 +9,25 @@ import { useNavigate } from 'react-router-dom';
 
 function Login({ loginSuccess }) {
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
 
     async function onLogin(user) {
-        const { data } = await login(user)
-        
-        if (data.token !== undefined) {
-            notifySuccessAddData()
-            loginSuccess(data.token)
-        } else {
-            navigate('/')
+        setIsLoading(true)
+        try {
+            const { data } = await login(user)
+    
+            if (data.token !== undefined) {
+                notifySuccessAddData()
+                loginSuccess(data.token)
+            } else {
+                navigate('/')
+                notifyErrordAddData()
+            }
+        } catch (error) {
+            console.log('Error while logging in', error)
             notifyErrordAddData()
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -60,7 +69,7 @@ function Login({ loginSuccess }) {
                         <Header title='Sign in to' />
                     </div>
                     <div className='w-1/4'>
-                        <LoginInputContainer login={onLogin} />
+                        <LoginInputContainer login={onLogin} isLoading={isLoading} />
                     </div>
                 </div>
                 <div className='flex justify-center mb-7'>
