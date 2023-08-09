@@ -1,6 +1,6 @@
-import SideBar from './components/shared/SideBar'
+import SideBar from './components/SideBar'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Navigation from './components/shared/Navigation'
+import Navigation from './components/Navigation'
 import ListDataJamaah from './pages/jamaah/ListData'
 import AddDataJamaah from './pages/jamaah/AddData'
 import DetailData from './pages/jamaah/DetailData';
@@ -13,13 +13,19 @@ import NoteData from './pages/jamaah/NoteData/NoteData';
 import DetailDataNote from './pages/jamaah/NoteData/DetailData'
 import EditDataNote from './pages/jamaah/NoteData/EditData';
 import AddDataNote from './pages/jamaah/NoteData/AddData'
-import Login from './pages/login-regis/Login';
+import Login from './pages/login-regis/LoginPage';
 import Registrasi from './pages/login-regis/Regis';
 import { putAccessToken, getUserLogged } from './utils/apiData';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const [authedUser, setAuthedUser] = useState(null)
+  const {
+    authUser = null,
+    isLoading = false
+  } = useSelector((states) => states)
+  // const [authedUser, setAuthedUser] = useState(null)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   
   async function onLoginSuccess(accessToken) {

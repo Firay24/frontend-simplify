@@ -1,5 +1,5 @@
 import React from 'react'
-import Title from '../../../../shared/HeaderTitle/Title'
+import Title from '../../../../Header/HeaderTitle'
 import BackButton from '../../../../shared/Button/backButton'
 
 function Header() {

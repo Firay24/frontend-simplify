@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import AddFileButton from '../../../Button/buttonClik'
 import ButtonGuideFile from '../../../Button/buttonClik'
-import Title from '../../../shared/HeaderTitle/Title'
+import Title from '../../../Header/HeaderTitle'
 
 function Header({ importFileFlocks }) {
   const [selectedFile, setSelectedFile] = useState(null)

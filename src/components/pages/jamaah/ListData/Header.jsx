@@ -1,6 +1,6 @@
 import React from 'react'
 import AddButton from '../../../shared/Button/addButton'
-import Title from '../../../shared/HeaderTitle/Title'
+import Title from '../../../Header/HeaderTitle'
 
 function Header() {
   return (

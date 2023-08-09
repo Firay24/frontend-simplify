@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../../components/pages/Login-regis/Header'
-import RegisInputContainer from '../../components/pages/Login-regis/RegisInputContainer'
+import Header from '../../components/Header/HeaderLoginRegis'
+import RegisInputContainer from '../../components/Form/Register/RegisInputContainer'
 import { register } from '../../utils/apiData'
 
 function Regis() {
