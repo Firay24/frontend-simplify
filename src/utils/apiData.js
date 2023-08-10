@@ -328,6 +328,7 @@ async function addNoteFlock({ name, nik, fathersName, notesInfo }) {
 }
 
 export {
+    getAccessToken,
     login,
     register,
     putAccessToken,

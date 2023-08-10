@@ -15,8 +15,8 @@ import EditDataNote from './pages/jamaah/NoteData/EditData';
 import AddDataNote from './pages/jamaah/NoteData/AddData'
 import Login from './pages/login-regis/Login';
 import Registrasi from './pages/login-regis/Regis';
-import { putAccessToken, getUserLogged } from './utils/apiData';
-import { useState } from 'react';
+import { putAccessToken, getUserLogged, getAccessToken } from './utils/apiData';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [authedUser, setAuthedUser] = useState(null)
@@ -33,12 +33,24 @@ function App() {
     }, delayTime)
   }
 
+  const getTokenFromLocalStorage = () => {
+    const token = getAccessToken()
+    return token
+  }
+
   // const onLogoutHandler = async () => {
   //   if (confirm('Apakah anda yakin ingin keluar?')) {
   //     setAuthedUser(null)
   //     putAccessToken('')
   //   }
   // }
+
+  useEffect(() => {
+    const token = getTokenFromLocalStorage()
+    if (token) {
+      setAuthedUser(token)
+    }
+  }, [authedUser])
 
   if (authedUser === null) {
     return (
