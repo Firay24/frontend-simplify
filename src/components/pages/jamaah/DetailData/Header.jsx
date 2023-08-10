@@ -1,13 +1,13 @@
 import React from 'react'
-import Title from '../../../shared/HeaderTitle/Title'
-import AddButton from '../../../shared/Button/addButton'
+import Title from '../../../Header/HeaderTitle'
+import AddButton from '../../../Button/ButtonOnLink'
 
 function Header() {
   return (
     <div className='flex items-center justify-between'>
       <Title title='Detail data' />
       <div>
-        <AddButton title='Data fungsional' path='/fungsional/addData' />
+        <AddButton text='Data fungsional' path='/fungsional/addData' addButton={true} />
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SubmitButton from '../../../../shared/Button/submitButton'
+import SubmitButton from '../../../../Button/ButtonOnClick'
 
 function InputContainer({ prevNote, prevNotes, updateNote }) {
     const [note, setNote] = useState({
@@ -91,7 +91,7 @@ function InputContainer({ prevNote, prevNotes, updateNote }) {
                     </div>
                 </div>
                 <div className='flex my-8 justify-end'>
-                    <SubmitButton title='Edit' bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                    <SubmitButton text='Edit' bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
                 </div>
             </form>
         </div>

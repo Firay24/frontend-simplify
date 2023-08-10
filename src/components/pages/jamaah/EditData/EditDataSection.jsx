@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import BiodataContainer from './BiodataContainer'
 import AddressContainer from './AddressContainer'
 import InformationMZ from './InformationMZ'
-import SubmitButton from '../../../shared/Button/submitButton'
+import SubmitButton from '../../../Button/ButtonOnClick'
 
 function EditDataSection({ flock, functional, classes, suluk, updateFlock, updateFunctional, updateClass, updateSuluk, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward }) {
   const [dataComponent, setDataComponent] = useState({})
@@ -106,7 +106,7 @@ function EditDataSection({ flock, functional, classes, suluk, updateFlock, updat
             buttonOnClick={buttonOnClick} />
         </div>
         <div className='mt-8 mb-8 flex justify-end'>
-            <SubmitButton title='Submit' onClick={handleSubmitButton} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+            <SubmitButton text='Submit' onClick={handleSubmitButton} bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
         </div>
     </div>
   )

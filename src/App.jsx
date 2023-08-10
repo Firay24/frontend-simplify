@@ -1,22 +1,28 @@
-import SideBar from './components/shared/SideBar'
+import SideBar from './components/SideBar'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Navigation from './components/shared/Navigation'
-import ListDataJamaah from './pages/jamaah/ListData'
-import AddDataJamaah from './pages/jamaah/AddData'
-import DetailData from './pages/jamaah/DetailData';
-import EditData from './pages/jamaah/EditData';
-import ListDataMz from './pages/mz/ListData'
-import AddDataMz from './pages/mz/AddData'
-import ListDataFunc from './pages/fungsional/ListData'
-import AddDataFunc from './pages/fungsional/AddData'
-import NoteData from './pages/jamaah/NoteData/NoteData';
-import DetailDataNote from './pages/jamaah/NoteData/DetailData'
-import EditDataNote from './pages/jamaah/NoteData/EditData';
-import AddDataNote from './pages/jamaah/NoteData/AddData'
-import Login from './pages/login-regis/Login';
-import Registrasi from './pages/login-regis/Regis';
 import { putAccessToken, getUserLogged, getAccessToken } from './utils/apiData';
 import { useEffect, useState } from 'react';
+
+import LoginPage from './features/Login-Register/LoginPage';
+import RegisterPage from './features/Login-Register/RegisterPage';
+import Navigation from './components/Navigation'
+
+import ListPageJamaah from './features/Jamaah/ListPage'
+import CreatePageJamaah from './features/Jamaah/CreatePage'
+import DetailPageJamaah from './features/Jamaah/DetailPage';
+import EditPageJamaah from './features/Jamaah/EditPage';
+
+import ListPageMZ from './features/Fungsional/ListPage'
+import CreatePageMZ from './features/Fungsional/CreatePage'
+
+import ListPageFungsional from './features/Fungsional/ListPage'
+import CreatePageFungsional from './features/Fungsional/CreatePage'
+
+import NotesPageJamaah from './features/Note/Jamaah/ListPage';
+import DetailNotePageJamaah from './features/Note/Jamaah/DetailPage'
+import EditNotePageJamaah from './features/Note/Jamaah/EditPage';
+import CreateNotePageJamaah from './features/Note/Jamaah/CreatePage'
+
 
 function App() {
   const [authedUser, setAuthedUser] = useState(null)
@@ -56,8 +62,8 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path='/*' element={<Login loginSuccess={onLoginSuccess} />}></Route>
-          <Route path='/register' element={<Registrasi />}></Route>
+          <Route path='/*' element={<LoginPage loginSuccess={onLoginSuccess} />}></Route>
+          <Route path='/register' element={<RegisterPage />}></Route>
         </Routes>
       </div>
     )
@@ -71,21 +77,21 @@ function App() {
       <main className='grid col-start-3 col-span-10 ml-16 py-5'>
         <Navigation />
         <Routes>
-          <Route path='/' element={<ListDataJamaah />}></Route>
-          <Route path='/jamaah/listData' element={<ListDataJamaah />}></Route>
-          <Route path='/jamaah/addData' element={<AddDataJamaah />}></Route>
-          <Route path='/jamaah/detailData/:id' element={<DetailData />}></Route>
-          <Route path='/jamaah/editData/:id' element={<EditData />}></Route>
-          <Route path='/jamaah/catatan/listData/:id' element={<NoteData />}></Route>
-          <Route path='/jamaah/catatan/detailData/:id/:idNote' element={<DetailDataNote />}></Route>
-          <Route path='/jamaah/catatan/editData/:id/:idNote' element={<EditDataNote />}></Route>
-          <Route path='/jamaah/catatan/addData/:id' element={<AddDataNote />}></Route>
+          <Route path='/' element={<ListPageJamaah />}></Route>
+          <Route path='/jamaah/listData' element={<ListPageJamaah />}></Route>
+          <Route path='/jamaah/addData' element={<CreatePageJamaah />}></Route>
+          <Route path='/jamaah/detailData/:id' element={<DetailPageJamaah />}></Route>
+          <Route path='/jamaah/editData/:id' element={<EditPageJamaah />}></Route>
+          <Route path='/jamaah/catatan/listData/:id' element={<NotesPageJamaah />}></Route>
+          <Route path='/jamaah/catatan/detailData/:id/:idNote' element={<DetailNotePageJamaah />}></Route>
+          <Route path='/jamaah/catatan/editData/:id/:idNote' element={<EditNotePageJamaah />}></Route>
+          <Route path='/jamaah/catatan/addData/:id' element={<CreateNotePageJamaah />}></Route>
 
-          <Route path='/mz/listData' element={<ListDataMz />}></Route>
-          <Route path='/mz/addData' element={<AddDataMz />}></Route>
+          <Route path='/mz/listData' element={<ListPageMZ />}></Route>
+          <Route path='/mz/addData' element={<CreatePageMZ />}></Route>
 
-          <Route path='/fungsional/listData' element={<ListDataFunc />}></Route>
-          <Route path='/fungsional/addData' element={<AddDataFunc />}></Route>
+          <Route path='/fungsional/listData' element={<ListPageFungsional />}></Route>
+          <Route path='/fungsional/addData' element={<CreatePageFungsional />}></Route>
         </Routes>
       </main>
     </div>

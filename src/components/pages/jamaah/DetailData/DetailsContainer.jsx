@@ -2,7 +2,7 @@ import React from 'react'
 import BiodataSection from './BiodataSection'
 import AddressSection from './AddressSection'
 import InformationMZ from './InformationMZ'
-import EditButton from '../../../shared/Button/editButton'
+import EditButton from '../../../Button/ButtonOnLink'
 
 function DetailsContainer({ id, flock, functional }) {
   return (
@@ -20,7 +20,7 @@ function DetailsContainer({ id, flock, functional }) {
             </div>
         </div>
         <div className='flex justify-end mt-8 mb-5'>
-            <EditButton path={`/jamaah/editData/${id}`} />
+            <EditButton text='Edit' path={`/jamaah/editData/${id}`} />
         </div>
     </div>
   )

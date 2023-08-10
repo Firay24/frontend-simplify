@@ -1,7 +1,7 @@
 import React from 'react'
 import parseDateFunc from '../../../../../utils/parseDateFunc'
 import { RxDotFilled } from "react-icons/rx";
-import EditButton from '../../../../shared/Button/editButton'
+import EditButton from '../../../../Button/ButtonOnLink'
 
 function DetailContainer({ name, details, updatedAt, status, author, id, idNote }) {
   return (
@@ -30,7 +30,7 @@ function DetailContainer({ name, details, updatedAt, status, author, id, idNote 
         </div>
       </div>
       <div className='flex justify-end mt-8 mb-5'>
-        <EditButton path={`/jamaah/catatan/editData/${id}/${idNote}`} />
+        <EditButton text='Edit' path={`/jamaah/catatan/editData/${id}/${idNote}`} />
       </div>
     </div>
   )

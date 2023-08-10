@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import AddFileButton from '../../../shared/Button/addFileButton'
-import ButtonGuideFile from '../../../shared/Button/guideFile'
-import Title from '../../../shared/HeaderTitle/Title'
+import AddFileButton from '../../../Button/ButtonOnClick'
+import ButtonGuideFile from '../../../Button/ButtonOnClick'
+import Title from '../../../Header/HeaderTitle'
 
 function Header({ importFileFlocks }) {
   const [selectedFile, setSelectedFile] = useState(null)
@@ -27,7 +27,7 @@ function Header({ importFileFlocks }) {
       <Title title='Tambah Data' />
       <div>
         <form onSubmit={handleSubmit} className='flex gap-x-3 items-center'>
-          <ButtonGuideFile />
+          <ButtonGuideFile bgColor='bg-basic-blue hover:bg-blue-dark text-white text-base' guideFileButton={true} />
           <input 
             type="file" 
             onChange={handleFileChange}
@@ -35,7 +35,7 @@ function Header({ importFileFlocks }) {
             className='block outline-none bg-white text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
             file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-300 
             file:text-grey-light hover:file:bg-gray-400 hover:file:text-white file:items-center file:cursor-pointer' />
-          <AddFileButton />
+          <AddFileButton text='Upload file' bgColor='bg-basic-blue hover:bg-blue-dark text-white text-xs' addButton={true} />
         </form>
       </div>
     </div>

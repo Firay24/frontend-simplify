@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import AddressContainer from './AddressContainer'
-import InformationMZ from './InformationMZ'
-import BiodataContainer from './BiodataContainer'
-import SubmitButton from '../../../shared/Button/submitButton'
-import FunctionalContainer from './FunctionalContainer'
-import AnotherBiodata from './AnotherBiodata'
+import AddressContainer from '../../../Form/Address/AddressContainer'
+import InformationMZ from '../../../Form/InformationMZ/InformationMZ'
+import BiodataContainer from '../../../Form/Biodata/BiodataContainer'
+import SubmitButton from '../../../Button/ButtonOnClick'
+import FunctionalContainer from '../../../Form/Fungsional/FunctionalContainer'
+import AnotherBiodata from '../../../Form/AnotherBiodata/AnotherBiodata'
 
 function InputDataSection({ 
   isFunctional, 
@@ -105,7 +105,7 @@ function InputDataSection({
               <InformationMZ onInputChange={handleInputChangeFlock} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
             </div>
             <div className='mt-8 mb-8 flex justify-end'>
-              <SubmitButton title='Submit' onClick={handleSubmitFlock} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+              <SubmitButton text='Submit' onClick={handleSubmitFlock} bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
             </div>
           </div>
         ) : isFunctional === 'functional' && isAvailable ? 
@@ -115,7 +115,7 @@ function InputDataSection({
                 <AnotherBiodata onInputChange={handlerInputChangeAnotherBio} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                <SubmitButton title='Submit' onClick={handleSubmitAnotherBio} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton text='Submit' onClick={handleSubmitAnotherBio} bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           ) :
@@ -154,7 +154,7 @@ function InputDataSection({
                 <FunctionalContainer personalData={personalData} onInputChange={handleInputChangeFunc} buttonOnClick={buttonOnClick} />
               </div>
               <div className='mt-8 mb-8 flex justify-end'>
-                <SubmitButton title='Submit' onClick={handleSubmitFunc} bgColor='w-1/4 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
+                <SubmitButton text='Submit' onClick={handleSubmitFunc} bgColor='w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm' />
               </div>
             </div>
           )
