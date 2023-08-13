@@ -54,9 +54,17 @@ function App() {
   useEffect(() => {
     const token = getTokenFromLocalStorage()
     if (token) {
-      setAuthedUser(token)
+      const fetchUserData = async () => {
+        try {
+          const { data } = await getUserLogged()
+          setAuthedUser(data.user)
+        } catch (error) {
+          console.log("Error fetching user data:", error)
+        }
+      }
+      fetchUserData()
     }
-  }, [authedUser])
+  }, [])
 
   if (authedUser === null) {
     return (

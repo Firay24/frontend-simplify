@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../../components/pages/jamaah/EditData/Header'
-import EditDataSection from '../../../components/pages/jamaah/EditData/EditDataSection'
+import Header from './Layout/Header'
+import EditDataSection from './Layout/EditDataSection'
 import { getFlock, getClasses, getSuluks } from '../../../utils/apiData'
 import { getProvince, getRegency, getSubdistrict, getWard } from '../../../utils/apiLocation'
 import { updateFlock, updateFunctional, updateClass, updateSuluk } from '../../../utils/apiData'

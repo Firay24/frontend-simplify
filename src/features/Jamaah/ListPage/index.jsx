@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../../components/pages/jamaah/ListData/Header'
-import SearchField from '../../../components/pages/jamaah/ListData/SearchField'
-import TableList from '../../../components/pages/jamaah/ListData/TableList'
-import { getFlocks, getNotesFlock } from '../../../utils/apiData'
+import Header from './Layout/Header'
+import SearchField from './Layout/SearchField'
 import Loading from '../../../components/Loading'
+import TableList from './Layout/TableList'
+import { getFlocks, getNotesFlock } from '../../../utils/apiData'
 
 function ListPage() {
   const [flocks, setFlocks] = useState({ error: false, data: []})

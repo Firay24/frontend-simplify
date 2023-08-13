@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../../components/pages/jamaah/DetailData/Header'
-import DetailsContainer from '../../../components/pages/jamaah/DetailData/DetailsContainer'
+import Header from './Layout/Header'
+import DetailsContainer from './Layout/DetailsContainer'
 import { getFlock, getSuluks, getClasses, getFunctionals } from '../../../utils/apiData'
 import { useParams } from 'react-router-dom'
-import TableListSuluk from '../../../components/pages/jamaah/DetailData/TableListSuluk'
-import TableListClass from '../../../components/pages/jamaah/DetailData/TableListClass'
+import TableListSuluk from './Layout/TableListSuluk'
+import TableListClass from './Layout/TableListClass'
 
 function DetailPage() {
     const [flock, setFlock] = useState({ error: false, data: [] })
@@ -95,7 +95,7 @@ function DetailPage() {
                 <Header />
             </div>
             <div>
-                <DetailsContainer id={id} flock={detailFlock && detailFlock} functional={functional} />
+                <DetailsContainer id={id} flock={detailFlock !== null || detailFlock !== undefined ? detailFlock : []} functional={functional} />
             </div>
             <div>
                 <h2 className='text-base text-basic-blue font-medium'>Informasi suluk</h2>

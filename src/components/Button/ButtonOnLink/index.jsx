@@ -4,10 +4,10 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 function ButtonOnLink({
-    text, path, addButton = false
+    text, path, addButton = false, styleButton
 }) {
     return (
-        <Link to={path} className="flex justify-center items-center w-40 bg-basic-blue text-white text-xs p-2 rounded gap-x-1 hover:bg-blue-dark">
+        <Link to={path} className={`${styleButton} flex justify-center items-center bg-basic-blue text-white text-xs p-2 rounded gap-x-1 hover:bg-blue-dark`}>
             {addButton ? <AiOutlinePlus /> : null}
             {text}
         </Link>
@@ -17,7 +17,7 @@ function ButtonOnLink({
 ButtonOnLink.propTypes = {
     text: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
-    addButton: PropTypes.bool.isRequired,
+    addButton: PropTypes.bool
 }
 
 export default ButtonOnLink
