@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import SubmitButton from '../../../Button/ButtonOnClick'
 
-function NoteContainer({ prevNotes, addNote }) {
+function NoteContainer({ prevNote, prevNotes, addNote, updateNote }) {
     const [note, setNote] = useState({
         _id: '',
         name: '',
         nik: '',
         fathersName: '',
-        notesInfo: {
+        details: {
             name: '',
             status: 'Belum selesai',
             details: ''
@@ -22,7 +22,7 @@ function NoteContainer({ prevNotes, addNote }) {
                 name: prevNotes.name,
                 nik: prevNotes.nik,
                 fathersName: prevNotes.fathersName,
-                notesInfo: {
+                details: {
                     name: '',
                     status: 'Belum selesai',
                     details: ''
@@ -31,13 +31,30 @@ function NoteContainer({ prevNotes, addNote }) {
         }
     }, [prevNotes])
 
+    useEffect(() => {
+        if (prevNote !== undefined && prevNotes !== undefined) {
+            setNote({
+                _id: prevNotes._id,
+                name: prevNotes.name,
+                nik: prevNotes.nik,
+                fathersName: prevNotes.fathersName,
+                details: {
+                    _id: prevNote._id,
+                    name: prevNote.name,
+                    status: prevNote.status,
+                    details: prevNote.details,
+                }
+            })
+        }
+    }, [prevNote, prevNotes])
+
     const handleInputChange = (event) => {
         const { name, value } = event.target
 
         setNote((prevState) => ({
             ...prevState,
-            notesInfo: {
-                ...prevState.notesInfo,
+            details: {
+                ...prevState.details,
                 [name] : value
             }
         }))
@@ -45,8 +62,14 @@ function NoteContainer({ prevNotes, addNote }) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        addNote(note)
+        if (addNote) {
+            addNote(note);
+          } else if (updateNote) {
+            console.log('edit')
+            updateNote(note);
+        }
     }
+    
     return (
         <div>
                 <form onSubmit={handleSubmit}>
@@ -59,7 +82,7 @@ function NoteContainer({ prevNotes, addNote }) {
                                     name='name' 
                                     id='name' 
                                     type="text" 
-                                    value={note.notesInfo.name}
+                                    value={note.details.name}
                                     onChange={handleInputChange}
                                     required
                                     className='rounded text-xs border-gray-400' />
@@ -68,7 +91,8 @@ function NoteContainer({ prevNotes, addNote }) {
                                 <label htmlFor="status">Status</label>
                                 <select 
                                     name="status" 
-                                    id="status" 
+                                    id="status"
+                                    value={note.details.status} 
                                     onChange={handleInputChange}
                                     className='rounded text-xs border-gray-400'>
                                         <option value="Belum selesai">Belum selesai</option>
@@ -81,7 +105,7 @@ function NoteContainer({ prevNotes, addNote }) {
                             <textarea 
                                 name="details" 
                                 id="details"
-                                value={note.notesInfo.details}
+                                value={note.details.details}
                                 onChange={handleInputChange}
                                 cols="30" 
                                 rows="5"

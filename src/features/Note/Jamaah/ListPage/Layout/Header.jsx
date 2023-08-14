@@ -1,6 +1,6 @@
 import React from 'react'
-import Title from '../../../../Header/HeaderTitle'
-import AddButton from '../../../../Button/ButtonOnLink'
+import Title from '../../../../../components/Header/HeaderTitle'
+import AddButton from '../../../../../components/Button/ButtonOnLink'
 
 function Header({ id }) {
   return (

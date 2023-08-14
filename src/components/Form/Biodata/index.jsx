@@ -51,11 +51,13 @@ function BiodataContainer({ onInputChange, updatePersonalData, buttonOnClick, se
       [name]: value
     }))
 
-    updatePersonalData(
-      name === 'name' ? value : flock.name,
-      name === 'nik' ? value : flock.nik,
-      name === 'fathersName' ? value : flock.fathersName
-    )
+    if (updatePersonalData) {
+      updatePersonalData(
+        name === 'name' ? value : flock.name,
+        name === 'nik' ? value : flock.nik,
+        name === 'fathersName' ? value : flock.fathersName
+      )
+    }
   }
 
   useEffect(() => {

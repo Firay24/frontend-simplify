@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../../../../components/pages/jamaah/NoteData/EditData/Header'
-import InputContainer from '../../../../components/pages/jamaah/NoteData/EditData/InputContainer'
+import Header from './Layout/Header'
+import InputContainer from '../../../../components/Form/Note/Jamaah'
 import { getNoteFlock, updateNoteFlock } from '../../../../utils/apiData'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -27,7 +27,7 @@ function EditNotePage() {
     const detailNote = note && note.data && note.data.note
 
     useEffect(() => {
-        const detailInfoNote = detailNote && detailNote.notesInfo.find((noteItem) => noteItem._id === idNote)
+        const detailInfoNote = detailNote && detailNote.details.find((noteItem) => noteItem._id === idNote)
         if (detailInfoNote) {
             setInfoNote(detailInfoNote)
         }

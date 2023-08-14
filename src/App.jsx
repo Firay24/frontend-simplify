@@ -12,8 +12,8 @@ import CreatePageJamaah from './features/Jamaah/CreatePage'
 import DetailPageJamaah from './features/Jamaah/DetailPage';
 import EditPageJamaah from './features/Jamaah/EditPage';
 
-import ListPageMZ from './features/Fungsional/ListPage'
-import CreatePageMZ from './features/Fungsional/CreatePage'
+import ListPageMZ from './features/MZ/ListPage'
+import CreatePageMZ from './features/MZ/CreatePage'
 
 import ListPageFungsional from './features/Fungsional/ListPage'
 import CreatePageFungsional from './features/Fungsional/CreatePage'
@@ -90,8 +90,8 @@ function App() {
           <Route path='/jamaah/addData' element={<CreatePageJamaah />}></Route>
           <Route path='/jamaah/detailData/:id' element={<DetailPageJamaah />}></Route>
           <Route path='/jamaah/editData/:id' element={<EditPageJamaah />}></Route>
-          <Route path='/jamaah/catatan/listData/:id' element={<NotesPageJamaah />}></Route>
-          <Route path='/jamaah/catatan/detailData/:id/:idNote' element={<DetailNotePageJamaah />}></Route>
+          <Route path='/jamaah/catatan/listData/:id' exact element={<NotesPageJamaah />}></Route>
+          <Route path='/jamaah/catatan/detailData/:id/:idNote' exact element={<DetailNotePageJamaah />}></Route>
           <Route path='/jamaah/catatan/editData/:id/:idNote' element={<EditNotePageJamaah />}></Route>
           <Route path='/jamaah/catatan/addData/:id' element={<CreateNotePageJamaah />}></Route>
 

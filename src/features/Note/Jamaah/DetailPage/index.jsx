@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../../../components/pages/jamaah/NoteData/DetailData/Header'
-import DetailContainer from '../../../../components/pages/jamaah/NoteData/DetailData/DetailContainer'
+import Header from './Layout/Header'
+import DetailContainer from './Layout/DetailContainer'
 import { useParams } from 'react-router-dom'
 import { getNoteFlock } from '../../../../utils/apiData'
 
@@ -24,7 +24,7 @@ function DetailNotePage() {
     const detailNote = note && note.data && note.data.note
 
     useEffect(() => {
-        const detailInfoNote = detailNote && detailNote.notesInfo.find((noteItem) => noteItem._id === idNote)
+        const detailInfoNote = detailNote && detailNote.details.find((noteItem) => noteItem._id === idNote)
         if (detailInfoNote) {
             setInfoNote(detailInfoNote)
         }
@@ -36,7 +36,7 @@ function DetailNotePage() {
                 <Header />
             </div>
             <div>
-                <DetailContainer {...infoNote} id={id} idNote={idNote} />
+                <DetailContainer infoNote={infoNote} id={id} idNote={idNote} />
             </div>
         </div>
     )

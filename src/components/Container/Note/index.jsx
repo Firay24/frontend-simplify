@@ -1,12 +1,11 @@
 import React from 'react'
-import parseDateFunc from '../../../../../utils/parseDateFunc'
+import parseDateFunc from '../../../utils/parseDateFunc'
 import { RxDotFilled } from "react-icons/rx";
-import EditButton from '../../../../Button/ButtonOnLink'
+// import PropTypes from 'prop-types'
 
-function DetailContainer({ name, details, updatedAt, status, author, id, idNote }) {
+function NoteDetailContainer({ name, details, updatedAt, status, author }) {
   return (
-    <div className='mt-5'>
-      <div>
+    <div>
         <div className='flex justify-end text-xs mb-3 gap-x-2'>
           <p className='text-basic-grey'>Author:</p>
           <p className='font-medium text-basic-blue'>{author}</p>
@@ -28,12 +27,10 @@ function DetailContainer({ name, details, updatedAt, status, author, id, idNote 
               <p className='text-sm text-basic-grey font-normal' >{details}</p>
           </div>
         </div>
-      </div>
-      <div className='flex justify-end mt-8 mb-5'>
-        <EditButton text='Edit' path={`/jamaah/catatan/editData/${id}/${idNote}`} />
-      </div>
     </div>
   )
 }
 
-export default DetailContainer
+// NoteDetailContainer.propTypes = {}
+
+export default NoteDetailContainer

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { RxDotFilled } from "react-icons/rx";
 import ParseDateFunc from '../../utils/parseDateFunc';
 
-function RowItem({rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false}) {
+function RowItem({ rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false }) {
     const [scopeColumn, ...regularColumns] = rows
 
     return (
@@ -14,10 +14,17 @@ function RowItem({rows, data, pathDetail, pathEdit, pathNote, regency, isClasses
             </th>
             {
                 regularColumns.map((column, index) => (
-                    column === 'time' ? 
+                    column === 'time' || column === 'createAt' || column === 'updatedAt' ? 
                     <td key={index} className="px-6 py-4">
                         {ParseDateFunc(data[column])}
-                    </td> : 
+                    </td> : column === 'status' ?
+                    <td className="px-6 py-3">
+                        <div className={data[column] === 'Belum selesai' ? 'bg-red-100 hover:bg-red-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center w-fit' : 'bg-green-100 w-fit hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'}>
+                            <RxDotFilled className={data[column] === 'Belum selesai' ? 'text-base text-red-500' : 'text-base text-green-500'} />
+                            <p className='text-gray-900 cursor-default'>{data[column]}</p>
+                        </div>
+                    </td>
+                    :
                     <td key={index} className="px-6 py-4">
                         {data[column]}
                     </td>
@@ -42,7 +49,7 @@ function RowItem({rows, data, pathDetail, pathEdit, pathNote, regency, isClasses
                         <div className='bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'>
                             <RxDotFilled className='text-base text-green-500' />
                             <button className='text-gray-900'>
-                                <Link to={pathNote}>Catatan</Link>
+                                <Link to={pathNote ? pathNote : pathDetail}>Catatan</Link>
                             </button>
                         </div>
                     </td>

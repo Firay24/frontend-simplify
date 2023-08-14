@@ -216,13 +216,13 @@ async function getSuluks() {
     return {error: false, data: responseJson.data}
 }
 
-async function updateSuluk({_id, name, nik, fathersName, sulukInfo}) {
+async function updateSuluk({_id, name, nik, fathersName, details}) {
     const response = await fetch(`${BASE_URL}/suluk/updateSulukWithoutVerify/${_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, nik, fathersName, sulukInfo})
+        body: JSON.stringify({ name, nik, fathersName, details})
     })
     const responseJson = await response.json()
 
@@ -247,13 +247,13 @@ async function getClasses() {
     return {error: false, data: responseJson.data}
 }
 
-async function updateClass({ _id, name, nik, fathersName, classInfo }) {
+async function updateClass({ _id, name, nik, fathersName, details }) {
     const response = await fetch(`${BASE_URL}/class/updateClassWithoutVerify/${_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, nik, fathersName, classInfo })
+        body: JSON.stringify({ name, nik, fathersName, details })
     })
     const responseJson = await response.json()
 
@@ -290,13 +290,13 @@ async function getNoteFlock(id) {
     return {error: false, data: responseJson.data }
 }
 
-async function updateNoteFlock({ _id, name, nik, fathersName, notesInfo }) {
+async function updateNoteFlock({ _id, name, nik, fathersName, details }) {
     const response = await fetch(`${BASE_URL}/noteFlock/updatedNote/${_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, nik, fathersName, notesInfo })
+        body: JSON.stringify({ name, nik, fathersName, details })
     })
     const responseJson = await response.json()
 
@@ -308,13 +308,13 @@ async function updateNoteFlock({ _id, name, nik, fathersName, notesInfo }) {
     return {error: false, data: responseJson.data}
 }
 
-async function addNoteFlock({ name, nik, fathersName, notesInfo }) {
+async function addNoteFlock({ name, nik, fathersName, details }) {
     const response = await fetch(`${BASE_URL}/noteFlock/addNote`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, nik, fathersName, notesInfo })
+        body: JSON.stringify({ name, nik, fathersName, details })
     })
 
     const responseJson = await response.json()

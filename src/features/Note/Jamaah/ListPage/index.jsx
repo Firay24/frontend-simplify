@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../../../../components/pages/jamaah/NoteData/ListData/Header'
-import SearchField from '../../../../components/pages/jamaah/NoteData/ListData/SearchField'
-import TableList from '../../../../components/pages/jamaah/NoteData/ListData/TableList'
+import Header from './Layout/Header'
+import SearchField from './Layout/SearchField'
+// import TableList from '../../../../components/pages/jamaah/NoteData/ListData/TableList'
+import TableList from './Layout/TableList'
 import { getNoteFlock } from '../../../../utils/apiData'
 import Loading from '../../../../components/Loading'
 
