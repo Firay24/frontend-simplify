@@ -1,23 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import TableSection from '../../../../components/Table'
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
+import TableSection from '../../../../components/Table';
 
 function TableListClass({ classes }) {
-    const columnsName = ['Nama kelas', 'Pelaksanaan', 'Lokasi']
-    const rowsName = ['name', 'time', 'location']
-    return (
-        <div>
-            <TableSection
-                columnsName={columnsName}
-                rowsName={rowsName}
-                data={classes}
-                isClasses={true} />
-        </div>
-    )
+  const columnsName = ['Nama kelas', 'Pelaksanaan', 'Lokasi'];
+  const rowsName = ['name', 'time', 'location'];
+  return (
+    <div>
+      <TableSection
+        columnsName={columnsName}
+        rowsName={rowsName}
+        data={classes}
+        isClasses
+      />
+    </div>
+  );
 }
 
 TableListClass.propTypes = {
-    classes: PropTypes.object
-}
+  classes: PropTypes.object.isRequired,
+};
 
-export default TableListClass
+export default TableListClass;

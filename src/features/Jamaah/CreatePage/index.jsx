@@ -1,187 +1,54 @@
-import React, { useEffect, useState } from 'react'
-import Header from './layout/Header'
-import ConfirmAddData from '../../../components/Form/Confirmation'
-import InputDataSection from './layout/InputDataSection'
-import { getFlocks, getFunctionals, addFlock, addFunctional, updateFlock, importFileFlocks } from '../../../utils/apiData'
-import { getProvince, getRegency, getSubdistrict, getWard } from '../../../utils/apiLocation'
-import Loading from '../../../components/Loading'
-
+/* eslint-disable no-unused-expressions */
+/* eslint-disable max-len */
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import Header from './layout/Header';
+import ConfirmAddData from '../../../components/Form/Confirmation';
+import InputDataSection from './layout/InputDataSection';
+import {
+  getFlocks, getFunctionals, addFlock, addFunctional, updateFlock, importFileFlocks,
+} from '../../../utils/apiData';
+import {
+  getProvince, getRegency, getSubdistrict, getWard,
+} from '../../../utils/apiLocation';
+import Loading from '../../../components/Loading';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function CreateData() {
   // confirm data process
-  const [selectedOptionFunctional, setSelectedOptionFunctional] = useState('')
-  const [functionals, setfunctional] = useState({ error: false, data: [] })
-  const [isAvailable, setIsAvailable] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [selectedOptionFunctional, setSelectedOptionFunctional] = useState('');
+  const [functionals, setfunctional] = useState({ error: false, data: [] });
+  const [isAvailable, setIsAvailable] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     nik: '',
-    fathersName: ''
+    fathersName: '',
   });
-
 
   // add data process
   const [personalData, setPersonalData] = useState({
     name: '',
     nik: '',
-    fathersName: ''
-  })
-  const [flocks, setFlocks] = useState({ error: false, data: [] })
-  const [anotherBio, setAnotherBio] = useState('')
+    fathersName: '',
+  });
+  const [flocks, setFlocks] = useState({ error: false, data: [] });
+  const [anotherBio, setAnotherBio] = useState('');
 
   // data location
-  const [province, setProvince] = useState({ data: [] })
-  const [selectedProvince, setSelectedProvince] = useState('')
-  const [regency, setRegency] = useState({ data: [] })
-  const [selectedRegency, setSelectedRegency] = useState('')
-  const [subdistrict, setSubdistrict] = useState({ data: [] })
-  const [selectedSubdistrict, setSelectedSubdistrict] = useState('')
-  const [ward, setWard] = useState({ data: [] })
+  const [province, setProvince] = useState({ data: [] });
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [regency, setRegency] = useState({ data: [] });
+  const [selectedRegency, setSelectedRegency] = useState('');
+  const [subdistrict, setSubdistrict] = useState({ data: [] });
+  const [selectedSubdistrict, setSelectedSubdistrict] = useState('');
+  const [ward, setWard] = useState({ data: [] });
 
-  // confirm data process
-  const handleOptionChange = (newValue) => {
-    setSelectedOptionFunctional(newValue)
-    setHasSubmitted(false)
-  };
-
-  const handleFormSubmit = (formData) => {
-    setFormData({ ...formData })
-    setHasSubmitted(true)
-  };
-
-
-  // add data process
-  const handleAddFlock = async (flockData) => {
-    try {
-      const response = await addFlock(flockData)
-      notifySuccessAddData()
-      console.log('Data berhasil ditambahkan', response)
-    } catch (error) {
-      notifyErrordAddData()
-      console.log('Gagal menambahkan data', error.message)
-    }
-  }
-
-  const handleAddFunctional = async (functionalData) => {
-    try {
-      const response = await addFunctional(functionalData)
-      console.log('Data fungsional berhasil ditambahkan', response)
-    } catch (error) {
-      console.log('Gagal menambahkan data fungsional', error.message)
-    }
-  }
-
-  const handleAddAnotherBio = async (anotherData) => {
-    try {
-      const response = await updateFlock(anotherData)
-      notifySuccessAddData()
-      console.log('Data biodata lainnya berhasil ditambahkan', response)
-    } catch (error) {
-      console.log('Gagal menambahkan data biodata lainnya', error.message)
-    }
-  }
-
-  const handleImportDataFlock = async (file) => {
-    try {
-      const response = await importFileFlocks(file)
-      notifySuccessAddData()
-      console.log('Data berhasil ditambahkan', response)
-    } catch (error) {
-      console.log('Gagal menambahkan data', error.message)
-    }
-  }
-
-  const updatePersonalData = (name, nik, fathersName) => {
-    setPersonalData({
-      name: name,
-      nik: nik,
-      fathersName: fathersName
-    })
-  }
-
-  //  data location 
-  const handleSelectedProvince = (value) => {
-    if (value !== undefined && value !== '') {
-      const idSelectedProvince = province.data.find((itemProvince) => itemProvince.name === value)
-      setSelectedProvince(idSelectedProvince.id)
-    }
-  }
-
-  const handleSelectedRegency = (value) => {
-    if (value !== undefined && value !== '') {
-      const idSelectedRegency = regency.data.find((itemRegency) => itemRegency.name === value)
-      setSelectedRegency(idSelectedRegency.id)
-    }
-  }
-
-  const handleSelectedSubdistrict = (value) => {
-    if (value !== undefined && value !== '') {
-      const idSelectedSubdistrict = subdistrict.data.find((itemSubdistrict) => itemSubdistrict.name === value)
-      setSelectedSubdistrict(idSelectedSubdistrict.id)
-    }
-  }
-
-  // confirm data process
-  useEffect(() => {
-    setSelectedOptionFunctional('')
-  }, [])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getFunctionals()
-        setfunctional(result)
-        setIsLoading(false)
-      } catch (error) {
-        setfunctional({ error: true, data: [] })
-        setIsLoading(false); 
-      }
-    };
-    fetchData();
-  }, []);
-
-  const { data } = functionals
-  const dataFunctional = data && data.functionals
-
-  useEffect(() => {
-    if (hasSubmitted) {
-      const isDataAvailable = functionals.data && functionals.data.functionals && functionals.data.functionals.some(
-        (item) =>
-          item.nik === formData.nik && item.fathersName.toLowerCase() === formData.fathersName.toLowerCase()
-      );
-      setIsAvailable(isDataAvailable);
-      notifyIsAvailableData(isDataAvailable)
-    }
-  }, [hasSubmitted, formData.nik, formData.fathersName, functionals.data, dataFunctional]);
-
-  // add data process
-  useEffect(() => {
-    const fetchData = async() => {
-      try {
-        const result = await getFlocks()
-        setFlocks(result)
-        // const flockByNik = result.data.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName)
-        // setAnotherBio(flockByNik)
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-    fetchData()
-  }, [formData])
-
-  const { dataOfFlock } = flocks
-  const dataFlocks = dataOfFlock && dataOfFlock.flocks
-
-  useEffect(() => {
-    const flockByNik = flocks.data && flocks.data.flocks && flocks.data.flocks.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName)
-    setAnotherBio(flockByNik)
-  }, [flocks, anotherBio, formData, hasSubmitted, dataFlocks])
-
-  const notifyIsAvailableData = (isAvailable) => {
+  // notification
+  const notifyIsAvailableData = (dataIsAvailable) => {
     let message = '';
-    isAvailable
+    dataIsAvailable
       ? (message = 'Data tersedia sebagai fungsional')
       : (message = 'Data tidak tersedia sebagai fungsional');
 
@@ -193,12 +60,12 @@ function CreateData() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light'
+      theme: 'light',
     });
   };
 
   const notifySuccessAddData = () => {
-    let message = 'Data berhasil ditambahkan';
+    const message = 'Data berhasil ditambahkan';
 
     toast.success(message, {
       position: 'top-right',
@@ -208,12 +75,12 @@ function CreateData() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light'
+      theme: 'light',
     });
   };
 
   const notifyErrordAddData = () => {
-    let message = 'Data gagal ditambahkan';
+    const message = 'Data gagal ditambahkan';
 
     toast.error(message, {
       position: 'top-right',
@@ -223,18 +90,155 @@ function CreateData() {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light'
+      theme: 'light',
     });
   };
+
+  // confirm data process
+  const handleOptionChange = (newValue) => {
+    setSelectedOptionFunctional(newValue);
+    setHasSubmitted(false);
+  };
+
+  const handleFormSubmit = (dataInputOnForm) => {
+    setFormData({ ...dataInputOnForm });
+    setHasSubmitted(true);
+  };
+
+  // add data process
+  const handleAddFlock = async (flockData) => {
+    try {
+      const response = await addFlock(flockData);
+      notifySuccessAddData();
+      console.log('Data berhasil ditambahkan', response);
+    } catch (error) {
+      notifyErrordAddData();
+      console.log('Gagal menambahkan data', error.message);
+    }
+  };
+
+  const handleAddFunctional = async (functionalData) => {
+    try {
+      const response = await addFunctional(functionalData);
+      console.log('Data fungsional berhasil ditambahkan', response);
+    } catch (error) {
+      console.log('Gagal menambahkan data fungsional', error.message);
+    }
+  };
+
+  const handleAddAnotherBio = async (anotherData) => {
+    try {
+      const response = await updateFlock(anotherData);
+      notifySuccessAddData();
+      console.log('Data biodata lainnya berhasil ditambahkan', response);
+    } catch (error) {
+      console.log('Gagal menambahkan data biodata lainnya', error.message);
+    }
+  };
+
+  const handleImportDataFlock = async (file) => {
+    try {
+      const response = await importFileFlocks(file);
+      notifySuccessAddData();
+      console.log('Data berhasil ditambahkan', response);
+    } catch (error) {
+      console.log('Gagal menambahkan data', error.message);
+    }
+  };
+
+  const updatePersonalData = (name, nik, fathersName) => {
+    setPersonalData({
+      name,
+      nik,
+      fathersName,
+    });
+  };
+
+  //  data location
+  const handleSelectedProvince = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedProvince = province.data.find((itemProvince) => itemProvince.name === value);
+      setSelectedProvince(idSelectedProvince.id);
+    }
+  };
+
+  const handleSelectedRegency = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedRegency = regency.data.find((itemRegency) => itemRegency.name === value);
+      setSelectedRegency(idSelectedRegency.id);
+    }
+  };
+
+  const handleSelectedSubdistrict = (value) => {
+    if (value !== undefined && value !== '') {
+      const idSelectedSubdistrict = subdistrict.data.find((itemSubdistrict) => itemSubdistrict.name === value);
+      setSelectedSubdistrict(idSelectedSubdistrict.id);
+    }
+  };
+
+  // confirm data process
+  useEffect(() => {
+    setSelectedOptionFunctional('');
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getFunctionals();
+        setfunctional(result);
+        setIsLoading(false);
+      } catch (error) {
+        setfunctional({ error: true, data: [] });
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const { data } = functionals;
+  const dataFunctional = data && data.functionals;
+
+  useEffect(() => {
+    if (hasSubmitted) {
+      const isDataAvailable = functionals.data && functionals.data.functionals && functionals.data.functionals.some(
+        (item) => item.nik === formData.nik && item.fathersName.toLowerCase() === formData.fathersName.toLowerCase(),
+      );
+      setIsAvailable(isDataAvailable);
+      notifyIsAvailableData(isDataAvailable);
+    }
+  }, [hasSubmitted, formData.nik, formData.fathersName, functionals.data, dataFunctional]);
+
+  // add data process
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getFlocks();
+        setFlocks(result);
+        // const flockByNik = result.data.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName)
+        // setAnotherBio(flockByNik)
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, [formData]);
+
+  const { dataOfFlock } = flocks;
+  const dataFlocks = dataOfFlock && dataOfFlock.flocks;
+
+  useEffect(() => {
+    const flockByNik = flocks.data && flocks.data.flocks && flocks.data.flocks.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName);
+    setAnotherBio(flockByNik);
+  }, [flocks, anotherBio, formData, hasSubmitted, dataFlocks]);
 
   // get data location
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getProvince()
-        setProvince(result)
+        const result = await getProvince();
+        setProvince(result);
       } catch (error) {
-        setProvince({ data: [] }) 
+        setProvince({ data: [] });
       }
     };
     fetchData();
@@ -243,10 +247,10 @@ function CreateData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getRegency(selectedProvince)
-        setRegency(result)
+        const result = await getRegency(selectedProvince);
+        setRegency(result);
       } catch (error) {
-        setRegency({ data: [] }) 
+        setRegency({ data: [] });
       }
     };
     fetchData();
@@ -255,26 +259,26 @@ function CreateData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getSubdistrict(selectedRegency)
-        setSubdistrict(result)
+        const result = await getSubdistrict(selectedRegency);
+        setSubdistrict(result);
       } catch (error) {
-        setSubdistrict({ data: [] })
+        setSubdistrict({ data: [] });
       }
-    }
-    fetchData()
-  }, [selectedRegency])
+    };
+    fetchData();
+  }, [selectedRegency]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getWard(selectedSubdistrict)
-        setWard(result)
+        const result = await getWard(selectedSubdistrict);
+        setWard(result);
       } catch (error) {
-        setWard({ data: [] })
+        setWard({ data: [] });
       }
-    }
-    fetchData()
-  }, [selectedSubdistrict])
+    };
+    fetchData();
+  }, [selectedSubdistrict]);
 
   if (isLoading) {
     return <div>Waiting...</div>;
@@ -282,7 +286,7 @@ function CreateData() {
 
   return (
     <>
-      <div className='mt-4 mr-10'>
+      <div className="mt-4 mr-10">
         <div>
           <Header importFileFlocks={handleImportDataFlock} />
         </div>
@@ -295,29 +299,30 @@ function CreateData() {
         </div>
         <div>
           {
-            isLoading ? <Loading /> :
-              <InputDataSection 
-                isFunctional={selectedOptionFunctional} 
-                isAvailable={isAvailable}
-                addFlock={handleAddFlock}
-                addFunctional={handleAddFunctional}
-                putFlock={handleAddAnotherBio}
-                updatePersonalData={updatePersonalData}
-                personalData={personalData}
-                anotherBio={anotherBio && anotherBio}
-
-                province={province && province}
-                selectedProvince={handleSelectedProvince}
-                regency={regency && regency}
-                selectedRegency={handleSelectedRegency}
-                subdistrict = {subdistrict && subdistrict}
-                selectedSubdistrict = {handleSelectedSubdistrict}
-                ward = {ward && ward}
-              />
+            isLoading ? <Loading />
+              : (
+                <InputDataSection
+                  isFunctional={selectedOptionFunctional}
+                  isAvailable={isAvailable}
+                  addFlock={handleAddFlock}
+                  addFunctional={handleAddFunctional}
+                  putFlock={handleAddAnotherBio}
+                  updatePersonalData={updatePersonalData}
+                  personalData={personalData}
+                  anotherBio={anotherBio && anotherBio}
+                  province={province && province}
+                  selectedProvince={handleSelectedProvince}
+                  regency={regency && regency}
+                  selectedRegency={handleSelectedRegency}
+                  subdistrict={subdistrict && subdistrict}
+                  selectedSubdistrict={handleSelectedSubdistrict}
+                  ward={ward && ward}
+                />
+              )
           }
         </div>
       </div>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -327,10 +332,10 @@ function CreateData() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light" />
+        theme="light"
+      />
     </>
   );
 }
 
 export default CreateData;
-

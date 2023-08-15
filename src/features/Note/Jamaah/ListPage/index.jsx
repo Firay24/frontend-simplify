@@ -1,51 +1,51 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Header from './Layout/Header'
-import SearchField from './Layout/SearchField'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Header from './Layout/Header';
+import SearchField from './Layout/SearchField';
 // import TableList from '../../../../components/pages/jamaah/NoteData/ListData/TableList'
-import TableList from './Layout/TableList'
-import { getNoteFlock } from '../../../../utils/apiData'
-import Loading from '../../../../components/Loading'
+import TableList from './Layout/TableList';
+import { getNoteFlock } from '../../../../utils/apiData';
+import Loading from '../../../../components/Loading';
 
 function ListPageNote() {
-  const [noteFlock, setNoteFlock] = useState({ error: false, data: [] })
-  const { id } = useParams()
-  const [isLoading, setIsLoading] = useState(true)
+  const [noteFlock, setNoteFlock] = useState({ error: false, data: [] });
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async (id) => {
-        try {
-            const result = await getNoteFlock(id)
-            if (result) {
-              setNoteFlock(result)
-              setIsLoading(false)
-            }
-        } catch (error) {
-            setNoteFlock({ error: true, data: null})
+    const fetchData = async (idParams) => {
+      try {
+        const result = await getNoteFlock(idParams);
+        if (result) {
+          setNoteFlock(result);
+          setIsLoading(false);
         }
+      } catch (error) {
+        setNoteFlock({ error: true, data: null });
       }
+    };
 
-      fetchData(id)
-    },[id])
-    const detailNote = noteFlock && noteFlock.data && noteFlock.data.note
+    fetchData(id);
+  }, [id]);
+  const detailNote = noteFlock && noteFlock.data && noteFlock.data.note;
 
-  //console.log(noteFlock)
+  // console.log(noteFlock)
 
   return (
-    <div className='mt-4 mr-10'>
+    <div className="mt-4 mr-10">
       <div>
         <Header id={id} />
       </div>
       <div>
         <SearchField />
       </div>
-      <div className='bg-slate-400 min'>
+      <div className="bg-slate-400 min">
         {
           isLoading ? <Loading /> : <TableList notes={detailNote && detailNote} idFlock={id} />
         }
       </div>
     </div>
-  )
+  );
 }
 
-export default ListPageNote
+export default ListPageNote;

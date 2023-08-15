@@ -1,16 +1,21 @@
-import React from 'react'
-import Title from '../../../../../components/Header/HeaderTitle'
-import AddButton from '../../../../../components/Button/ButtonOnLink'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Title from '../../../../../components/Header/HeaderTitle';
+import AddButton from '../../../../../components/Button/ButtonOnLink';
 
 function Header({ id }) {
   return (
-    <div className='flex items-center justify-between'>
-        <Title title='Data Catatan' />
-        <div>
-            <AddButton text='Tambah catatan' addButton={true} path={`/jamaah/catatan/addData/${id}`} />
-        </div>
+    <div className="flex items-center justify-between">
+      <Title title="Data Catatan" />
+      <div>
+        <AddButton text="Tambah catatan" addButton path={`/jamaah/catatan/addData/${id}`} />
+      </div>
     </div>
-  )
+  );
 }
 
-export default Header
+Header.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+export default Header;
