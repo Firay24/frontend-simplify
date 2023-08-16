@@ -1,4 +1,10 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable max-len */
+/* eslint-disable no-nested-ternary */
 import React, { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import AddressContainer from '../../../../components/Form/Address';
 import InformationMZ from '../../../../components/Form/InformationMZ';
 import BiodataContainer from '../../../../components/Form/Biodata';
@@ -166,5 +172,23 @@ function InputDataSection({
     </div>
   );
 }
+
+InputDataSection.propTypes = {
+  isFunctional: PropTypes.string,
+  isAvailable: PropTypes.string,
+  addFlock: PropTypes.func,
+  putFlock: PropTypes.func,
+  addFunctional: PropTypes.func,
+  updatePersonalData: PropTypes.func,
+  personalData: PropTypes.object,
+  province: PropTypes.object,
+  selectedProvince: PropTypes.func,
+  regency: PropTypes.object,
+  selectedRegency: PropTypes.func,
+  subdistrict: PropTypes.object,
+  selectedSubdistrict: PropTypes.func,
+  ward: PropTypes.object,
+  anotherBio: PropTypes.object,
+};
 
 export default InputDataSection;

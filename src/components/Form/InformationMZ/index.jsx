@@ -18,7 +18,7 @@ function InformationMZ({
   const kaji = ['Ismuzat', 'Lataif', 'Wukuf', 'Muraqabah Itlaq', 'D1', 'Petoto', 'Pentawajjuh', 'Pentareqat', 'PZ'];
 
   useEffect(() => {
-    if (prevFlock !== null) {
+    if (prevFlock !== null && prevFlock !== undefined) {
       setInformationTN({
         mzOrigin: prevFlock.mzOrigin,
         yearEnteredTN: prevFlock.yearEnteredTN,
@@ -104,7 +104,7 @@ function InformationMZ({
                 onChange={handleInputChange}
                 className="rounded text-xs border-gray-400"
               >
-                <option value="" selected>Pilih</option>
+                <option value="">Pilih</option>
                 {
                                     receiveGender === 'perempuan' ? (
                                       kaji.slice(0, 5).map((itemKaji, index) => (

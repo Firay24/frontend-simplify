@@ -26,7 +26,7 @@ function BiodataContainer({
   });
 
   useEffect(() => {
-    if (prevFlock !== null) {
+    if (prevFlock !== null && prevFlock !== undefined) {
       setFlock({
         id: prevFlock._id,
         name: convertToTitleCase(prevFlock.name),
@@ -204,9 +204,9 @@ function BiodataContainer({
 
 BiodataContainer.propTypes = {
   onInputChange: PropTypes.func.isRequired,
-  updatePersonalData: PropTypes.object,
+  updatePersonalData: PropTypes.func,
   buttonOnClick: PropTypes.bool,
-  sendGender: PropTypes.string,
+  sendGender: PropTypes.func,
   prevFlock: PropTypes.object,
 };
 

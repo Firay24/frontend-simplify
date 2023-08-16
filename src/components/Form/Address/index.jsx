@@ -21,7 +21,7 @@ function AddressContainer({
   });
 
   useEffect(() => {
-    if (prevFlock !== null && prevFlock.address !== null) {
+    if (prevFlock !== null && prevFlock !== undefined) {
       setFlock({
         address: {
           province: prevFlock.address.province,
@@ -89,7 +89,7 @@ function AddressContainer({
             onChange={handleInputChange}
             className="rounded text-xs border-gray-400"
           >
-            <option value="" selected>Pilih</option>
+            <option value="">Pilih</option>
             {
               province.data.map((item) => (
                 <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
@@ -106,7 +106,7 @@ function AddressContainer({
             onChange={handleInputChange}
             className="rounded text-xs border-gray-400"
           >
-            <option value="" selected>Pilih</option>
+            <option value="">Pilih</option>
             {
               regency.data.map((item) => (
                 <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
@@ -123,7 +123,7 @@ function AddressContainer({
             onChange={handleInputChange}
             className="rounded text-xs border-gray-400"
           >
-            <option value="" selected>Pilih</option>
+            <option value="">Pilih</option>
             {
               subdistrict.data.map((item) => (
                 <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
@@ -140,7 +140,7 @@ function AddressContainer({
             onChange={handleInputChange}
             className="rounded text-xs border-gray-400"
           >
-            <option value="" selected>Pilih</option>
+            <option value="">Pilih</option>
             {
               ward.data.map((item) => (
                 <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
@@ -181,13 +181,13 @@ AddressContainer.propTypes = {
   onInputChange: PropTypes.func,
   prevFlock: PropTypes.object,
   buttonOnClick: PropTypes.bool,
-  province: PropTypes.string,
-  selectedProvince: PropTypes.string,
-  regency: PropTypes.string,
-  selectedRegency: PropTypes.string,
-  subdistrict: PropTypes.string,
-  selectedSubdistrict: PropTypes.string,
-  ward: PropTypes.string,
+  province: PropTypes.object,
+  selectedProvince: PropTypes.func,
+  regency: PropTypes.object,
+  selectedRegency: PropTypes.func,
+  subdistrict: PropTypes.object,
+  selectedSubdistrict: PropTypes.func,
+  ward: PropTypes.object,
 };
 
 export default AddressContainer;

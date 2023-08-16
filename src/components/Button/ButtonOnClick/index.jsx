@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BsFillFileEarmarkTextFill } from 'react-icons/bs';
 import { BiChevronLeft } from 'react-icons/bi';
