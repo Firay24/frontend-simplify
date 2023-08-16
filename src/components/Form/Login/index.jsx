@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import SubmitButton from '../../Button/ButtonOnClick';
 import LoadingButton from '../../Button/ButtonOnLoading';
@@ -57,7 +58,7 @@ function LoginInputContainer({ login, isLoading }) {
                 className="rounded border-gray-400 w-full text-xs"
               />
             </div>
-            <div className="text-2xl text-grey-light">
+            <div className="text-2xl text-grey-light text-opacity-60 hover:text-opacity-80 cursor-pointer">
               {
                 !open ? <AiFillEye onClick={togglePassword} /> : <AiFillEyeInvisible onClick={togglePassword} />
               }
@@ -68,6 +69,9 @@ function LoginInputContainer({ login, isLoading }) {
           {
             isLoading ? <LoadingButton /> : <SubmitButton text="Login" bgColor="w-full bg-basic-blue hover:bg-blue-dark text-white text-sm" />
           }
+        </div>
+        <div className="text-xs text-basic-blue mt-3">
+          <Link to="/register">Daftar disini</Link>
         </div>
       </form>
     </div>
