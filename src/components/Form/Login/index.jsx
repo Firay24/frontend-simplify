@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import SubmitButton from '../../Button/ButtonOnClick';
 import LoadingButton from '../../Button/ButtonOnLoading';
 
@@ -9,6 +11,7 @@ function LoginInputContainer({ login, isLoading }) {
     username: '',
     password: '',
   });
+  const [open, setOpen] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,30 +26,43 @@ function LoginInputContainer({ login, isLoading }) {
     login(user);
   };
 
+  const togglePassword = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className="bg-white mt-8 px-6 py-10 drop-shadow-sm rounded w-full">
       <form onSubmit={onSubmitHandler}>
-        <div className="flex flex-col text-xs gap-y-2">
-          <label htmlFor="username">Username</label>
+        <div className="flex flex-col text-xs gap-y-2 ">
+          <label htmlFor="username" className="text-[#464646] text-opacity-60 font-medium">Username</label>
           <input
             name="username"
             id="username"
             type="text"
             value={user.username}
             onChange={handleInputChange}
-            className="rounded border-gray-400"
+            className="rounded border-gray-400 text-xs"
           />
         </div>
         <div className="flex flex-col text-xs gap-y-2 mt-3">
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            id="password"
-            type="password"
-            value={user.password}
-            onChange={handleInputChange}
-            className="rounded border-gray-400"
-          />
+          <label htmlFor="password" className="text-[#464646] text-opacity-60 font-medium">Password</label>
+          <div className="flex items-center gap-x-2">
+            <div className="w-full">
+              <input
+                name="password"
+                id="password"
+                type={(!open ? 'password' : 'text')}
+                value={user.password}
+                onChange={handleInputChange}
+                className="rounded border-gray-400 w-full text-xs"
+              />
+            </div>
+            <div className="text-2xl text-grey-light">
+              {
+                !open ? <AiFillEye onClick={togglePassword} /> : <AiFillEyeInvisible onClick={togglePassword} />
+              }
+            </div>
+          </div>
         </div>
         <div className="mt-5 w-full">
           {

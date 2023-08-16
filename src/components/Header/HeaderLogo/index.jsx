@@ -8,7 +8,7 @@ function HeaderLogo({ title }) {
       <div>
         <img className="h-12" src={Logo} alt="logo avatar" />
       </div>
-      <div className="mt-5">
+      <div className="mt-[46px]">
         <h1 className="text-3xl font-semibold text-basic-grey">
           {title}
           {' '}
