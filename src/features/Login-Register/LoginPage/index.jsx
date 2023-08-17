@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable import/order */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -13,12 +14,12 @@ function LoginPage({ loginSuccess }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const notifySuccessAddData = () => {
+  const notifySuccess = () => {
     const message = 'Login berhasil';
 
     toast.success(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -28,12 +29,12 @@ function LoginPage({ loginSuccess }) {
     });
   };
 
-  const notifyErrordAddData = () => {
+  const notifyErrord = () => {
     const message = 'Gagal untuk login';
 
     toast.error(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -49,15 +50,15 @@ function LoginPage({ loginSuccess }) {
       const { data } = await login(user);
 
       if (data.token !== undefined) {
-        notifySuccessAddData();
+        notifySuccess();
         loginSuccess(data.token);
       } else {
         navigate('/');
-        notifyErrordAddData();
+        notifyErrord();
       }
     } catch (error) {
       console.log('Error while logging in', error);
-      notifyErrordAddData();
+      notifyErrord();
     } finally {
       setIsLoading(false);
     }
@@ -71,7 +72,7 @@ function LoginPage({ loginSuccess }) {
             <Header title="Sign in to" />
           </div>
           <div className="w-1/4">
-            <LoginInputContainer login={() => onLogin()} isLoading={isLoading} />
+            <LoginInputContainer login={onLogin} isLoading={isLoading} />
           </div>
         </div>
         <div className="flex justify-center mb-7">
@@ -80,7 +81,7 @@ function LoginPage({ loginSuccess }) {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -2,10 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
-import SubmitButton from '../../Button/ButtonOnClick';
+import SubmitButton from 'components/Button/ButtonOnClick';
+import LoadingButton from 'components/Button/ButtonOnLoading';
 
-function RegisInputContainer({ register }) {
+function RegisInputContainer({ register, isLoading }) {
   const [user, setUser] = useState({
     username: '',
     name: '',
@@ -17,6 +19,12 @@ function RegisInputContainer({ register }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    if (name === 'username') {
+      if (!/^\S*$/.test(value)) {
+        return;
+      }
+      setUser({ ...user, [name]: value.replace(/\s/g, '') });
+    }
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
@@ -43,6 +51,7 @@ function RegisInputContainer({ register }) {
             type="text"
             value={user.username}
             onChange={handleInputChange}
+            placeholder="ex: hatake24 *tidak mengandung spasi"
             className="rounded border-gray-400 text-xs"
           />
         </div>
@@ -54,6 +63,7 @@ function RegisInputContainer({ register }) {
             type="text"
             value={user.name}
             onChange={handleInputChange}
+            placeholder="ex: Hatake Kakashi"
             className="rounded border-gray-400 text-xs"
           />
         </div>
@@ -64,7 +74,7 @@ function RegisInputContainer({ register }) {
               <input
                 name="password"
                 id="password"
-                type="password"
+                type={(!open ? 'password' : 'text')}
                 value={user.password}
                 onChange={handleInputChange}
                 className="rounded border-gray-400 w-full text-xs"
@@ -102,14 +112,19 @@ function RegisInputContainer({ register }) {
                 type="text"
                 value={user.region}
                 onChange={handleInputChange}
-                placeholder={user.role === 'BKMZ' ? 'Asal BKMZ' : 'Asal Korwil'}
+                placeholder={user.role === 'BKMZ' ? 'Asal BKMZ ex: Jawa Timur 1' : 'Asal Korwil ex: Jawa Timur'}
                 className="rounded border-gray-400 text-xs placeholder:text-xs"
               />
             </div>
           ) : null
         }
         <div className="mt-5 w-full">
-          <SubmitButton text="Register" bgColor="w-full bg-basic-blue hover:bg-blue-dark text-white text-sm" />
+          {
+            isLoading ? <LoadingButton /> : <SubmitButton text="Register" bgColor="w-full bg-basic-blue hover:bg-blue-dark text-white text-sm" />
+          }
+        </div>
+        <div className="text-xs text-basic-blue mt-3">
+          <Link to="/">Sudah memiliki akun?</Link>
         </div>
       </form>
     </div>
@@ -118,6 +133,7 @@ function RegisInputContainer({ register }) {
 
 RegisInputContainer.propTypes = {
   register: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default RegisInputContainer;

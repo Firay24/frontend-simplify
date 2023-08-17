@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -70,7 +71,7 @@ function App() {
     return (
       <div>
         <Routes>
-          <Route path="/*" element={<LoginPage loginSuccess={() => onLoginSuccess()} />} />
+          <Route path="/*" element={<LoginPage loginSuccess={onLoginSuccess} />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>

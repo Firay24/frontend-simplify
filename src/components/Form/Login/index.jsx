@@ -42,6 +42,7 @@ function LoginInputContainer({ login, isLoading }) {
             type="text"
             value={user.username}
             onChange={handleInputChange}
+            placeholder="ex: hatake22"
             className="rounded border-gray-400 text-xs"
           />
         </div>
@@ -55,6 +56,7 @@ function LoginInputContainer({ login, isLoading }) {
                 type={(!open ? 'password' : 'text')}
                 value={user.password}
                 onChange={handleInputChange}
+                placeholder="********"
                 className="rounded border-gray-400 w-full text-xs"
               />
             </div>
