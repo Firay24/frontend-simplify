@@ -30,10 +30,31 @@ function Navigation() {
                           <div className={paths.length === 3 ? 'font-medium text-basic-blue' : ''}>Tambah data</div>
                         </div>
                       )
-                      : (
+                      : path === 'listData' ? (
                         <div className="flex ml-2 gap-x-2">
                           <div>&gt;</div>
                           <div className={paths.length === 3 ? 'font-medium text-basic-blue ' : ''}>Lihat data</div>
+                        </div>
+                      ) : (
+                        <div className="flex ml-2 gap-x-2">
+                          <div>&gt;</div>
+                          <div className={paths.length === 3 ? 'font-medium text-basic-blue ' : ''}>{`Data ${path}`}</div>
+                        </div>
+                      )}
+                  </div>
+                ) : index === 3 ? (
+                  <div key={index}>
+                    { path === 'addData'
+                      ? (
+                        <div className="flex ml-2 gap-x-2">
+                          <div>&gt;</div>
+                          <div className={paths.length === 5 ? 'font-medium text-basic-blue' : ''}>Tambah data</div>
+                        </div>
+                      )
+                      : (
+                        <div className="flex ml-2 gap-x-2">
+                          <div>&gt;</div>
+                          <div className={paths.length === 5 ? 'font-medium text-basic-blue ' : ''}>Lihat data</div>
                         </div>
                       )}
                   </div>
