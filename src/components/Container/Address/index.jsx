@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import convertToTitleCase from 'utils/convertToTitleCase';
 
 function AddressSection({ flock }) {
   return (
@@ -12,27 +13,27 @@ function AddressSection({ flock }) {
         <div className="text-xs text-grey-light mt-3 mb-5">
           <div className="flex flex-col gap-y-1">
             <p>Provinsi</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.province}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : convertToTitleCase(flock.address.province)}</p>
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Kabupaten</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.regency}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : convertToTitleCase(flock.address.regency)}</p>
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Kecamatan</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.subdistrict}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : convertToTitleCase(flock.address.subdistrict)}</p>
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Kelurahan</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.ward}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : flock.address.ward}</p>
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Alamat detail</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.details}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : flock.address.details}</p>
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Link google maps</p>
-            <p className="text-basic-grey text-sm font-medium">{flock && flock.address.linkGmaps}</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : flock.address.linkGmaps}</p>
           </div>
         </div>
       </div>

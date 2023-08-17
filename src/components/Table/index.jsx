@@ -36,7 +36,7 @@ function TableSection({
                   pathDetail={`${pathDetail}${item._id}`}
                   pathEdit={`${pathEdit}${item._id}`}
                   pathNote={getIdFromNotesFlock(item) ? `${pathNote}${getIdFromNotesFlock(item)}` : `${pathNote}${item._id}`}
-                  regency={item.address.regency}
+                  regency={item.address.regency !== '' ? item.address.regency : ' '}
                 />
               ))
             }

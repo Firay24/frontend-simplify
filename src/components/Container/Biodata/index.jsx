@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import ParseDateFunc from '../../../utils/parseDateFunc';
+import ParseDateFunc from 'utils/parseDateFunc';
 
 function BiodataSection({ flock }) {
   return (
@@ -15,7 +15,7 @@ function BiodataSection({ flock }) {
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>NIK</p>
-          <p className="text-basic-grey text-sm font-medium">{flock && flock.nik}</p>
+          <p className="text-basic-grey text-sm font-medium">{flock !== undefined ? flock.nik : ''}</p>
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>Nama bapak kandung</p>

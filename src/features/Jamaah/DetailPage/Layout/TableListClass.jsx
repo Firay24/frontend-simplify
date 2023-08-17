@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -19,7 +20,7 @@ function TableListClass({ classes }) {
 }
 
 TableListClass.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 };
 
 export default TableListClass;

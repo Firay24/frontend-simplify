@@ -1,10 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import BiodataSection from '../../../../components/Container/Biodata';
-import AddressSection from '../../../../components/Container/Address';
-import InformationMZ from '../../../../components/Container/InformationMZ';
-import EditButton from '../../../../components/Button/ButtonOnLink';
+import BiodataSection from 'components/Container/Biodata';
+import AddressSection from 'components/Container/Address';
+import InformationMZ from 'components/Container/InformationMZ';
+import EditButton from 'components/Button/ButtonOnLink';
 
 function DetailsContainer({ id, flock }) {
   return (
@@ -14,7 +14,7 @@ function DetailsContainer({ id, flock }) {
           <h2 className="text-base text-basic-blue font-medium">Identitas pribadi</h2>
           <div className="grid grid-cols-2 mt-5">
             <BiodataSection flock={flock && flock} />
-            <AddressSection flock={flock && flock} />
+            <AddressSection flock={flock.length !== 0 ? flock : []} />
           </div>
         </div>
         <div>
