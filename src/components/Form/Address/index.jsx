@@ -4,7 +4,7 @@
 /* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import convertToTitleCase from '../../../utils/convertToTitleCase';
+import convertToTitleCase from 'utils/convertToTitleCase';
 
 function AddressContainer({
   onInputChange, prevFlock, buttonOnClick, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,

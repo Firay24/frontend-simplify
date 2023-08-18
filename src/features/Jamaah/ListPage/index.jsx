@@ -26,9 +26,9 @@ function ListPage() {
 
   const { data } = flocks;
   const dataFlock = data.flocks || []; // Add a check for data
-  // const dataFlockFilter = dataFlock && dataFlock.filter((item) => (
-  //   item.gender !== '' || item.job !== ''
-  // ));
+  const dataFlockFilter = dataFlock && dataFlock.filter((item) => (
+    item.gender !== '' || item.job !== ''
+  ));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +55,7 @@ function ListPage() {
       <div>
         {
           isLoading ? <Loading />
-            : <TableList flocks={dataFlock && dataFlock} notesFlock={dataNotesFlock} />
+            : <TableList flocks={dataFlockFilter && dataFlockFilter} notesFlock={dataNotesFlock} />
         }
       </div>
     </div>

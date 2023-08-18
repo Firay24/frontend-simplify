@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import Header from './Layout/Header';
-import EditDataSection from './Layout/EditDataSection';
 import {
-  getFlock, getClasses, getSuluks, updateFlock, updateFunctional, updateClass, updateSuluk,
-} from '../../../utils/apiData';
+  getFlock, getFunctionals, getClasses, getSuluks, updateFlock, updateFunctional, updateClass, updateSuluk,
+} from 'utils/apiData';
 import {
   getProvince, getRegency, getSubdistrict, getWard,
-} from '../../../utils/apiLocation';
+} from 'utils/apiLocation';
+import Header from './Layout/Header';
+import EditDataSection from './Layout/EditDataSection';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,6 +19,14 @@ function EditPage() {
   const [classItem, setClassItem] = useState({ error: false, data: null });
   const [suluks, setSuluks] = useState({ error: false, data: [] });
   const [suluk, setSuluk] = useState({ error: false, data: null });
+  const [functionals, setFunctionals] = useState({ error: false, data: [] });
+  const [functional, setFunctional] = useState({ error: false, data: null });
+  const [status, setStatus] = useState({
+    updateFlock: false,
+    updateClass: false,
+    updateSuluk: false,
+    updateFunctional: false,
+  });
 
   const [province, setProvince] = useState({ data: [] });
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -28,6 +36,7 @@ function EditPage() {
   const [selectedSubdistrict, setSelectedSubdistrict] = useState('');
   const [ward, setWard] = useState({ data: [] });
 
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const notifySuccessAddData = () => {
@@ -35,7 +44,7 @@ function EditPage() {
 
     toast.success(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -50,7 +59,7 @@ function EditPage() {
 
     toast.error(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -86,6 +95,9 @@ function EditPage() {
       const response = await updateFlock(value);
       notifySuccessAddData();
       console.log('Data biodata berhasil diperbarui', response);
+      setStatus({
+        updateFlock: true,
+      });
     } catch (error) {
       notifyErrordAddData();
       console.log('Gagal memperbarui data biodata lainnya', error.message);
@@ -96,6 +108,9 @@ function EditPage() {
     try {
       const response = await updateFunctional(value);
       console.log('Data fungsional berhasil diperbarui', response);
+      setStatus({
+        updateFunctional: true,
+      });
     } catch (error) {
       console.log('Gagal memperbarui data fungsional', error.message);
     }
@@ -105,6 +120,9 @@ function EditPage() {
     try {
       const response = await updateClass(value);
       console.log('Data kelas berhasil diperbarui', response);
+      setStatus({
+        updateClass: true,
+      });
     } catch (error) {
       console.log('Gagal memperbarui data kelas', error.message);
     }
@@ -114,10 +132,21 @@ function EditPage() {
     try {
       const response = await updateSuluk(value);
       console.log('Data suluk berhasil diperbarui', response);
+      setStatus({
+        updateSuluk: true,
+      });
     } catch (error) {
       console.log('Data suluk gagal diperbarui', error.message);
     }
   };
+
+  useEffect(() => {
+    if (status.updateFlock || status.updateClass || status.updateSuluk || status.updateFunctional) {
+      setTimeout(() => {
+        navigate(`/jamaah/detailData/${id}`);
+      }, 2000);
+    }
+  }, [status]);
 
   useEffect(() => {
     const fetchData = async (idParams) => {
@@ -132,6 +161,20 @@ function EditPage() {
     fetchData(id);
   }, [id]);
   const detailFlock = flock && flock.data && flock.data.flock;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getFunctionals();
+        setFunctionals(result);
+      } catch (error) {
+        setFunctionals({ error: true, data: [] });
+      }
+    };
+
+    fetchData();
+  }, []);
+  const dataFunctionals = functionals && functionals.data && functionals.data.functionals;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -157,11 +200,11 @@ function EditPage() {
       }
     };
     fetchData();
-  });
+  }, []);
   const dataSuluk = suluks && suluks.data && suluks.data.suluks;
 
   useEffect(() => {
-    const detailClass = detailFlock && dataClasses && dataClasses.find((item) => item.nik === detailFlock.nik && classItem.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
+    const detailClass = detailFlock && dataClasses && dataClasses.find((item) => item.nik === detailFlock.nik && item.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
     if (detailClass) {
       setClassItem(detailClass);
     }
@@ -173,6 +216,13 @@ function EditPage() {
       setSuluk(detailSuluk);
     }
   }, [dataSuluk, detailFlock]);
+
+  useEffect(() => {
+    const detailFunctional = detailFlock && dataFunctionals && dataFunctionals.find((item) => item.nik === detailFlock.nik && item.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
+    if (detailFunctional) {
+      setFunctional(detailFunctional);
+    }
+  }, [dataFunctionals, detailFlock]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -232,6 +282,7 @@ function EditPage() {
           flock={detailFlock && detailFlock}
           classes={classItem && classItem}
           suluk={suluk && suluk}
+          functional={functional && functional}
           updateFlock={handleUpdateFlock}
           updateFunctional={handleUpdateFunctional}
           updateClass={handleUpdateClasses}
@@ -247,7 +298,7 @@ function EditPage() {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

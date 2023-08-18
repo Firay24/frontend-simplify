@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ParseDateFunc from 'utils/parseDateFunc';
+import convertToTitleCase from 'utils/convertToTitleCase';
 
 function BiodataSection({ flock }) {
   return (
@@ -23,7 +24,7 @@ function BiodataSection({ flock }) {
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>Jenis kelamin</p>
-          <p className="text-basic-grey text-sm font-medium">{flock && flock.gender}</p>
+          <p className="text-basic-grey text-sm font-medium">{flock && convertToTitleCase(flock.gender)}</p>
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>Tempat tanggal lahir</p>

@@ -3,10 +3,10 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import BiodataContainer from '../../../../components/Form/Biodata';
-import AddressContainer from '../../../../components/Form/Address';
-import InformationMZ from '../../../../components/Form/InformationMZ';
-import SubmitButton from '../../../../components/Button/ButtonOnClick';
+import BiodataContainer from 'components/Form/Biodata';
+import AddressContainer from 'components/Form/Address';
+import InformationMZ from 'components/Form/InformationMZ';
+import SubmitButton from 'components/Button/ButtonOnClick';
 
 function EditDataSection({
   flock, functional, classes, suluk, updateFlock, updateFunctional, updateClass, updateSuluk, updatePersonalData, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
@@ -27,7 +27,9 @@ function EditDataSection({
 
   const handleSubmitButton = () => {
     updateFlock(dataComponent);
-    updateFunctional(dataFunctional);
+    if (functional !== undefined) {
+      updateFunctional(dataFunctional);
+    }
     updateClass(dataClass && dataClass);
     updateSuluk(dataSuluk && dataSuluk);
     setButtonOnClik(true);
@@ -43,12 +45,14 @@ function EditDataSection({
 
   useEffect(() => {
     const updatedAt = new Date();
-    setDataFunctional(() => ({
-      ...functional, // Keep other attributes from functional
-      fathersName: dataComponent.fathersName,
-      nik: dataComponent.nik,
-      updatedAt,
-    }));
+    if (functional !== undefined) {
+      setDataFunctional(() => ({
+        ...functional, // Keep other attributes from functional
+        fathersName: dataComponent.fathersName,
+        nik: dataComponent.nik,
+        updatedAt,
+      }));
+    }
   }, [functional, dataComponent]);
 
   useEffect(() => {
@@ -126,13 +130,13 @@ EditDataSection.propTypes = {
   updateClass: PropTypes.func,
   updateSuluk: PropTypes.func,
   updatePersonalData: PropTypes.func,
-  province: PropTypes.string,
-  selectedProvince: PropTypes.string,
-  regency: PropTypes.string,
-  selectedRegency: PropTypes.string,
-  subdistrict: PropTypes.string,
-  selectedSubdistrict: PropTypes.string,
-  ward: PropTypes.string,
+  province: PropTypes.object,
+  selectedProvince: PropTypes.func,
+  regency: PropTypes.object,
+  selectedRegency: PropTypes.func,
+  subdistrict: PropTypes.object,
+  selectedSubdistrict: PropTypes.func,
+  ward: PropTypes.object,
 };
 
 export default EditDataSection;

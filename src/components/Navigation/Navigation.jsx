@@ -40,6 +40,11 @@ function Navigation() {
                           <div>&gt;</div>
                           <div className="font-medium text-basic-blue">Detail data</div>
                         </div>
+                      ) : path === 'editData' ? (
+                        <div className="flex ml-2 gap-x-2">
+                          <div>&gt;</div>
+                          <div className="font-medium text-basic-blue">Edit data</div>
+                        </div>
                       ) : (
                         <div className="flex ml-2 gap-x-2">
                           <div>&gt;</div>

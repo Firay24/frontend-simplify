@@ -38,7 +38,7 @@ function InformationMZ({
 
   useEffect(() => {
     onInputChange(informationTN);
-  }, [buttonOnClick, informationTN, onInputChange]);
+  }, [informationTN]);
 
   useEffect(() => {
     if (buttonOnClick) {

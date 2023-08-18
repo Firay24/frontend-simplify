@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableSection from '../../../../components/Table';
+import TableSection from 'components/Table';
 
 function TableListSuluk({ suluks }) {
   const columnsName = ['Suluk Ke', 'Pelaksanaan', 'Lokasi', 'Kaji'];
