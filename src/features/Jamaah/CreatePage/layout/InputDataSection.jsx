@@ -5,12 +5,12 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AddressContainer from '../../../../components/Form/Address';
-import InformationMZ from '../../../../components/Form/InformationMZ';
-import BiodataContainer from '../../../../components/Form/Biodata';
-import SubmitButton from '../../../../components/Button/ButtonOnClick';
-import FunctionalContainer from '../../../../components/Form/Fungsional';
-import AnotherBiodata from '../../../../components/Form/AnotherBiodata';
+import AddressContainer from 'components/Form/Address';
+import InformationMZ from 'components/Form/InformationMZ';
+import BiodataContainer from 'components/Form/Biodata';
+import FunctionalContainer from 'components/Form/Fungsional';
+import AnotherBiodata from 'components/Form/AnotherBiodata';
+import SubmitButton from 'components/Button/ButtonOnClick';
 
 function InputDataSection({
   isFunctional,

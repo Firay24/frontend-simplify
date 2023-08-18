@@ -2,16 +2,16 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import Header from './layout/Header';
-import ConfirmAddData from '../../../components/Form/Confirmation';
-import InputDataSection from './layout/InputDataSection';
+import ConfirmAddData from 'components/Form/Confirmation';
 import {
   getFlocks, getFunctionals, addFlock, addFunctional, updateFlock, importFileFlocks,
-} from '../../../utils/apiData';
+} from 'utils/apiData';
 import {
   getProvince, getRegency, getSubdistrict, getWard,
-} from '../../../utils/apiLocation';
-import Loading from '../../../components/Loading';
+} from 'utils/apiLocation';
+import Loading from 'components/Loading';
+import Header from './layout/Header';
+import InputDataSection from './layout/InputDataSection';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -158,21 +158,27 @@ function CreateData() {
   const handleSelectedProvince = (value) => {
     if (value !== undefined && value !== '') {
       const idSelectedProvince = province.data.find((itemProvince) => itemProvince.name === value);
-      setSelectedProvince(idSelectedProvince.id);
+      if (idSelectedProvince) {
+        setSelectedProvince(idSelectedProvince.id);
+      }
     }
   };
 
   const handleSelectedRegency = (value) => {
     if (value !== undefined && value !== '') {
       const idSelectedRegency = regency.data.find((itemRegency) => itemRegency.name === value);
-      setSelectedRegency(idSelectedRegency.id);
+      if (idSelectedRegency) {
+        setSelectedRegency(idSelectedRegency.id);
+      }
     }
   };
 
   const handleSelectedSubdistrict = (value) => {
     if (value !== undefined && value !== '') {
       const idSelectedSubdistrict = subdistrict.data.find((itemSubdistrict) => itemSubdistrict.name === value);
-      setSelectedSubdistrict(idSelectedSubdistrict.id);
+      if (idSelectedSubdistrict) {
+        setSelectedSubdistrict(idSelectedSubdistrict.id);
+      }
     }
   };
 
@@ -247,8 +253,10 @@ function CreateData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getRegency(selectedProvince);
-        setRegency(result);
+        if (selectedProvince) {
+          const result = await getRegency(selectedProvince);
+          setRegency(result);
+        }
       } catch (error) {
         setRegency({ data: [] });
       }
@@ -259,8 +267,10 @@ function CreateData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getSubdistrict(selectedRegency);
-        setSubdistrict(result);
+        if (selectedRegency) {
+          const result = await getSubdistrict(selectedRegency);
+          setSubdistrict(result);
+        }
       } catch (error) {
         setSubdistrict({ data: [] });
       }
@@ -271,8 +281,10 @@ function CreateData() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getWard(selectedSubdistrict);
-        setWard(result);
+        if (selectedSubdistrict) {
+          const result = await getWard(selectedSubdistrict);
+          setWard(result);
+        }
       } catch (error) {
         setWard({ data: [] });
       }

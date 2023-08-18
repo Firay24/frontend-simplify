@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Title from 'components/Header/HeaderTitle';
-import AddFileButton from '../../../../components/Button/ButtonOnClick';
-import ButtonGuideFile from '../../../../components/Button/ButtonOnClick';
+import AddFileButton from 'components/Button/ButtonOnClick';
+import ButtonGuideFile from 'components/Button/ButtonOnClick';
 
 function Header({ importFileFlocks }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -26,7 +26,7 @@ function Header({ importFileFlocks }) {
 
   return (
     <div className="flex items-center justify-between">
-      <Title title="Tambah Data" />
+      <Title title="Tambah Data" subheader="Data jamaah" />
       <div>
         <form onSubmit={handleSubmit} className="flex gap-x-3 items-center">
           <ButtonGuideFile bgColor="bg-basic-blue hover:bg-blue-dark text-white text-base" guideFileButton />
