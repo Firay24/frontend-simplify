@@ -1,7 +1,7 @@
 import React from 'react';
-import Selected from '../../../../components/Filter/Selected';
-import SelectedOnSearch from '../../../../components/Filter/SelectedOnSearch';
-import ButtonOfSearch from '../../../../components/Button/ButtonOnClick';
+import Selected from 'components/Filter/Selected';
+import SelectedOnSearch from 'components/Filter/SelectedOnSearch';
+import ButtonOfSearch from 'components/Button/ButtonOnClick';
 
 function SearchField() {
   const kaji = [];

@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableSection from '../../../../components/Table';
+import TableSection from 'components/Table';
 
 function TableList({ flocks, notesFlock }) {
   const columnsName = ['NAMA', 'ASAL MZ', 'KAJI', 'KABUPATEN', 'ACTION'];

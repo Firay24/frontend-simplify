@@ -1,6 +1,6 @@
 import React from 'react';
-import AddButton from '../../../../components/Button/ButtonOnLink';
-import Title from '../../../../components/Header/HeaderTitle';
+import AddButton from 'components/Button/ButtonOnLink';
+import Title from 'components/Header/HeaderTitle';
 
 function Header() {
   return (
