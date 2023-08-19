@@ -2,8 +2,8 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import EditButton from '../../../../../components/Button/ButtonOnLink';
-import NoteContainer from '../../../../../components/Container/Note';
+import EditButton from 'components/Button/ButtonOnLink';
+import NoteContainer from 'components/Container/Note';
 
 function DetailContainer({ infoNote, id, idNote }) {
   return (

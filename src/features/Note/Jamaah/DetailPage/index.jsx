@@ -2,21 +2,24 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getNoteFlock } from 'utils/apiData';
+import Loading from 'components/Loading';
 import Header from './Layout/Header';
 import DetailContainer from './Layout/DetailContainer';
-import { getNoteFlock } from '../../../../utils/apiData';
 
 function DetailNotePage() {
   const { id } = useParams();
   const { idNote } = useParams();
   const [note, setNote] = useState({ error: false, data: [] });
   const [infoNote, setInfoNote] = useState({ error: false, data: [] });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async (idParams) => {
       try {
         const result = await getNoteFlock(idParams);
         setNote(result);
+        setIsLoading(false);
       } catch (error) {
         setNote({ error: true, data: [] });
       }
@@ -38,7 +41,9 @@ function DetailNotePage() {
         <Header />
       </div>
       <div>
-        <DetailContainer infoNote={infoNote} id={id} idNote={idNote} />
+        {
+          isLoading ? <Loading /> : <DetailContainer infoNote={infoNote} id={id} idNote={idNote} />
+        }
       </div>
     </div>
   );

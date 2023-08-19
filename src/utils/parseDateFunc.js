@@ -3,18 +3,18 @@ function ParseDateFunc(dateString) {
   let bulan = mydate.getMonth() + 1;
 
   switch (bulan) {
-    case 0: bulan = 'Januari'; break;
-    case 1: bulan = 'Februari'; break;
-    case 2: bulan = 'Maret'; break;
-    case 3: bulan = 'April'; break;
-    case 4: bulan = 'Mei'; break;
-    case 5: bulan = 'Juni'; break;
-    case 6: bulan = 'Juli'; break;
-    case 7: bulan = 'Agustus'; break;
-    case 8: bulan = 'September'; break;
-    case 9: bulan = 'Oktober'; break;
-    case 10: bulan = 'November'; break;
-    case 11: bulan = 'Desember'; break;
+    case 1: bulan = 'Januari'; break;
+    case 2: bulan = 'Februari'; break;
+    case 3: bulan = 'Maret'; break;
+    case 4: bulan = 'April'; break;
+    case 5: bulan = 'Mei'; break;
+    case 6: bulan = 'Juni'; break;
+    case 7: bulan = 'Juli'; break;
+    case 8: bulan = 'Agustus'; break;
+    case 9: bulan = 'September'; break;
+    case 10: bulan = 'Oktober'; break;
+    case 11: bulan = 'November'; break;
+    case 12: bulan = 'Desember'; break;
     default: bulan = '';
   }
 
