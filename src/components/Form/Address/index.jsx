@@ -7,7 +7,16 @@ import PropTypes from 'prop-types';
 import convertToTitleCase from 'utils/convertToTitleCase';
 
 function AddressContainer({
-  onInputChange, prevFlock, buttonOnClick, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
+  onInputChange,
+  prevFlock,
+  buttonOnClick,
+  province,
+  selectedProvince,
+  regency,
+  selectedRegency,
+  subdistrict,
+  selectedSubdistrict,
+  ward,
 }) {
   const [flock, setFlock] = useState({
     address: {
@@ -34,6 +43,7 @@ function AddressContainer({
     if (prevFlock !== null && prevFlock !== undefined) {
       setFlock({
         address: {
+          country: prevFlock.address.country,
           province: prevFlock.address.province,
           regency: prevFlock.address.regency,
           subdistrict: prevFlock.address.subdistrict,
@@ -44,6 +54,22 @@ function AddressContainer({
       });
     }
   }, [prevFlock]);
+
+  useEffect(() => {
+    if (prevFlock !== null && prevFlock !== undefined && prevFlock.address.country === flock.address.country) {
+      setFlock({
+        address: {
+          country: flock.address.country,
+          province: prevFlock.address.province,
+          regency: prevFlock.address.regency,
+          subdistrict: prevFlock.address.subdistrict,
+          ward: prevFlock.address.ward,
+          linkGmaps: prevFlock.address.linkGmaps,
+          details: prevFlock.address.details,
+        },
+      });
+    }
+  }, [flock.address.country]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

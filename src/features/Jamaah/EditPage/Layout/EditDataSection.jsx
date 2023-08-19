@@ -7,6 +7,7 @@ import BiodataContainer from 'components/Form/Biodata';
 import AddressContainer from 'components/Form/Address';
 import InformationMZ from 'components/Form/InformationMZ';
 import SubmitButton from 'components/Button/ButtonOnClick';
+import Loading from 'components/Loading';
 
 function EditDataSection({
   flock, functional, classes, suluk, updateFlock, updateFunctional, updateClass, updateSuluk, updatePersonalData, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
@@ -17,6 +18,7 @@ function EditDataSection({
   const [dataSuluk, setDataSuluk] = useState({});
   const [buttonOnClick, setButtonOnClik] = useState(false);
   const [selectedGender, setSelectedGender] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = useCallback((data) => {
     setDataComponent((prevState) => ({
@@ -27,7 +29,7 @@ function EditDataSection({
 
   const handleSubmitButton = () => {
     updateFlock(dataComponent);
-    if (functional !== undefined) {
+    if (functional.data !== null) {
       updateFunctional(dataFunctional);
     }
     updateClass(dataClass && dataClass);
@@ -79,39 +81,60 @@ function EditDataSection({
     }
   }, [suluk, dataComponent]);
 
+  useEffect(() => {
+    if (flock !== undefined && flock !== null) {
+      setIsLoading(false);
+    }
+  }, [flock]);
+
   return (
     <div>
       <div className="grid grid-cols-2 gap-x-5 mt-5">
         <div>
-          <BiodataContainer
-            prevFlock={flock && flock}
-            onInputChange={handleInputChange}
-            buttonOnClick={buttonOnClick}
-            sendGender={handlerSelectedGender}
-            updatePersonalData={updatePersonalData}
-          />
+          {
+            isLoading ? <Loading />
+              : (
+                <BiodataContainer
+                  prevFlock={flock && flock}
+                  onInputChange={handleInputChange}
+                  buttonOnClick={buttonOnClick}
+                  sendGender={handlerSelectedGender}
+                  updatePersonalData={updatePersonalData}
+                />
+              )
+          }
         </div>
         <div>
-          <AddressContainer
-            onInputChange={handleInputChange}
-            prevFlock={flock && flock}
-            province={province && province}
-            selectedProvince={selectedProvince}
-            regency={regency && regency}
-            selectedRegency={selectedRegency}
-            subdistrict={subdistrict}
-            selectedSubdistrict={selectedSubdistrict}
-            ward={ward}
-          />
+          {
+            isLoading ? <Loading />
+              : (
+                <AddressContainer
+                  onInputChange={handleInputChange}
+                  prevFlock={flock && flock}
+                  province={province && province}
+                  selectedProvince={selectedProvince}
+                  regency={regency && regency}
+                  selectedRegency={selectedRegency}
+                  subdistrict={subdistrict}
+                  selectedSubdistrict={selectedSubdistrict}
+                  ward={ward}
+                />
+              )
+          }
         </div>
       </div>
       <div className="mt-5">
-        <InformationMZ
-          prevFlock={flock && flock}
-          receiveGender={selectedGender}
-          onInputChange={handleInputChange}
-          buttonOnClick={buttonOnClick}
-        />
+        {
+          isLoading ? <Loading />
+            : (
+              <InformationMZ
+                prevFlock={flock && flock}
+                receiveGender={selectedGender}
+                onInputChange={handleInputChange}
+                buttonOnClick={buttonOnClick}
+              />
+            )
+        }
       </div>
       <div className="mt-8 mb-8 flex justify-end">
         <SubmitButton text="Submit" onClick={handleSubmitButton} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />

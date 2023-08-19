@@ -7,11 +7,15 @@ import convertToTitleCase from 'utils/convertToTitleCase';
 function AddressSection({ flock }) {
   return (
     <div className="flex gap-x-6">
-      <div className="h-4/5 w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50" />
+      <div className="h-full w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50" />
       <div>
         <h3 className="text-sm text-grey-light font-normal">Alamat tinggal</h3>
         <div className="text-xs text-grey-light mt-3 mb-5">
           <div className="flex flex-col gap-y-1">
+            <p>Negara</p>
+            <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : convertToTitleCase(flock.address.country)}</p>
+          </div>
+          <div className="flex flex-col gap-y-1 mt-3">
             <p>Provinsi</p>
             <p className="text-basic-grey text-sm font-medium">{flock.length === 0 ? '' : convertToTitleCase(flock.address.province)}</p>
           </div>
