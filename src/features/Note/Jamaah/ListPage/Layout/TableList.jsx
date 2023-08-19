@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableSection from '../../../../../components/Table';
+import TableSection from 'components/Table';
 
 function TableList({ notes, idFlock }) {
   const columnsName = ['Judul catatan', 'Tanggal', 'Author', 'Terakhir update', 'Status', 'Action'];

@@ -1,7 +1,7 @@
 import React from 'react';
-import InputOnDate from '../../../../../components/Filter/InputDate';
-import InputWithIcon from '../../../../../components/Filter/InputWithIcon';
-import ButtonOnSearch from '../../../../../components/Button/ButtonOnClick';
+import InputOnDate from 'components/Filter/InputDate';
+import InputWithIcon from 'components/Filter/InputWithIcon';
+import ButtonOnSearch from 'components/Button/ButtonOnClick';
 
 function SearchField() {
   return (
