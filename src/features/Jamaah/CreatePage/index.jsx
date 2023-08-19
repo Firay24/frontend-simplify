@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import ConfirmAddData from 'components/Form/Confirmation';
 import {
@@ -22,6 +23,8 @@ function CreateData() {
   const [isAvailable, setIsAvailable] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [status, setStatus] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nik: '',
     fathersName: '',
@@ -54,7 +57,7 @@ function CreateData() {
 
     toast.info(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -69,7 +72,7 @@ function CreateData() {
 
     toast.success(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -84,7 +87,7 @@ function CreateData() {
 
     toast.error(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -111,6 +114,7 @@ function CreateData() {
       const response = await addFlock(flockData);
       notifySuccessAddData();
       console.log('Data berhasil ditambahkan', response);
+      setStatus(true);
     } catch (error) {
       notifyErrordAddData();
       console.log('Gagal menambahkan data', error.message);
@@ -121,6 +125,7 @@ function CreateData() {
     try {
       const response = await addFunctional(functionalData);
       console.log('Data fungsional berhasil ditambahkan', response);
+      setStatus(true);
     } catch (error) {
       console.log('Gagal menambahkan data fungsional', error.message);
     }
@@ -237,6 +242,14 @@ function CreateData() {
     setAnotherBio(flockByNik);
   }, [flocks, anotherBio, formData, hasSubmitted, dataFlocks]);
 
+  useEffect(() => {
+    if (status) {
+      setTimeout(() => {
+        navigate('/jamaah/listData');
+      }, 2000);
+    }
+  }, [status]);
+
   // get data location
   useEffect(() => {
     const fetchData = async () => {
@@ -336,7 +349,7 @@ function CreateData() {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

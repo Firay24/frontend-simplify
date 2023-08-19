@@ -1,11 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import Header from './Layout/Header';
-import InputContainer from '../../../../components/Form/Note/Jamaah';
+import InputContainer from 'components/Form/Note/Jamaah';
 import {
   getNoteFlock, getFlock, updateNoteFlock, addNoteFlock,
-} from '../../../../utils/apiData';
+} from 'utils/apiData';
+import Header from './Layout/Header';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,13 +14,15 @@ function CreateNotePage() {
   const { id } = useParams();
   const [note, setNote] = useState({ error: false, data: [] });
   const [flock, setFlock] = useState({ error: false, data: [] });
+  const navigate = useNavigate();
+  const [status, setStatus] = useState(false);
 
   const notifySuccessEditData = () => {
     const message = 'Data berhasil ditambahkan';
 
     toast.success(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -34,7 +37,7 @@ function CreateNotePage() {
 
     toast.error(message, {
       position: 'top-right',
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -77,6 +80,7 @@ function CreateNotePage() {
       const response = await updateNoteFlock(value);
       notifySuccessEditData();
       console.log('Data berhasil diperbarui', response);
+      setStatus(true);
     } catch (error) {
       notifyErrordEditData();
       console.log('Data gagal diperbarui');
@@ -87,12 +91,21 @@ function CreateNotePage() {
     try {
       const response = await addNoteFlock(value);
       notifySuccessEditData();
-      console.log('Data berhasil diperbarui', response);
+      console.log('Data berhasil ditambahkan', response);
+      status(true);
     } catch (error) {
       notifyErrordEditData();
-      console.log('Data gagal diperbarui');
+      console.log('Data gagal ditambahkan');
     }
   };
+
+  useEffect(() => {
+    if (status) {
+      setTimeout(() => {
+        navigate(`/jamaah/catatan/listData/${detailNote._id}`);
+      }, 2000);
+    }
+  }, [status]);
 
   return (
     <>
@@ -109,7 +122,7 @@ function CreateNotePage() {
       </div>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
