@@ -5,7 +5,7 @@ import BackButton from 'components/Button/ButtonOnClick';
 function Header() {
   return (
     <div className="flex items-center justify-between">
-      <Title title="Detail data catatan" />
+      <Title title="Detail data catatan" subheader="Data jamaah" />
       <div>
         <BackButton text="Kembali" goBack bgColor="bg-basic-blue hover:bg-blue-dark text-white text-xs" />
       </div>
