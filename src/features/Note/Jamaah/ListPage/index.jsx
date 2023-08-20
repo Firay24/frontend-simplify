@@ -1,11 +1,13 @@
+/* eslint-disable max-len */
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { getNoteFlock } from 'utils/apiData';
+import Loading from 'components/Loading';
+import NotFoundContent from 'components/404/Content';
 import Header from './Layout/Header';
 import SearchField from './Layout/SearchField';
-// import TableList from '../../../../components/pages/jamaah/NoteData/ListData/TableList'
 import TableList from './Layout/TableList';
-import { getNoteFlock } from '../../../../utils/apiData';
-import Loading from '../../../../components/Loading';
 
 function ListPageNote() {
   const [noteFlock, setNoteFlock] = useState({ error: false, data: [] });
@@ -29,8 +31,6 @@ function ListPageNote() {
   }, [id]);
   const detailNote = noteFlock && noteFlock.data && noteFlock.data.note;
 
-  // console.log(noteFlock)
-
   return (
     <div className="mt-4 mr-10">
       <div>
@@ -39,9 +39,15 @@ function ListPageNote() {
       <div>
         <SearchField />
       </div>
-      <div className="bg-slate-400 min">
+      <div>
         {
-          isLoading ? <Loading /> : <TableList notes={detailNote && detailNote} idFlock={id} />
+          isLoading ? <Loading />
+            : (detailNote === null
+              ? (
+                <div className="mt-10">
+                  <NotFoundContent text="Tidak terdapat catatan" />
+                </div>
+              ) : <TableList notes={detailNote} idFlock={id} />)
         }
       </div>
     </div>
