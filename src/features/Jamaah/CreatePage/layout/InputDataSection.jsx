@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
@@ -34,6 +35,7 @@ function InputDataSection({
   const [buttonOnClick, setButtonOnClik] = useState(false);
   const [selectedGender, setSelectedGender] = useState('');
   const [dataAnotherBio, setDataAnotherBio] = useState({});
+  const [isDisabledButton, setIsDisabledButton] = useState(true);
 
   const handleInputChangeFlock = useCallback((data) => {
     setDataComponent((prevState) => ({
@@ -52,6 +54,10 @@ function InputDataSection({
 
   const handlerSelectedGender = (value) => {
     setSelectedGender(value);
+  };
+
+  const handlerConfirmIsNullOnInput = (value) => {
+    setIsDisabledButton(value);
   };
 
   const handleSubmitFlock = () => {
@@ -93,6 +99,7 @@ function InputDataSection({
                     onInputChange={handleInputChangeFlock}
                     buttonOnClick={buttonOnClick}
                     sendGender={handlerSelectedGender}
+                    confirmInputIsNull={handlerConfirmIsNullOnInput}
                   />
                 </div>
                 <div>
@@ -113,7 +120,7 @@ function InputDataSection({
                 <InformationMZ onInputChange={handleInputChangeFlock} buttonOnClick={buttonOnClick} receiveGender={selectedGender} />
               </div>
               <div className="mt-8 mb-8 flex justify-end">
-                <SubmitButton text="Submit" onClick={handleSubmitFlock} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
+                <SubmitButton text="Submit" onClick={handleSubmitFlock} handlerOnDisabled={isDisabledButton} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
               </div>
             </div>
           ) : isFunctional === 'functional' && isAvailable
@@ -164,7 +171,7 @@ function InputDataSection({
                     <FunctionalContainer personalData={personalData} onInputChange={handleInputChangeFunc} buttonOnClick={buttonOnClick} />
                   </div>
                   <div className="mt-8 mb-8 flex justify-end">
-                    <SubmitButton text="Submit" onClick={handleSubmitFunc} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
+                    <SubmitButton text="Submit" onClick={handleSubmitFunc} handlerOnDisabled={isDisabledButton} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
                   </div>
                 </div>
               )

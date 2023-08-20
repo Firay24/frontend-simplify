@@ -5,10 +5,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import convertToTitleCase from '../../../utils/convertToTitleCase';
+import convertToTitleCase from 'utils/convertToTitleCase';
 
 function BiodataContainer({
-  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock,
+  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull,
 }) {
   const [flock, setFlock] = useState({
     name: '',
@@ -23,6 +23,12 @@ function BiodataContainer({
     yearEnteredTN: '',
     kaji: '',
     suluk: '',
+  });
+  const [onInputIsNull, setOnInputIsNull] = useState(true);
+  const [isInputTouched, setIsInputTouched] = useState({
+    name: false,
+    nik: false,
+    fathersName: false,
   });
 
   useEffect(() => {
@@ -66,6 +72,13 @@ function BiodataContainer({
     }
   };
 
+  const handleInputBlur = (inputName) => {
+    setIsInputTouched((prevState) => ({
+      ...prevState,
+      [inputName]: true,
+    }));
+  };
+
   useEffect(() => {
     onInputChange(flock);
   }, [buttonOnClick, flock, onInputChange]);
@@ -78,10 +91,10 @@ function BiodataContainer({
     if (buttonOnClick) {
       setFlock({
         name: '',
-        placesBirth: '',
-        datesBirth: '',
         nik: '',
         fathersName: '',
+        placesBirth: '',
+        datesBirth: '',
         gender: '',
         job: '',
         numberPhone: '',
@@ -93,6 +106,18 @@ function BiodataContainer({
     }
   }, [buttonOnClick]);
 
+  useEffect(() => {
+    if (flock.name !== '' && flock.fathersName !== '' && flock.nik !== '') {
+      setOnInputIsNull(false);
+    } else {
+      setOnInputIsNull(true);
+    }
+  }, [flock]);
+
+  useEffect(() => {
+    confirmInputIsNull(onInputIsNull);
+  }, [onInputIsNull]);
+
   return (
     <div className="text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey">
       <p className="text-sm font-medium text-basic-blue mb-5">Identitas Pribadi</p>
@@ -103,11 +128,11 @@ function BiodataContainer({
             type="text"
             id="name"
             name="name"
-            value={flock.name}
+            value={convertToTitleCase(flock.name)}
             onChange={handleInputChange}
-            required
-            placeholder="John Doe"
-            className="rounded text-xs border-gray-400"
+            onBlur={() => handleInputBlur('name')}
+            autoComplete="new-password"
+            className={`rounded text-xs border-gray-400 ${isInputTouched.name && flock.name === '' ? 'border-red-400' : ''}`}
           />
         </div>
         <div className="grid grid-cols-2 items-center">
@@ -118,9 +143,9 @@ function BiodataContainer({
             name="nik"
             value={flock.nik}
             onChange={handleInputChange}
-            required
-            placeholder="3651001234567"
-            className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            onBlur={() => handleInputBlur('nik')}
+            autoComplete="new-password"
+            className={`rounded text-xs border-gray-400 ${isInputTouched.nik && flock.nik === '' ? 'border-red-400' : ''} [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
           />
         </div>
         <div className="grid grid-cols-2 items-center">
@@ -129,11 +154,11 @@ function BiodataContainer({
             type="text"
             id="fathersName"
             name="fathersName"
-            value={flock.fathersName}
+            value={convertToTitleCase(flock.fathersName)}
             onChange={handleInputChange}
-            required
-            placeholder="John Mark"
-            className="rounded text-xs border-gray-400"
+            onBlur={() => handleInputBlur('fathersName')}
+            autoComplete="new-password"
+            className={`rounded text-xs border-gray-400 ${isInputTouched.fathersName && flock.fathersName === '' ? 'border-red-400' : ''}`}
           />
         </div>
         <div className="grid grid-cols-2 items-center">
@@ -145,7 +170,7 @@ function BiodataContainer({
             onChange={handleInputChange}
             className="rounded text-xs border-gray-400"
           >
-            <option value="" disabled>pilih</option>
+            <option value="" disabled>Pilih</option>
             <option value="laki-laki">Laki-laki</option>
             <option value="perempuan">Perempuan</option>
           </select>
@@ -156,9 +181,9 @@ function BiodataContainer({
             type="text"
             id="placesBirth"
             name="placesBirth"
-            value={flock.placesBirth}
+            value={convertToTitleCase(flock.placesBirth)}
             onChange={handleInputChange}
-            placeholder="California"
+            autoComplete="new-password"
             className="rounded text-xs border-gray-400"
           />
         </div>
@@ -179,9 +204,9 @@ function BiodataContainer({
             type="text"
             id="job"
             name="job"
-            value={flock.job}
+            value={convertToTitleCase(flock.job)}
             onChange={handleInputChange}
-            placeholder="Frelancer"
+            autoComplete="new-password"
             className="rounded text-xs border-gray-400"
           />
         </div>
@@ -193,7 +218,7 @@ function BiodataContainer({
             name="numberPhone"
             value={flock.numberPhone}
             onChange={handleInputChange}
-            placeholder="0852312345678"
+            autoComplete="new-password"
             className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>
@@ -208,6 +233,7 @@ BiodataContainer.propTypes = {
   buttonOnClick: PropTypes.bool,
   sendGender: PropTypes.func,
   prevFlock: PropTypes.object,
+  confirmInputIsNull: PropTypes.func,
 };
 
 export default BiodataContainer;

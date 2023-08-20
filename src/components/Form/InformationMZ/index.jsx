@@ -4,6 +4,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import convertToTitleCase from 'utils/convertToTitleCase';
 
 function InformationMZ({
   onInputChange, buttonOnClick, receiveGender, prevFlock,
@@ -63,9 +64,9 @@ function InformationMZ({
                 type="text"
                 id="mzOrigin"
                 name="mzOrigin"
-                value={informationTN.mzOrigin}
+                value={convertToTitleCase(informationTN.mzOrigin)}
                 onChange={handleInputChange}
-                placeholder="Mayang"
+                autoComplete="new-password"
                 className="rounded text-xs border-gray-400"
               />
             </div>
@@ -77,7 +78,7 @@ function InformationMZ({
                 name="yearEnteredTN"
                 value={informationTN.yearEnteredTN}
                 onChange={handleInputChange}
-                placeholder="2017"
+                autoComplete="new-password"
                 className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             </div>
@@ -91,7 +92,7 @@ function InformationMZ({
                 name="suluk"
                 value={informationTN.suluk}
                 onChange={handleInputChange}
-                placeholder="3"
+                autoComplete="new-password"
                 className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             </div>

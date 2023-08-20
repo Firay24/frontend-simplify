@@ -159,7 +159,7 @@ function AddressContainer({
                     <option value="">Pilih</option>
                     {
                       province.data.map((item) => (
-                        <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
                       ))
                     }
                   </select>
@@ -168,8 +168,9 @@ function AddressContainer({
                     type="text"
                     name="province"
                     id="province"
-                    value={flock.address.province}
+                    value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
                     onChange={handleInputChange}
+                    autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
                 )
@@ -189,7 +190,7 @@ function AddressContainer({
                     <option value="">Pilih</option>
                     {
                       regency.data.map((item) => (
-                        <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
                       ))
                     }
                   </select>
@@ -198,8 +199,9 @@ function AddressContainer({
                     type="text"
                     name="regency"
                     id="regency"
-                    value={flock.address.regency}
+                    value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
                     onChange={handleInputChange}
+                    autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
                 )
@@ -219,7 +221,7 @@ function AddressContainer({
                     <option value="">Pilih</option>
                     {
                       subdistrict.data.map((item) => (
-                        <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
                       ))
                     }
                   </select>
@@ -228,8 +230,9 @@ function AddressContainer({
                     type="text"
                     name="subdistrict"
                     id="subdistrict"
-                    value={flock.address.subdistrict}
+                    value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
                     onChange={handleInputChange}
+                    autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
                 )
@@ -249,7 +252,7 @@ function AddressContainer({
                     <option value="">Pilih</option>
                     {
                       ward.data.map((item) => (
-                        <option key={item.id} value={item.name}>{convertToTitleCase(item.name)}</option>
+                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
                       ))
                     }
                   </select>
@@ -258,8 +261,9 @@ function AddressContainer({
                     type="text"
                     name="ward"
                     id="ward"
-                    value={flock.address.ward}
+                    value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
                     onChange={handleInputChange}
+                    autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
                 )
@@ -273,7 +277,7 @@ function AddressContainer({
                 name="linkGmaps"
                 value={flock.address.linkGmaps}
                 onChange={handleInputChange}
-                placeholder="https://goo.gl/maps/wpPE26qCqUTqTS6S7"
+                autoComplete="new-password"
                 className="rounded text-xs border-gray-400"
               />
             </div>
@@ -285,7 +289,7 @@ function AddressContainer({
                 name="details"
                 value={flock.address.details}
                 onChange={handleInputChange}
-                placeholder="Jln. Kenangan No. 24 "
+                autoComplete="new-password"
                 className="rounded text-xs border-gray-400"
               />
             </div>
