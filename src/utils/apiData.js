@@ -112,23 +112,18 @@ async function addFlock({
 
   const responseJson = await response.json();
 
-  if (!responseJson.data) {
-    console.log('Data tidak tersedia di responseJson');
-    return { error: true, data: [] };
-  }
-
   if (responseJson.status !== 'success') {
     alert(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data.flock };
+  return { error: false, data: responseJson.data };
 }
 
 async function updateFlock({
   id, name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address,
 }) {
-  const response = await fetch(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`, {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -142,7 +137,7 @@ async function updateFlock({
 
   if (responseJson.status !== 'success') {
     alert(responseJson.message);
-    return { error: false, data: [] };
+    return { error: true, data: [] };
   }
 
   return { error: false, data: responseJson.data };
@@ -151,7 +146,7 @@ async function updateFlock({
 async function importFileFlocks(file) {
   const formData = new FormData();
   formData.append('file', file);
-  const response = await fetch(`${BASE_URL}/flocks/importFlocks`, {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/importFlocks`, {
     method: 'POST',
     body: formData,
   });
@@ -160,10 +155,99 @@ async function importFileFlocks(file) {
 
   if (response.status !== 'success') {
     alert(responseJson.message);
-    return { error: false, data: [] };
+    return { error: true, data: [] };
   }
 
   return { error: false, data: responseJson.data };
+}
+
+// BOARD
+async function getBoards() {
+  const response = await fetchWithToken(`${BASE_URL}/boards/getBoards`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function getBoard(id) {
+  const response = await fetchWithToken(`${BASE_URL}/boards/getBoard/${id}`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function addBoard({
+  name, regionProvince, coordinatorName, regionBKMZ, statusBoard, SKCategory, landStatus, buildingState, address, notes, head1, head2, head3,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/boards/addBoard`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, regionProvince, coordinatorName, regionBKMZ, statusBoard, SKCategory, landStatus, buildingState, address, notes, head1, head2, head3,
+    }),
+  });
+
+  const responseJson = response.json();
+
+  if (responseJson.status !== 'success') {
+    alert(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function updateBoard({
+  id, name, regionProvince, coordinatorName, regionBKMZ, statusBoard, SKCategory, landStatus, buildingState, address, notes, head1, head2, head3,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/boards/updatedBoard/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, regionProvince, coordinatorName, regionBKMZ, statusBoard, SKCategory, landStatus, buildingState, address, notes, head1, head2, head3,
+    }),
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function importFileBoards(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const response = await fetchWithToken(`${BASE_URL}/boards/importBoard`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: true, data: [] };
 }
 
 // FUNCTIONAL
@@ -373,10 +457,15 @@ export {
   putAccessToken,
   getUserLogged,
   getFlocks,
+  getFlock,
   addFlock,
   updateFlock,
   importFileFlocks,
-  getFlock,
+  getBoards,
+  getBoard,
+  addBoard,
+  updateBoard,
+  importFileBoards,
   getFunctionals,
   addFunctional,
   updateFunctional,

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
@@ -35,7 +36,7 @@ function TableSection({
                   rows={rowsName}
                   pathDetail={`${pathDetail}${item._id}`}
                   pathEdit={`${pathEdit}${item._id}`}
-                  pathNote={getIdFromNotesFlock(item) ? `${pathNote}${getIdFromNotesFlock(item)}` : `${pathNote}${item._id}`}
+                  pathNote={pathNote ? (getIdFromNotesFlock(item) ? `${pathNote}${getIdFromNotesFlock(item)}` : `${pathNote}${item._id}`) : undefined}
                   regency={item.address.regency !== '' ? item.address.regency : ' '}
                 />
               ))

@@ -60,7 +60,7 @@ function RowItem({
                     <div className="bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center">
                       <RxDotFilled className="text-base text-green-500" />
                       <button className="text-gray-900">
-                        <Link to={pathNote || pathDetail}>Catatan</Link>
+                        <Link to={pathNote || pathDetail}>{pathNote ? 'Catatan' : 'Detail'}</Link>
                       </button>
                     </div>
                   </td>

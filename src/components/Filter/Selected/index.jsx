@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -18,7 +20,7 @@ function Selected({ optionOfSelect, text }) {
 }
 
 Selected.propTypes = {
-  optionOfSelect: PropTypes.arrayOf.isRequired,
+  optionOfSelect: PropTypes.array,
   text: PropTypes.string,
 };
 
