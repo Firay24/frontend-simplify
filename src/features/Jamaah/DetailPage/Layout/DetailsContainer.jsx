@@ -14,7 +14,7 @@ function DetailsContainer({ id, flock }) {
           <h2 className="text-base text-basic-blue font-medium">Identitas pribadi</h2>
           <div className="grid grid-cols-2 mt-5">
             <BiodataSection flock={flock && flock} />
-            <AddressSection flock={flock.length !== 0 ? flock : []} />
+            <AddressSection data={flock.length !== 0 ? flock : []} />
           </div>
         </div>
         <div>

@@ -9,7 +9,7 @@ import HeaderItem from './HeaderItem';
 import RowItem from './RowItem';
 
 function TableSection({
-  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, getIdFromNotesFlock, isClasses = false, isSuluk = false, isNotes = false, idFlock,
+  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, getIdFromNotes, isClasses = false, isSuluk = false, isNotes = false, idFlock,
 }) {
   return (
     <div className="relative overflow-x-auto mt-5 drop-shadow-sm">
@@ -36,7 +36,7 @@ function TableSection({
                   rows={rowsName}
                   pathDetail={`${pathDetail}${item._id}`}
                   pathEdit={`${pathEdit}${item._id}`}
-                  pathNote={pathNote ? (getIdFromNotesFlock(item) ? `${pathNote}${getIdFromNotesFlock(item)}` : `${pathNote}${item._id}`) : undefined}
+                  pathNote={pathNote ? (getIdFromNotes(item) ? `${pathNote}${getIdFromNotes(item)}` : `${pathNote}${item._id}`) : undefined}
                   regency={item.address.regency !== '' ? item.address.regency : ' '}
                 />
               ))
@@ -54,7 +54,7 @@ TableSection.propTypes = {
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
   pathNote: PropTypes.string,
-  getIdFromNotesFlock: PropTypes.func,
+  getIdFromNotes: PropTypes.func,
   isClasses: PropTypes.bool,
   isSuluk: PropTypes.bool,
   isNotes: PropTypes.bool,

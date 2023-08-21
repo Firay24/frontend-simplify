@@ -250,6 +250,19 @@ async function importFileBoards(file) {
   return { error: true, data: [] };
 }
 
+// BOARD'S NOTES
+async function getNotesBoard() {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/getNotes`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 // FUNCTIONAL
 async function getFunctionals() {
   const response = await fetch(`${BASE_URL}/functionals/getFunctionals`);
@@ -382,7 +395,7 @@ async function updateClass({
 
 // NOTE'S FLOCK
 async function getNotesFlock() {
-  const response = await fetch(`${BASE_URL}/noteFlock/getNotes`);
+  const response = await fetchWithToken(`${BASE_URL}/noteFlock/getNotes`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
@@ -394,7 +407,7 @@ async function getNotesFlock() {
 }
 
 async function getNoteFlock(id) {
-  const response = await fetch(`${BASE_URL}/noteFlock/getNote/${id}`);
+  const response = await fetchWithToken(`${BASE_URL}/noteFlock/getNote/${id}`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
@@ -408,7 +421,7 @@ async function getNoteFlock(id) {
 async function updateNoteFlock({
   _id, name, nik, fathersName, details,
 }) {
-  const response = await fetch(`${BASE_URL}/noteFlock/updatedNote/${_id}`, {
+  const response = await fetchWithToken(`${BASE_URL}/noteFlock/updatedNote/${_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -430,7 +443,7 @@ async function updateNoteFlock({
 async function addNoteFlock({
   name, nik, fathersName, details,
 }) {
-  const response = await fetch(`${BASE_URL}/noteFlock/addNote`, {
+  const response = await fetchWithToken(`${BASE_URL}/noteFlock/addNote`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -466,6 +479,7 @@ export {
   addBoard,
   updateBoard,
   importFileBoards,
+  getNotesBoard,
   getFunctionals,
   addFunctional,
   updateFunctional,

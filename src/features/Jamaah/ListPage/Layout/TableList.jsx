@@ -12,7 +12,7 @@ function TableList({ flocks, notesFlock }) {
   const pathEdit = '/jamaah/editData/';
   const pathNote = '/jamaah/catatan/listData/';
 
-  const getIdFromNotesFlock = (flock) => {
+  const getIdFromNotes = (flock) => {
     const detailNote = flock && notesFlock && notesFlock.find((note) => flock.nik === note.nik && flock.fathersName === note.fathersName);
     return detailNote ? detailNote._id : null;
   };
@@ -26,7 +26,7 @@ function TableList({ flocks, notesFlock }) {
         pathDetail={pathDetail}
         pathEdit={pathEdit}
         pathNote={pathNote}
-        getIdFromNotesFlock={getIdFromNotesFlock}
+        getIdFromNotes={getIdFromNotes}
       />
     </div>
   );

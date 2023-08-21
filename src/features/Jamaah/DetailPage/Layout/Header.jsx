@@ -11,7 +11,7 @@ function Header({ name, nik, isFunctional }) {
     <div className="flex items-center justify-between">
       <Title title={name} subheader={nik} />
       <div className="flex gap-x-2">
-        <BackButton text="Kembali" goHome path="/jamaah/ListData" />
+        <BackButton text="Kembali" goHome path="/jamaah/listData" />
         {
           isFunctional ? <AddButton text="Data fungsional" path="/fungsional/addData" addButton /> : null
         }
