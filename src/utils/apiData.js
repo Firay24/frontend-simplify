@@ -202,7 +202,7 @@ async function addBoard({
   const responseJson = response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    console.log(responseJson.message);
     return { error: true, data: [] };
   }
 

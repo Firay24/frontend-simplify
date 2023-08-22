@@ -17,6 +17,7 @@ function AddressContainer({
   subdistrict,
   selectedSubdistrict,
   ward,
+  isBoard,
 }) {
   const [flock, setFlock] = useState({
     address: {
@@ -114,9 +115,9 @@ function AddressContainer({
 
   return (
     <div className="text-xs bg-white p-6 rounded drop-shadow-sm h-full text-basic-grey">
-      <p className="text-sm font-medium text-basic-blue mb-5">Alamat Tinggal</p>
-      <div>
-        <p>Dimana anda tinggal</p>
+      <p className="text-sm font-medium text-basic-blue mb-5">{isBoard ? 'Alamat MZ' : 'Alamat tinggal'}</p>
+      <div className={isBoard ? 'w-1/2' : ''}>
+        <p>Pilih negara asal</p>
         <div className="grid grid-cols-2 mt-2 mb-3">
           <div className="flex items-center gap-x-2">
             <input
@@ -145,154 +146,313 @@ function AddressContainer({
       {
         flock.address.country ? (
           <form className="flex flex-col gap-y-2">
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="province">{flock.address.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
-              {
-                flock.address.country === 'indonesia' ? (
-                  <select
-                    name="province"
-                    id="province"
-                    value={flock.address.province}
-                    onChange={handleInputChange}
-                    className="rounded text-xs border-gray-400"
-                  >
-                    <option value="">Pilih</option>
+            { isBoard ? (
+              <div className="grid grid-cols-2 gap-x-16">
+                <div className="flex flex-col gap-y-2">
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="province">{flock.address.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
                     {
-                      province.data.map((item) => (
-                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
-                      ))
+                      flock.address.country === 'indonesia' ? (
+                        <select
+                          name="province"
+                          id="province"
+                          value={flock.address.province}
+                          onChange={handleInputChange}
+                          className="rounded text-xs border-gray-400"
+                        >
+                          <option value="">Pilih</option>
+                          {
+                            province.data.map((item) => (
+                              <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                            ))
+                          }
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          name="province"
+                          id="province"
+                          value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
+                          onChange={handleInputChange}
+                          autoComplete="new-password"
+                          className="rounded text-xs border-gray-400"
+                        />
+                      )
                     }
-                  </select>
-                ) : (
+                  </div>
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="regency">{flock.address.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
+                    {
+                      flock.address.country === 'indonesia' ? (
+                        <select
+                          name="regency"
+                          id="regency"
+                          value={flock.address.regency}
+                          onChange={handleInputChange}
+                          className="rounded text-xs border-gray-400"
+                        >
+                          <option value="">Pilih</option>
+                          {
+                            regency.data.map((item) => (
+                              <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                            ))
+                          }
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          name="regency"
+                          id="regency"
+                          value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
+                          onChange={handleInputChange}
+                          autoComplete="new-password"
+                          className="rounded text-xs border-gray-400"
+                        />
+                      )
+                    }
+                  </div>
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="linkGmaps">Link Gmaps</label>
+                    <input
+                      type="url"
+                      id="linkGmaps"
+                      name="linkGmaps"
+                      value={flock.address.linkGmaps}
+                      onChange={handleInputChange}
+                      autoComplete="new-password"
+                      className="rounded text-xs border-gray-400"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="subdistrict">{flock.address.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
+                    {
+                      flock.address.country === 'indonesia' ? (
+                        <select
+                          name="subdistrict"
+                          id="subdistrict"
+                          value={flock.address.subdistrict}
+                          onChange={handleInputChange}
+                          className="rounded text-xs border-gray-400"
+                        >
+                          <option value="">Pilih</option>
+                          {
+                            subdistrict.data.map((item) => (
+                              <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                            ))
+                          }
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          name="subdistrict"
+                          id="subdistrict"
+                          value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
+                          onChange={handleInputChange}
+                          autoComplete="new-password"
+                          className="rounded text-xs border-gray-400"
+                        />
+                      )
+                    }
+                  </div>
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="ward">{flock.address.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
+                    {
+                      flock.address.country === 'indonesia' ? (
+                        <select
+                          name="ward"
+                          id="ward"
+                          value={flock.address.ward}
+                          onChange={handleInputChange}
+                          className="rounded text-xs border-gray-400"
+                        >
+                          <option value="">Pilih</option>
+                          {
+                            ward.data.map((item) => (
+                              <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                            ))
+                          }
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          name="ward"
+                          id="ward"
+                          value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
+                          onChange={handleInputChange}
+                          autoComplete="new-password"
+                          className="rounded text-xs border-gray-400"
+                        />
+                      )
+                    }
+                  </div>
+                  <div className="grid grid-cols-2 items-center">
+                    <label htmlFor="details">Detail alamat</label>
+                    <input
+                      type="text"
+                      id="details"
+                      name="details"
+                      value={flock.address.details}
+                      onChange={handleInputChange}
+                      autoComplete="new-password"
+                      className="rounded text-xs border-gray-400"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-y-2">
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="province">{flock.address.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
+                  {
+                    flock.address.country === 'indonesia' ? (
+                      <select
+                        name="province"
+                        id="province"
+                        value={flock.address.province}
+                        onChange={handleInputChange}
+                        className="rounded text-xs border-gray-400"
+                      >
+                        <option value="">Pilih</option>
+                        {
+                          province.data.map((item) => (
+                            <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                          ))
+                        }
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        name="province"
+                        id="province"
+                        value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
+                        onChange={handleInputChange}
+                        autoComplete="new-password"
+                        className="rounded text-xs border-gray-400"
+                      />
+                    )
+                  }
+                </div>
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="regency">{flock.address.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
+                  {
+                    flock.address.country === 'indonesia' ? (
+                      <select
+                        name="regency"
+                        id="regency"
+                        value={flock.address.regency}
+                        onChange={handleInputChange}
+                        className="rounded text-xs border-gray-400"
+                      >
+                        <option value="">Pilih</option>
+                        {
+                          regency.data.map((item) => (
+                            <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                          ))
+                        }
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        name="regency"
+                        id="regency"
+                        value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
+                        onChange={handleInputChange}
+                        autoComplete="new-password"
+                        className="rounded text-xs border-gray-400"
+                      />
+                    )
+                  }
+                </div>
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="subdistrict">{flock.address.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
+                  {
+                    flock.address.country === 'indonesia' ? (
+                      <select
+                        name="subdistrict"
+                        id="subdistrict"
+                        value={flock.address.subdistrict}
+                        onChange={handleInputChange}
+                        className="rounded text-xs border-gray-400"
+                      >
+                        <option value="">Pilih</option>
+                        {
+                          subdistrict.data.map((item) => (
+                            <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                          ))
+                        }
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        name="subdistrict"
+                        id="subdistrict"
+                        value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
+                        onChange={handleInputChange}
+                        autoComplete="new-password"
+                        className="rounded text-xs border-gray-400"
+                      />
+                    )
+                  }
+                </div>
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="ward">{flock.address.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
+                  {
+                    flock.address.country === 'indonesia' ? (
+                      <select
+                        name="ward"
+                        id="ward"
+                        value={flock.address.ward}
+                        onChange={handleInputChange}
+                        className="rounded text-xs border-gray-400"
+                      >
+                        <option value="">Pilih</option>
+                        {
+                          ward.data.map((item) => (
+                            <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
+                          ))
+                        }
+                      </select>
+                    ) : (
+                      <input
+                        type="text"
+                        name="ward"
+                        id="ward"
+                        value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
+                        onChange={handleInputChange}
+                        autoComplete="new-password"
+                        className="rounded text-xs border-gray-400"
+                      />
+                    )
+                  }
+                </div>
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="linkGmaps">Link Gmaps</label>
                   <input
-                    type="text"
-                    name="province"
-                    id="province"
-                    value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
+                    type="url"
+                    id="linkGmaps"
+                    name="linkGmaps"
+                    value={flock.address.linkGmaps}
                     onChange={handleInputChange}
                     autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
-                )
-              }
-            </div>
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="regency">{flock.address.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
-              {
-                flock.address.country === 'indonesia' ? (
-                  <select
-                    name="regency"
-                    id="regency"
-                    value={flock.address.regency}
-                    onChange={handleInputChange}
-                    className="rounded text-xs border-gray-400"
-                  >
-                    <option value="">Pilih</option>
-                    {
-                      regency.data.map((item) => (
-                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
-                      ))
-                    }
-                  </select>
-                ) : (
+                </div>
+                <div className="grid grid-cols-2 items-center">
+                  <label htmlFor="details">Detail alamat</label>
                   <input
                     type="text"
-                    name="regency"
-                    id="regency"
-                    value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
+                    id="details"
+                    name="details"
+                    value={flock.address.details}
                     onChange={handleInputChange}
                     autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
                   />
-                )
-              }
-            </div>
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="subdistrict">{flock.address.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
-              {
-                flock.address.country === 'indonesia' ? (
-                  <select
-                    name="subdistrict"
-                    id="subdistrict"
-                    value={flock.address.subdistrict}
-                    onChange={handleInputChange}
-                    className="rounded text-xs border-gray-400"
-                  >
-                    <option value="">Pilih</option>
-                    {
-                      subdistrict.data.map((item) => (
-                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
-                      ))
-                    }
-                  </select>
-                ) : (
-                  <input
-                    type="text"
-                    name="subdistrict"
-                    id="subdistrict"
-                    value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
-                    onChange={handleInputChange}
-                    autoComplete="new-password"
-                    className="rounded text-xs border-gray-400"
-                  />
-                )
-              }
-            </div>
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="ward">{flock.address.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
-              {
-                flock.address.country === 'indonesia' ? (
-                  <select
-                    name="ward"
-                    id="ward"
-                    value={flock.address.ward}
-                    onChange={handleInputChange}
-                    className="rounded text-xs border-gray-400"
-                  >
-                    <option value="">Pilih</option>
-                    {
-                      ward.data.map((item) => (
-                        <option key={item.id} value={item.name}>{item.name ? convertToTitleCase(item.name) : ''}</option>
-                      ))
-                    }
-                  </select>
-                ) : (
-                  <input
-                    type="text"
-                    name="ward"
-                    id="ward"
-                    value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
-                    onChange={handleInputChange}
-                    autoComplete="new-password"
-                    className="rounded text-xs border-gray-400"
-                  />
-                )
-              }
-            </div>
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="linkGmaps">Link Gmaps</label>
-              <input
-                type="url"
-                id="linkGmaps"
-                name="linkGmaps"
-                value={flock.address.linkGmaps}
-                onChange={handleInputChange}
-                autoComplete="new-password"
-                className="rounded text-xs border-gray-400"
-              />
-            </div>
-            <div className="grid grid-cols-2 items-center">
-              <label htmlFor="details">Detail alamat</label>
-              <input
-                type="text"
-                id="details"
-                name="details"
-                value={flock.address.details}
-                onChange={handleInputChange}
-                autoComplete="new-password"
-                className="rounded text-xs border-gray-400"
-              />
-            </div>
+                </div>
+              </div>
+            )}
           </form>
         ) : null
       }
@@ -311,6 +471,11 @@ AddressContainer.propTypes = {
   subdistrict: PropTypes.object,
   selectedSubdistrict: PropTypes.func,
   ward: PropTypes.object,
+  isBoard: PropTypes.bool,
+};
+
+AddressContainer.defaultProps = {
+  isBoard: false,
 };
 
 export default AddressContainer;

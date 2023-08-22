@@ -204,7 +204,7 @@ function CreateData() {
       }
     };
     fetchData();
-  }, []);
+  }, [hasSubmitted]);
 
   const { data } = functionals;
   const dataFunctional = data && data.functionals;
