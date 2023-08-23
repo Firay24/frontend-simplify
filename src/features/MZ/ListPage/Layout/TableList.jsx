@@ -13,7 +13,7 @@ function TableList({ boards, notesBoard }) {
   const pathNote = '/mz/catatan/listData/';
 
   const getIdFromNotes = (board) => {
-    const detailNote = board && notesBoard && notesBoard.find((note) => board.nik === note.nik && board.fathersName.toLowerCase() === note.fathersName.toLowerCase());
+    const detailNote = board && notesBoard && notesBoard.find((note) => board.name === note.name && board.regionBKMZ === note.regionBKMZ);
     return detailNote ? detailNote._id : null;
   };
 

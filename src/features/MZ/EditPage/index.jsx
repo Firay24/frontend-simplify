@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {
-  getBoard, getNotesBoard, updateBoard, updateNoteBoard,
+  getBoard, getNotesBoard, updateBoard, updateNoteBoardBio,
 } from 'utils/apiData';
 import {
   getProvince, getRegency, getSubdistrict, getWard,
@@ -19,7 +19,7 @@ function EditPage() {
   const [note, setNote] = useState({ error: false, data: null });
   const [status, setStatus] = useState({
     updateBoard: false,
-    updateNoteBoard: false,
+    updateNoteBoardBio: false,
   });
 
   // location state
@@ -102,10 +102,10 @@ function EditPage() {
 
   const handleUpdateNote = async (value) => {
     try {
-      const response = await updateNoteBoard(value);
+      const response = await updateNoteBoardBio(value);
       console.log('Data catatan berhasil diperbarui', response);
       setStatus({
-        updateNoteBoard: true,
+        updateNoteBoardBio: true,
       });
     } catch (error) {
       console.log('Data catatan gagal diperbarui', error.message);
@@ -113,7 +113,7 @@ function EditPage() {
   };
 
   useEffect(() => {
-    if (status.updateBoard || status.updateNoteBoard) {
+    if (status.updateBoard || status.updateNoteBoardBio) {
       setTimeout(() => {
         navigate(`/mz/detailData/${id}`);
       }, 2000);

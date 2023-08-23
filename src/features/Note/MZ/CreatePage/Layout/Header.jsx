@@ -5,9 +5,11 @@ import BackButton from 'components/Button/ButtonOnLink';
 
 function Header({ id }) {
   return (
-    <div className="flex items-center justify-between">
-      <Title title="Tambah catatan" subheader="Data jamaah" />
-      <BackButton text="Kembali" goHome path={`/jamaah/catatan/listData/${id}`} />
+    <div>
+      <div className="flex items-center justify-between">
+        <Title title="Tambah catatan" subheader="Data MZ" />
+        <BackButton text="Kembali" goHome path={`/mz/catatan/listData/${id}`} />
+      </div>
     </div>
   );
 }

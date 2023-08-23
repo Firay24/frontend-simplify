@@ -427,6 +427,28 @@ async function updateNoteFlock({
   return { error: false, data: responseJson.data };
 }
 
+async function updateNoteFlockBio({
+  _id, name, nik, fathersName,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/noteFlock/updatedNoteBio/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, nik, fathersName,
+    }),
+  });
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 async function addNoteFlock({
   name, nik, fathersName, details,
 }) {
@@ -447,7 +469,7 @@ async function addNoteFlock({
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data.flock };
+  return { error: false, data: responseJson.data };
 }
 
 // NOTE'S BOARD
@@ -497,6 +519,28 @@ async function updateNoteBoard({
   return { error: false, data: responseJson.data };
 }
 
+async function updateNoteBoardBio({
+  _id, name, nik, fathersName,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/updatedNoteBio/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, nik, fathersName,
+    }),
+  });
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 async function addNoteBoard({
   name, nik, fathersName, details,
 }) {
@@ -517,7 +561,7 @@ async function addNoteBoard({
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data.flock };
+  return { error: false, data: responseJson.data };
 }
 
 export {
@@ -546,9 +590,11 @@ export {
   getNotesFlock,
   getNoteFlock,
   updateNoteFlock,
+  updateNoteFlockBio,
   addNoteFlock,
   getNotesBoard,
   getNoteBoard,
   updateNoteBoard,
+  updateNoteBoardBio,
   addNoteBoard,
 };

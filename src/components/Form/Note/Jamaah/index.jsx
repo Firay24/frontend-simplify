@@ -5,7 +5,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import SubmitButton from '../../../Button/ButtonOnClick';
+import SubmitButton from 'components/Button/ButtonOnClick';
 
 function NoteContainer({
   prevNote, prevNotes, addNote, updateNote,

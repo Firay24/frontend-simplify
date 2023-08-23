@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {
-  getFlock, getFunctionals, getClasses, getSuluks, getNotesFlock, updateFlock, updateFunctional, updateClass, updateSuluk, updateNoteFlock,
+  getFlock, getFunctionals, getClasses, getSuluks, getNotesFlock, updateFlock, updateFunctional, updateClass, updateSuluk, updateNoteFlockBio,
 } from 'utils/apiData';
 import {
   getProvince, getRegency, getSubdistrict, getWard,
@@ -27,7 +27,7 @@ function EditPage() {
     updateClass: false,
     updateSuluk: false,
     updateFunctional: false,
-    updateNoteFlock: false,
+    updateNoteFlockBio: false,
   });
 
   const [province, setProvince] = useState({ data: [] });
@@ -144,10 +144,10 @@ function EditPage() {
 
   const handleUpdateNote = async (value) => {
     try {
-      const response = await updateNoteFlock(value);
+      const response = await updateNoteFlockBio(value);
       console.log('Data catatan berhasil diperbarui', response);
       setStatus({
-        updateNoteFlock: true,
+        updateNoteFlockBio: true,
       });
     } catch (error) {
       console.log('Data catatan gagal diperbarui', error.message);

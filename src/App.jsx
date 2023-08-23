@@ -2,30 +2,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import SideBar from './components/SideBar';
-import { putAccessToken, getUserLogged, getAccessToken } from './utils/apiData';
+import SideBar from 'components/SideBar';
+import { putAccessToken, getUserLogged, getAccessToken } from 'utils/apiData';
 
-import LoginPage from './features/Login-Register/LoginPage';
-import RegisterPage from './features/Login-Register/RegisterPage';
-import Navigation from './components/Navigation';
+import LoginPage from 'features/Login-Register/LoginPage';
+import RegisterPage from 'features/Login-Register/RegisterPage';
+import Navigation from 'components/Navigation';
 
-import ListPageJamaah from './features/Jamaah/ListPage';
-import CreatePageJamaah from './features/Jamaah/CreatePage';
-import DetailPageJamaah from './features/Jamaah/DetailPage';
-import EditPageJamaah from './features/Jamaah/EditPage';
+import ListPageJamaah from 'features/Jamaah/ListPage';
+import CreatePageJamaah from 'features/Jamaah/CreatePage';
+import DetailPageJamaah from 'features/Jamaah/DetailPage';
+import EditPageJamaah from 'features/Jamaah/EditPage';
 
-import ListPageMZ from './features/MZ/ListPage';
-import CreatePageMZ from './features/MZ/CreatePage';
-import DetailPageMZ from './features/MZ/DetailPage';
-import EditPageMZ from './features/MZ/EditPage';
+import ListPageMZ from 'features/MZ/ListPage';
+import CreatePageMZ from 'features/MZ/CreatePage';
+import DetailPageMZ from 'features/MZ/DetailPage';
+import EditPageMZ from 'features/MZ/EditPage';
 
-import ListPageFungsional from './features/Fungsional/ListPage';
-import CreatePageFungsional from './features/Fungsional/CreatePage';
+import ListPageFungsional from 'features/Fungsional/ListPage';
+import CreatePageFungsional from 'features/Fungsional/CreatePage';
 
-import NotesPageJamaah from './features/Note/Jamaah/ListPage';
-import DetailNotePageJamaah from './features/Note/Jamaah/DetailPage';
-import EditNotePageJamaah from './features/Note/Jamaah/EditPage';
-import CreateNotePageJamaah from './features/Note/Jamaah/CreatePage';
+import NotesPageJamaah from 'features/Note/Jamaah/ListPage';
+import DetailNotePageJamaah from 'features/Note/Jamaah/DetailPage';
+import EditNotePageJamaah from 'features/Note/Jamaah/EditPage';
+import CreateNotePageJamaah from 'features/Note/Jamaah/CreatePage';
+
+import CreateNotePageMz from 'features/Note/MZ/CreatePage';
 
 function App() {
   const [authedUser, setAuthedUser] = useState(null);
@@ -102,6 +104,7 @@ function App() {
           <Route path="/mz/addData" element={<CreatePageMZ />} />
           <Route path="/mz/detailData/:id" element={<DetailPageMZ />} />
           <Route path="/mz/editData/:id" element={<EditPageMZ />} />
+          <Route path="/mz/catatan/addData/:id" element={<CreateNotePageMz />} />
 
           <Route path="/fungsional/listData" element={<ListPageFungsional />} />
           <Route path="/fungsional/addData" element={<CreatePageFungsional />} />
