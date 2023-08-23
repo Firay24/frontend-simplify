@@ -30,6 +30,7 @@ import CreateNotePageJamaah from 'features/Note/Jamaah/CreatePage';
 import CreateNotePageMZ from 'features/Note/MZ/CreatePage';
 import NotePageMZ from 'features/Note/MZ/ListPage';
 import DetailNotePageMZ from 'features/Note/MZ/DetailPage';
+import EditNotePageMZ from 'features/Note/MZ/EditPage';
 
 function App() {
   const [authedUser, setAuthedUser] = useState(null);
@@ -109,6 +110,7 @@ function App() {
           <Route path="/mz/catatan/addData/:id" element={<CreateNotePageMZ />} />
           <Route path="/mz/catatan/listData/:id" element={<NotePageMZ />} />
           <Route path="/mz/catatan/detailData/:id/:idNote" element={<DetailNotePageMZ />} />
+          <Route path="/mz/catatan/editData/:id/:idNote" element={<EditNotePageMZ />} />
 
           <Route path="/fungsional/listData" element={<ListPageFungsional />} />
           <Route path="/fungsional/addData" element={<CreatePageFungsional />} />
