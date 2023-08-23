@@ -57,7 +57,7 @@ function InputHeadOfBoard({
             type="number"
             id="SKYear"
             name="SKYear"
-            value={convertToTitleCase(headData.SKYear)}
+            value={headData.SKYear}
             onChange={(event) => handleChange(event, 'SKYear')}
             autoComplete="new-password"
             className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"

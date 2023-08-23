@@ -10,15 +10,17 @@ import SubmitButton from 'components/Button/ButtonOnClick';
 import Loading from 'components/Loading';
 
 function EditDataSection({
-  flock, functional, classes, suluk, updateFlock, updateFunctional, updateClass, updateSuluk, updatePersonalData, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
+  flock, functional, classes, suluk, notes, updateFlock, updateFunctional, updateClass, updateSuluk, updateNote, updatePersonalData, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
 }) {
   const [dataComponent, setDataComponent] = useState({});
   const [dataFunctional, setDataFunctional] = useState({});
   const [dataClass, setDataClass] = useState({});
   const [dataSuluk, setDataSuluk] = useState({});
+  const [dataNote, setDataNote] = useState({});
   const [buttonOnClick, setButtonOnClik] = useState(false);
   const [selectedGender, setSelectedGender] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabledButton, setIsDisabledButton] = useState(true);
 
   const handleInputChange = useCallback((data) => {
     setDataComponent((prevState) => ({
@@ -34,11 +36,16 @@ function EditDataSection({
     }
     updateClass(dataClass && dataClass);
     updateSuluk(dataSuluk && dataSuluk);
+    updateNote(dataNote && dataNote);
     setButtonOnClik(true);
   };
 
   const handlerSelectedGender = (value) => {
     setSelectedGender(value);
+  };
+
+  const handlerConfirmIsNullOnInput = (value) => {
+    setIsDisabledButton(value);
   };
 
   useEffect(() => {
@@ -52,10 +59,11 @@ function EditDataSection({
         ...functional, // Keep other attributes from functional
         fathersName: dataComponent.fathersName,
         nik: dataComponent.nik,
+        name: dataComponent.name,
         updatedAt,
       }));
     }
-  }, [functional, dataComponent]);
+  }, [dataComponent]);
 
   useEffect(() => {
     const updatedAt = new Date();
@@ -64,10 +72,11 @@ function EditDataSection({
         ...classes,
         fathersName: dataComponent.fathersName,
         nik: dataComponent.nik,
+        name: dataComponent.name,
         updatedAt,
       }));
     }
-  }, [classes, dataComponent]);
+  }, [dataComponent]);
 
   useEffect(() => {
     const updatedAt = new Date();
@@ -76,10 +85,24 @@ function EditDataSection({
         ...suluk,
         fathersName: dataComponent.fathersName,
         nik: dataComponent.nik,
+        name: dataComponent.name,
         updatedAt,
       }));
     }
-  }, [suluk, dataComponent]);
+  }, [dataComponent]);
+
+  useEffect(() => {
+    const updatedAt = new Date();
+    if (notes !== undefined) {
+      setDataNote(() => ({
+        ...notes,
+        fathersName: dataComponent.fathersName,
+        nik: dataComponent.nik,
+        name: dataComponent.name,
+        updatedAt,
+      }));
+    }
+  }, [dataComponent]);
 
   useEffect(() => {
     if (flock !== undefined && flock !== null) {
@@ -100,6 +123,7 @@ function EditDataSection({
                   buttonOnClick={buttonOnClick}
                   sendGender={handlerSelectedGender}
                   updatePersonalData={updatePersonalData}
+                  confirmInputIsNull={handlerConfirmIsNullOnInput}
                 />
               )
           }
@@ -137,7 +161,7 @@ function EditDataSection({
         }
       </div>
       <div className="mt-8 mb-8 flex justify-end">
-        <SubmitButton text="Submit" onClick={handleSubmitButton} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
+        <SubmitButton text="Submit" onClick={handleSubmitButton} handlerOnDisabled={isDisabledButton} bgColor="w-1/6 bg-basic-blue hover:bg-blue-dark text-white text-sm" />
       </div>
     </div>
   );
@@ -148,10 +172,12 @@ EditDataSection.propTypes = {
   functional: PropTypes.object,
   classes: PropTypes.object,
   suluk: PropTypes.object,
+  notes: PropTypes.object,
   updateFlock: PropTypes.func,
   updateFunctional: PropTypes.func,
   updateClass: PropTypes.func,
   updateSuluk: PropTypes.func,
+  updateNote: PropTypes.func,
   updatePersonalData: PropTypes.func,
   province: PropTypes.object,
   selectedProvince: PropTypes.func,

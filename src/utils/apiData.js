@@ -250,19 +250,6 @@ async function importFileBoards(file) {
   return { error: true, data: [] };
 }
 
-// BOARD'S NOTES
-async function getNotesBoard() {
-  const response = await fetchWithToken(`${BASE_URL}/noteBoard/getNotes`);
-  const responseJson = await response.json();
-
-  if (responseJson.status !== 'success') {
-    console.log(responseJson.message);
-    return { error: true, data: [] };
-  }
-
-  return { error: false, data: responseJson.data };
-}
-
 // FUNCTIONAL
 async function getFunctionals() {
   const response = await fetch(`${BASE_URL}/functionals/getFunctionals`);
@@ -463,6 +450,76 @@ async function addNoteFlock({
   return { error: false, data: responseJson.data.flock };
 }
 
+// NOTE'S BOARD
+async function getNotesBoard() {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/getNotes`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function getNoteBoard(id) {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/getNote/${id}`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function updateNoteBoard({
+  _id, name, nik, fathersName, details,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/updatedNote/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, nik, fathersName, details,
+    }),
+  });
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
+async function addNoteBoard({
+  name, nik, fathersName, details,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/noteBoard/addNote`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name, nik, fathersName, details,
+    }),
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    alert(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data.flock };
+}
+
 export {
   getAccessToken,
   login,
@@ -479,7 +536,6 @@ export {
   addBoard,
   updateBoard,
   importFileBoards,
-  getNotesBoard,
   getFunctionals,
   addFunctional,
   updateFunctional,
@@ -491,4 +547,8 @@ export {
   getNoteFlock,
   updateNoteFlock,
   addNoteFlock,
+  getNotesBoard,
+  getNoteBoard,
+  updateNoteBoard,
+  addNoteBoard,
 };

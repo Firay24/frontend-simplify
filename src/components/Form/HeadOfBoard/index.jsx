@@ -70,7 +70,7 @@ function HeadofBoardContainer({
     <div className="grid grid-rows-2 grid-flow-col gap-x-5 gap-y-5 mt-5">
       <div>
         <InputHeadOfBoard
-          headData={board.head1}
+          headData={board && board.head1}
           onInputChange={handleInputChange}
           headLevel={headLevel[0]}
           headKey="head1"
@@ -78,7 +78,7 @@ function HeadofBoardContainer({
       </div>
       <div>
         <InputHeadOfBoard
-          headData={board.head2}
+          headData={board && board.head2}
           onInputChange={handleInputChange}
           headLevel={headLevel[1]}
           headKey="head2"
@@ -86,7 +86,7 @@ function HeadofBoardContainer({
       </div>
       <div>
         <InputHeadOfBoard
-          headData={board.head3}
+          headData={board && board.head3}
           onInputChange={handleInputChange}
           headLevel={headLevel[2]}
           headKey="head3"

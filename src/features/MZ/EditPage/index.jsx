@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {
-  getFlock, getFunctionals, getClasses, getSuluks, getNotesFlock, updateFlock, updateFunctional, updateClass, updateSuluk, updateNoteFlock,
+  getBoard, getNotesBoard, updateBoard, updateNoteBoard,
 } from 'utils/apiData';
 import {
   getProvince, getRegency, getSubdistrict, getWard,
@@ -13,23 +13,16 @@ import EditDataSection from './Layout/EditDataSection';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EditPage() {
-  const [flock, setFlock] = useState({ error: false, data: null });
-  const [classes, setClasses] = useState({ error: false, data: [] });
-  const [classItem, setClassItem] = useState({ error: false, data: null });
-  const [suluks, setSuluks] = useState({ error: false, data: [] });
-  const [suluk, setSuluk] = useState({ error: false, data: null });
+  // edit data state
+  const [board, setBoard] = useState({ error: false, data: null });
   const [notes, setNotes] = useState({ error: false, data: [] });
   const [note, setNote] = useState({ error: false, data: null });
-  const [functionals, setFunctionals] = useState({ error: false, data: [] });
-  const [functional, setFunctional] = useState({ error: false, data: null });
   const [status, setStatus] = useState({
-    updateFlock: false,
-    updateClass: false,
-    updateSuluk: false,
-    updateFunctional: false,
-    updateNoteFlock: false,
+    updateBoard: false,
+    updateNoteBoard: false,
   });
 
+  // location state
   const [province, setProvince] = useState({ data: [] });
   const [selectedProvince, setSelectedProvince] = useState('');
   const [regency, setRegency] = useState({ data: [] });
@@ -41,6 +34,7 @@ function EditPage() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // notification
   const notifySuccess = () => {
     const message = 'Data berhasil diperbarui';
 
@@ -56,7 +50,7 @@ function EditPage() {
     });
   };
 
-  const notifyErrord = () => {
+  const notifyError = () => {
     const message = 'Data gagal diperbarui';
 
     toast.error(message, {
@@ -92,62 +86,26 @@ function EditPage() {
     }
   };
 
-  const handleUpdateFlock = async (value) => {
+  const handleUpdateBoard = async (value) => {
     try {
-      const response = await updateFlock(value);
+      const response = await updateBoard(value);
       notifySuccess();
       console.log('Data biodata berhasil diperbarui', response);
       setStatus({
-        updateFlock: true,
+        updateBoard: true,
       });
     } catch (error) {
-      notifyErrord();
-      console.log('Gagal memperbarui data lainnya', error.message);
-    }
-  };
-
-  const handleUpdateFunctional = async (value) => {
-    try {
-      const response = await updateFunctional(value);
-      console.log('Data fungsional berhasil diperbarui', response);
-      setStatus({
-        updateFunctional: true,
-      });
-    } catch (error) {
-      console.log('Gagal memperbarui data fungsional', error.message);
-    }
-  };
-
-  const handleUpdateClasses = async (value) => {
-    try {
-      const response = await updateClass(value);
-      console.log('Data kelas berhasil diperbarui', response);
-      setStatus({
-        updateClass: true,
-      });
-    } catch (error) {
-      console.log('Gagal memperbarui data kelas', error.message);
-    }
-  };
-
-  const handleUpdateSuluk = async (value) => {
-    try {
-      const response = await updateSuluk(value);
-      console.log('Data suluk berhasil diperbarui', response);
-      setStatus({
-        updateSuluk: true,
-      });
-    } catch (error) {
-      console.log('Data suluk gagal diperbarui', error.message);
+      notifyError();
+      console.log('Gagal memperbarui data', error.message);
     }
   };
 
   const handleUpdateNote = async (value) => {
     try {
-      const response = await updateNoteFlock(value);
+      const response = await updateNoteBoard(value);
       console.log('Data catatan berhasil diperbarui', response);
       setStatus({
-        updateNoteFlock: true,
+        updateNoteBoard: true,
       });
     } catch (error) {
       console.log('Data catatan gagal diperbarui', error.message);
@@ -155,9 +113,9 @@ function EditPage() {
   };
 
   useEffect(() => {
-    if (status.updateFlock || status.updateClass || status.updateSuluk || status.updateFunctional) {
+    if (status.updateBoard || status.updateNoteBoard) {
       setTimeout(() => {
-        navigate(`/jamaah/detailData/${id}`);
+        navigate(`/mz/detailData/${id}`);
       }, 2000);
     }
   }, [status]);
@@ -165,62 +123,20 @@ function EditPage() {
   useEffect(() => {
     const fetchData = async (idParams) => {
       try {
-        const result = await getFlock(idParams);
-        setFlock(result);
+        const result = await getBoard(idParams);
+        setBoard(result);
       } catch (error) {
-        setFlock({ error: true, data: null });
+        setBoard({ error: true, data: null });
       }
     };
-
     fetchData(id);
   }, [id]);
-  const detailFlock = flock && flock.data && flock.data.flock;
+  const detailBoard = board && board.data && board.data.board;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getFunctionals();
-        setFunctionals(result);
-      } catch (error) {
-        setFunctionals({ error: true, data: [] });
-      }
-    };
-
-    fetchData();
-  }, []);
-  const dataFunctionals = functionals && functionals.data && functionals.data.functionals;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getClasses();
-        setClasses(result);
-      } catch (error) {
-        setClasses({ error: true, data: [] });
-      }
-    };
-
-    fetchData();
-  }, []);
-  const dataClasses = classes && classes.data && classes.data.classes;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getSuluks();
-        setSuluks(result);
-      } catch (error) {
-        setSuluks({ error: true, data: [] });
-      }
-    };
-    fetchData();
-  }, []);
-  const dataSuluk = suluks && suluks.data && suluks.data.suluks;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getNotesFlock();
+        const result = await getNotesBoard();
         setNotes(result);
       } catch (error) {
         setNotes({ error: true, data: [] });
@@ -231,32 +147,11 @@ function EditPage() {
   const dataNote = notes && notes.data && notes.data.notes;
 
   useEffect(() => {
-    const detailClass = detailFlock && dataClasses && dataClasses.find((item) => item.nik === detailFlock.nik && item.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
-    if (detailClass) {
-      setClassItem(detailClass);
-    }
-  }, [dataClasses, detailFlock]);
-
-  useEffect(() => {
-    const detailSuluk = detailFlock && dataSuluk && dataSuluk.find((sulukItem) => sulukItem.nik === detailFlock.nik && sulukItem.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
-    if (detailSuluk) {
-      setSuluk(detailSuluk);
-    }
-  }, [dataSuluk, detailFlock]);
-
-  useEffect(() => {
-    const detailFunctional = detailFlock && dataFunctionals && dataFunctionals.find((item) => item.nik === detailFlock.nik && item.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
-    if (detailFunctional) {
-      setFunctional(detailFunctional);
-    }
-  }, [dataFunctionals, detailFlock]);
-
-  useEffect(() => {
-    const detailNote = detailFlock && dataNote && dataNote.find((item) => item.nik === detailFlock.nik && item.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
+    const detailNote = detailBoard && dataNote && dataNote.find((item) => item.nik === detailBoard.nik && item.fathersName.toLowerCase() === detailBoard.fathersName.toLowerCase());
     if (detailNote) {
       setNote(detailNote);
     }
-  }, [dataNote, detailFlock]);
+  }, [dataNote, detailBoard]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -313,16 +208,10 @@ function EditPage() {
       </div>
       <div>
         <EditDataSection
-          flock={detailFlock && detailFlock}
-          classes={classItem && classItem}
-          suluk={suluk && suluk}
-          functional={functional && functional}
+          board={detailBoard && detailBoard}
           notes={note && note}
-          updateFlock={handleUpdateFlock}
-          updateFunctional={handleUpdateFunctional}
-          updateClass={handleUpdateClasses}
-          updateSuluk={handleUpdateSuluk}
-          updateNote={handleUpdateNote}
+          updateBoard={handleUpdateBoard}
+          updateNoteBoard={handleUpdateNote}
           province={province && province}
           selectedProvince={handleSelectedProvince}
           regency={regency && regency}

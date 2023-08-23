@@ -115,7 +115,9 @@ function BiodataContainer({
   }, [flock]);
 
   useEffect(() => {
-    confirmInputIsNull(onInputIsNull);
+    if (confirmInputIsNull) {
+      confirmInputIsNull(onInputIsNull);
+    }
   }, [onInputIsNull]);
 
   return (

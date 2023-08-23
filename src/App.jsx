@@ -17,6 +17,7 @@ import EditPageJamaah from './features/Jamaah/EditPage';
 import ListPageMZ from './features/MZ/ListPage';
 import CreatePageMZ from './features/MZ/CreatePage';
 import DetailPageMZ from './features/MZ/DetailPage';
+import EditPageMZ from './features/MZ/EditPage';
 
 import ListPageFungsional from './features/Fungsional/ListPage';
 import CreatePageFungsional from './features/Fungsional/CreatePage';
@@ -100,6 +101,7 @@ function App() {
           <Route path="/mz/listData" element={<ListPageMZ />} />
           <Route path="/mz/addData" element={<CreatePageMZ />} />
           <Route path="/mz/detailData/:id" element={<DetailPageMZ />} />
+          <Route path="/mz/editData/:id" element={<EditPageMZ />} />
 
           <Route path="/fungsional/listData" element={<ListPageFungsional />} />
           <Route path="/fungsional/addData" element={<CreatePageFungsional />} />
