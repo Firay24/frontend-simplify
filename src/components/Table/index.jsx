@@ -50,7 +50,10 @@ function TableSection({
 TableSection.propTypes = {
   columnsName: PropTypes.arrayOf(PropTypes.string),
   rowsName: PropTypes.arrayOf(PropTypes.string),
-  data: PropTypes.object,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
   pathNote: PropTypes.string,

@@ -252,7 +252,7 @@ async function importFileBoards(file) {
 
 // FUNCTIONAL
 async function getFunctionals() {
-  const response = await fetch(`${BASE_URL}/functionals/getFunctionals`);
+  const response = await fetchWithToken(`${BASE_URL}/functionals/getFunctionals`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
