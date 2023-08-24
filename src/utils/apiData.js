@@ -310,6 +310,24 @@ async function updateFunctional({
   return { error: false, data: responseJson.data };
 }
 
+async function importFileFunctionals(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const response = await fetchWithToken(`${BASE_URL}/functionals/importFunctional`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: true, data: [] };
+}
+
 // SULUK
 async function getSuluks() {
   const response = await fetch(`${BASE_URL}/suluk/getSuluks`);
@@ -583,6 +601,7 @@ export {
   getFunctionals,
   addFunctional,
   updateFunctional,
+  importFileFunctionals,
   getSuluks,
   updateSuluk,
   getClasses,

@@ -50,11 +50,15 @@ function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
   };
 
   useEffect(() => {
-    const dataToSubmit = {
-      ...personalData,
-      ...functional,
-    };
-    onInputChange(dataToSubmit);
+    if (personalData.name !== '' && personalData.nik !== '' && personalData.fathersName !== '') {
+      const dataToSubmit = {
+        ...personalData,
+        ...functional,
+      };
+      onInputChange(dataToSubmit);
+    } else {
+      onInputChange(functional);
+    }
   }, [buttonOnClick, functional, onInputChange, personalData]);
 
   useEffect(() => {

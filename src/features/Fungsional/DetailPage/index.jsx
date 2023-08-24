@@ -52,7 +52,6 @@ function DetailPage() {
 
   useEffect(() => {
     if (detailFlock !== undefined && dataFunctionals !== undefined) {
-      console.log('test');
       const detailFunctional = detailFlock && dataFunctionals && dataFunctionals.find((functionalData) => functionalData.nik === detailFlock.nik && functionalData.fathersName === detailFlock.fathersName);
       if (detailFunctional) {
         setFunctional(detailFunctional);

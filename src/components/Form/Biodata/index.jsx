@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import convertToTitleCase from 'utils/convertToTitleCase';
 
 function BiodataContainer({
-  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull, formData,
+  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull, formData, isFunctional,
 }) {
   const [flock, setFlock] = useState({
     name: '',
@@ -95,7 +95,9 @@ function BiodataContainer({
   }, [buttonOnClick, flock, onInputChange]);
 
   useEffect(() => {
-    sendGender(flock.gender);
+    if (sendGender) {
+      sendGender(flock.gender);
+    }
   }, [flock, sendGender]);
 
   useEffect(() => {
@@ -174,20 +176,24 @@ function BiodataContainer({
             className={`rounded text-xs border-gray-400 ${isInputTouched.fathersName && flock.fathersName === '' ? 'border-red-400' : ''}`}
           />
         </div>
-        <div className="grid grid-cols-2 items-center">
-          <label htmlFor="gender">Jenis kelamin</label>
-          <select
-            name="gender"
-            id="gender"
-            value={flock.gender}
-            onChange={handleInputChange}
-            className="rounded text-xs border-gray-400"
-          >
-            <option value="" disabled>Pilih</option>
-            <option value="laki-laki">Laki-laki</option>
-            <option value="perempuan">Perempuan</option>
-          </select>
-        </div>
+        {
+          !isFunctional ? (
+            <div className="grid grid-cols-2 items-center">
+              <label htmlFor="gender">Jenis kelamin</label>
+              <select
+                name="gender"
+                id="gender"
+                value={flock.gender}
+                onChange={handleInputChange}
+                className="rounded text-xs border-gray-400"
+              >
+                <option value="" disabled>Pilih</option>
+                <option value="laki-laki">Laki-laki</option>
+                <option value="perempuan">Perempuan</option>
+              </select>
+            </div>
+          ) : null
+        }
         <div className="grid grid-cols-2 items-center">
           <label htmlFor="placesBirth">Tempat lahir</label>
           <input
@@ -211,18 +217,22 @@ function BiodataContainer({
             className="rounded text-xs border-gray-400"
           />
         </div>
-        <div className="grid grid-cols-2 items-center">
-          <label htmlFor="job">Pekerjaan</label>
-          <input
-            type="text"
-            id="job"
-            name="job"
-            value={flock.job && convertToTitleCase(flock.job)}
-            onChange={handleInputChange}
-            autoComplete="new-password"
-            className="rounded text-xs border-gray-400"
-          />
-        </div>
+        {
+          !isFunctional ? (
+            <div className="grid grid-cols-2 items-center">
+              <label htmlFor="job">Pekerjaan</label>
+              <input
+                type="text"
+                id="job"
+                name="job"
+                value={flock.job && convertToTitleCase(flock.job)}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                className="rounded text-xs border-gray-400"
+              />
+            </div>
+          ) : null
+        }
         <div className="grid grid-cols-2 items-center">
           <label htmlFor="numberPhone">Nomer HP</label>
           <input
@@ -235,6 +245,22 @@ function BiodataContainer({
             className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>
+        {
+          isFunctional ? (
+            <div className="grid grid-cols-2 items-center">
+              <label htmlFor="numberPhone">Asal MZ</label>
+              <input
+                type="text"
+                id="mzOrigin"
+                name="mzOrigin"
+                value={flock.mzOrigin}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                className="rounded text-xs border-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            </div>
+          ) : null
+        }
       </form>
     </div>
   );
@@ -248,6 +274,11 @@ BiodataContainer.propTypes = {
   prevFlock: PropTypes.object,
   confirmInputIsNull: PropTypes.func,
   formData: PropTypes.object,
+  isFunctional: PropTypes.bool,
+};
+
+BiodataContainer.defaultProps = {
+  isFunctional: false,
 };
 
 export default BiodataContainer;
