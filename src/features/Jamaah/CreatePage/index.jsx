@@ -37,7 +37,7 @@ function CreateData() {
     fathersName: '',
   });
   const [flocks, setFlocks] = useState({ error: false, data: [] });
-  const [anotherBio, setAnotherBio] = useState('');
+  const [anotherBio, setAnotherBio] = useState({});
 
   // data location
   const [province, setProvince] = useState({ data: [] });
@@ -136,6 +136,7 @@ function CreateData() {
       const response = await updateFlock(anotherData);
       notifySuccessAddData();
       console.log('Data biodata lainnya berhasil ditambahkan', response);
+      setStatus(true);
     } catch (error) {
       console.log('Gagal menambahkan data biodata lainnya', error.message);
     }
@@ -146,6 +147,7 @@ function CreateData() {
       const response = await importFileFlocks(file);
       notifySuccessAddData();
       console.log('Data berhasil ditambahkan', response);
+      setStatus(true);
     } catch (error) {
       console.log('Gagal menambahkan data', error.message);
     }
@@ -231,16 +233,20 @@ function CreateData() {
         console.log(error.message);
       }
     };
-    fetchData();
-  }, [formData]);
-
-  const { dataOfFlock } = flocks;
-  const dataFlocks = dataOfFlock && dataOfFlock.flocks;
+    if (hasSubmitted) {
+      fetchData();
+    }
+  }, [hasSubmitted]);
+  const dataFlocks = flocks.data.flocks || [];
 
   useEffect(() => {
-    const flockByNik = flocks.data && flocks.data.flocks && flocks.data.flocks.find((flock) => flock.nik === formData.nik && flock.fathersName === formData.fathersName);
-    setAnotherBio(flockByNik);
-  }, [flocks, anotherBio, formData, hasSubmitted, dataFlocks]);
+    if (dataFlocks.length !== 0 && formData) {
+      const flockByNik = dataFlocks && dataFlocks.find((flock) => flock.nik === formData.nik && flock.fathersName.toLowerCase() === formData.fathersName.toLowerCase());
+      if (flockByNik) {
+        setAnotherBio(flockByNik);
+      }
+    }
+  }, [formData, dataFlocks]);
 
   useEffect(() => {
     if (status) {

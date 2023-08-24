@@ -75,6 +75,7 @@ function InputDataSection({
   const handleSubmitAnotherBio = () => {
     const addDataFlock = {
       id: anotherBio._id,
+      ...anotherBio,
       ...dataAnotherBio,
     };
     putFlock(addDataFlock);
