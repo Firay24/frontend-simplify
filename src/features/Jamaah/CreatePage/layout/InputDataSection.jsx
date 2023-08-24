@@ -29,6 +29,7 @@ function InputDataSection({
   selectedSubdistrict,
   ward,
   anotherBio,
+  formData,
 }) {
   const [dataComponent, setDataComponent] = useState({});
   const [dataFunctional, setDataFunctional] = useState({});
@@ -147,6 +148,8 @@ function InputDataSection({
                         onInputChange={handleInputChangeFlock}
                         buttonOnClick={buttonOnClick}
                         sendGender={handlerSelectedGender}
+                        formData={formData}
+                        confirmInputIsNull={handlerConfirmIsNullOnInput}
                       />
                     </div>
                     <div>
@@ -196,6 +199,7 @@ InputDataSection.propTypes = {
   selectedSubdistrict: PropTypes.func,
   ward: PropTypes.object,
   anotherBio: PropTypes.object,
+  formData: PropTypes.object,
 };
 
 export default InputDataSection;

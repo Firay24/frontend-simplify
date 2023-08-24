@@ -206,8 +206,8 @@ function CreateData() {
     fetchData();
   }, [hasSubmitted]);
 
-  const { data } = functionals;
-  const dataFunctional = data && data.functionals;
+  // const { data } = functionals;
+  // const dataFunctional = data && data.functionals;
 
   useEffect(() => {
     if (hasSubmitted) {
@@ -217,7 +217,7 @@ function CreateData() {
       setIsAvailable(isDataAvailable);
       notifyIsAvailableData(isDataAvailable);
     }
-  }, [hasSubmitted, formData.nik, formData.fathersName, functionals.data, dataFunctional]);
+  }, [hasSubmitted]);
 
   // add data process
   useEffect(() => {
@@ -342,6 +342,7 @@ function CreateData() {
                   subdistrict={subdistrict && subdistrict}
                   selectedSubdistrict={handleSelectedSubdistrict}
                   ward={ward && ward}
+                  formData={formData && formData}
                 />
               )
           }

@@ -32,7 +32,7 @@ function FunctionalItemContainer({ functional, functionalLevel }) {
           </div>
           <div className="flex flex-col gap-y-1 mt-3">
             <p>Catatan</p>
-            <p className="text-basic-grey text-sm font-medium">{functional && functional.notes === '' ? '-' : functional.notes}</p>
+            <p className="text-basic-grey text-sm font-medium">{functional && functional.notes ? functional.notes : '-'}</p>
           </div>
         </div>
       </div>

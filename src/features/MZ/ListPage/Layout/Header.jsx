@@ -7,7 +7,7 @@ function Header() {
     <div className="flex items-center justify-between">
       <Title title="Data MZ" subheader="Data MZ" />
       <div>
-        <AddButton text="Data jamaah" path="/mz/addData" addButton />
+        <AddButton text="Data MZ" path="/mz/addData" addButton />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/prop-types */
@@ -8,7 +9,7 @@ import PropTypes from 'prop-types';
 import convertToTitleCase from 'utils/convertToTitleCase';
 
 function BiodataContainer({
-  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull,
+  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull, formData,
 }) {
   const [flock, setFlock] = useState({
     name: '',
@@ -30,6 +31,16 @@ function BiodataContainer({
     nik: false,
     fathersName: false,
   });
+
+  useEffect(() => {
+    if (formData !== null && formData !== undefined) {
+      setFlock({
+        name: '',
+        nik: formData.nik,
+        fathersName: formData.fathersName,
+      });
+    }
+  }, [formData]);
 
   useEffect(() => {
     if (prevFlock !== null && prevFlock !== undefined) {
@@ -130,11 +141,11 @@ function BiodataContainer({
             type="text"
             id="name"
             name="name"
-            value={convertToTitleCase(flock.name)}
+            value={flock.name && convertToTitleCase(flock.name)}
             onChange={handleInputChange}
             onBlur={() => handleInputBlur('name')}
             autoComplete="new-password"
-            className={`rounded text-xs border-gray-400 ${isInputTouched.name && flock.name === '' ? 'border-red-400' : ''}`}
+            className={`rounded text-xs border-gray-400 ${isInputTouched.name && (flock.name === '') ? 'border-red-400' : ''}`}
           />
         </div>
         <div className="grid grid-cols-2 items-center">
@@ -156,7 +167,7 @@ function BiodataContainer({
             type="text"
             id="fathersName"
             name="fathersName"
-            value={convertToTitleCase(flock.fathersName)}
+            value={flock.fathersName && convertToTitleCase(flock.fathersName)}
             onChange={handleInputChange}
             onBlur={() => handleInputBlur('fathersName')}
             autoComplete="new-password"
@@ -183,7 +194,7 @@ function BiodataContainer({
             type="text"
             id="placesBirth"
             name="placesBirth"
-            value={convertToTitleCase(flock.placesBirth)}
+            value={flock.placesBirth && convertToTitleCase(flock.placesBirth)}
             onChange={handleInputChange}
             autoComplete="new-password"
             className="rounded text-xs border-gray-400"
@@ -206,7 +217,7 @@ function BiodataContainer({
             type="text"
             id="job"
             name="job"
-            value={convertToTitleCase(flock.job)}
+            value={flock.job && convertToTitleCase(flock.job)}
             onChange={handleInputChange}
             autoComplete="new-password"
             className="rounded text-xs border-gray-400"
@@ -236,6 +247,7 @@ BiodataContainer.propTypes = {
   sendGender: PropTypes.func,
   prevFlock: PropTypes.object,
   confirmInputIsNull: PropTypes.func,
+  formData: PropTypes.object,
 };
 
 export default BiodataContainer;
