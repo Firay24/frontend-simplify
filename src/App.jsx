@@ -21,6 +21,7 @@ import EditPageMZ from 'features/MZ/EditPage';
 
 import ListPageFungsional from 'features/Fungsional/ListPage';
 import CreatePageFungsional from 'features/Fungsional/CreatePage';
+import DetailPageFungsional from 'features/Fungsional/DetailPage';
 
 import NotesPageJamaah from 'features/Note/Jamaah/ListPage';
 import DetailNotePageJamaah from 'features/Note/Jamaah/DetailPage';
@@ -114,6 +115,7 @@ function App() {
 
           <Route path="/fungsional/listData" element={<ListPageFungsional />} />
           <Route path="/fungsional/addData" element={<CreatePageFungsional />} />
+          <Route path="/fungsional/detailData/:id" element={<DetailPageFungsional />} />
         </Routes>
       </main>
     </div>
