@@ -1,9 +1,13 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
+function FunctionalContainer({
+  onInputChange, buttonOnClick, personalData, prevFunctional,
+}) {
   const [functional, setFunctional] = useState({
     petoto: {
       status: '',
@@ -35,14 +39,50 @@ function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
     },
   });
 
+  useEffect(() => {
+    if (prevFunctional && prevFunctional.petoto) {
+      setFunctional({
+        id: prevFunctional._id,
+        petoto: {
+          status: prevFunctional.petoto.status,
+          time: prevFunctional.petoto.time,
+          timeLifted: prevFunctional.petoto.timeLifted,
+          location: prevFunctional.petoto.location,
+          notes: prevFunctional.petoto.notes,
+        },
+        pentawajuh: {
+          status: prevFunctional.pentawajuh.status,
+          time: prevFunctional.pentawajuh.time,
+          timeLifted: prevFunctional.pentawajuh.timeLifted,
+          location: prevFunctional.pentawajuh.location,
+          notes: prevFunctional.pentawajuh.notes,
+        },
+        pentarekat: {
+          status: prevFunctional.pentarekat.status,
+          time: prevFunctional.pentarekat.time,
+          timeLifted: prevFunctional.pentarekat.timeLifted,
+          location: prevFunctional.pentarekat.location,
+          notes: prevFunctional.pentarekat.notes,
+        },
+        pz: {
+          status: prevFunctional.pz.status,
+          time: prevFunctional.pz.time,
+          timeLifted: prevFunctional.pz.timeLifted,
+          location: prevFunctional.pz.location,
+          notes: prevFunctional.pz.notes,
+        },
+      });
+    }
+  }, [prevFunctional]);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     const [section, property] = name.split('.');
 
-    setFunctional((prevFunctional) => ({
-      ...prevFunctional,
+    setFunctional((prevState) => ({
+      ...prevState,
       [section]: {
-        ...prevFunctional[section],
+        ...prevState[section],
         [property]: value,
       },
 
@@ -50,7 +90,7 @@ function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
   };
 
   useEffect(() => {
-    if (personalData.name !== '' && personalData.nik !== '' && personalData.fathersName !== '') {
+    if (personalData && personalData.name !== '' && personalData.nik !== '' && personalData.fathersName !== '') {
       const dataToSubmit = {
         ...personalData,
         ...functional,
@@ -114,7 +154,7 @@ function FunctionalContainer({ onInputChange, buttonOnClick, personalData }) {
                   value={functional.petoto.status}
                   className="rounded text-xs border-gray-400"
                 >
-                  <option value="">pilih</option>
+                  <option value="">Pilih</option>
                   <option value="aktif">Aktif</option>
                   <option value="non-aktif">Non-Aktif</option>
                 </select>
@@ -372,6 +412,7 @@ FunctionalContainer.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   buttonOnClick: PropTypes.bool.isRequired,
   personalData: PropTypes.object.isRequired,
+  prevFunctional: PropTypes.object,
 };
 
 export default FunctionalContainer;

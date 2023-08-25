@@ -54,6 +54,7 @@ function BiodataContainer({
         gender: prevFlock.gender,
         job: convertToTitleCase(prevFlock.job),
         numberPhone: prevFlock.numberPhone,
+        mzOrigin: prevFlock.mzOrigin,
       });
     }
   }, [prevFlock]);

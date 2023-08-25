@@ -263,6 +263,18 @@ async function getFunctionals() {
   return { error: false, data: responseJson.data };
 }
 
+async function getFunctional(id) {
+  const response = await fetch(`${BASE_URL}/functionals/getFunctional/${id}`);
+  const responseJson = await response.json();
+
+  if (responseJson.status !== 'success') {
+    console.log(responseJson.message);
+    return { error: true, data: null };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 async function addFunctional({
   name, nik, fathersName, petoto, pentawajuh, pentarekat, pz,
 }) {
@@ -289,7 +301,6 @@ async function addFunctional({
 async function updateFunctional({
   _id, name, nik, fathersName, petoto, pentawajuh, pentarekat, pz,
 }) {
-  console.log(`${BASE_URL}/functionals/updateFunctionalkWithoutVerify/${_id}`);
   const response = await fetch(`${BASE_URL}/functionals/updateFunctionalkWithoutVerify/${_id}`, {
     method: 'PUT',
     headers: {
@@ -446,7 +457,7 @@ async function updateNoteFlock({
 }
 
 async function updateNoteFlockBio({
-  _id, name, nik, fathersName,
+  _id, name, nik, fathersName, details,
 }) {
   const response = await fetchWithToken(`${BASE_URL}/noteFlock/updatedNoteBio/${_id}`, {
     method: 'PUT',
@@ -454,7 +465,7 @@ async function updateNoteFlockBio({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName,
+      name, nik, fathersName, details,
     }),
   });
   const responseJson = await response.json();
@@ -599,6 +610,7 @@ export {
   updateBoard,
   importFileBoards,
   getFunctionals,
+  getFunctional,
   addFunctional,
   updateFunctional,
   importFileFunctionals,
