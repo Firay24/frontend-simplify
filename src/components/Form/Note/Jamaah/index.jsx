@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import SubmitButton from 'components/Button/ButtonOnClick';
 
 function NoteContainer({
-  prevNote, prevNotes, addNote, updateNote,
+  prevNote, prevNotes, addNote, updateNote, user,
 }) {
   const [note, setNote] = useState({
     _id: '',
@@ -19,11 +19,12 @@ function NoteContainer({
       name: '',
       status: 'Belum selesai',
       details: '',
+      author: user.name,
     },
   });
 
   useEffect(() => {
-    if (prevNotes !== undefined && prevNotes !== null) {
+    if (prevNotes !== undefined && prevNotes !== null && prevNotes && user) {
       setNote({
         _id: prevNotes._id,
         name: prevNotes.name,
@@ -33,6 +34,7 @@ function NoteContainer({
           name: '',
           status: 'Belum selesai',
           details: '',
+          author: user.name,
         },
       });
     }
@@ -50,6 +52,7 @@ function NoteContainer({
           name: prevNote.name,
           status: prevNote.status,
           details: prevNote.details,
+          author: user.name,
         },
       });
     }
@@ -135,6 +138,7 @@ NoteContainer.propTypes = {
   prevNotes: PropTypes.object,
   addNote: PropTypes.func,
   updateNote: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default NoteContainer;

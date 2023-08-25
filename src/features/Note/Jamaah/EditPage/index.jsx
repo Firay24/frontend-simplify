@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import InputContainer from 'components/Form/Note/Jamaah';
@@ -10,7 +12,7 @@ import Header from './Layout/Header';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-function EditNotePage() {
+function EditNotePage({ user }) {
   const { id } = useParams();
   const { idNote } = useParams();
   const [note, setNote] = useState({ error: false, data: [] });
@@ -101,6 +103,7 @@ function EditNotePage() {
             isLoading ? <Loading />
               : (
                 <InputContainer
+                  user={user && user}
                   prevNote={infoNote && infoNote}
                   prevNotes={detailNote && detailNote}
                   updateNote={handleUpdateNote}
@@ -124,5 +127,9 @@ function EditNotePage() {
     </>
   );
 }
+
+EditNotePage.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default EditNotePage;

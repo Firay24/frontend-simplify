@@ -105,7 +105,7 @@ function App() {
           <Route path="/jamaah/editData/:id" element={<EditPageJamaah />} />
           <Route path="/jamaah/catatan/listData/:id" exact element={<NotesPageJamaah />} />
           <Route path="/jamaah/catatan/detailData/:id/:idNote" exact element={<DetailNotePageJamaah />} />
-          <Route path="/jamaah/catatan/editData/:id/:idNote" element={<EditNotePageJamaah />} />
+          <Route path="/jamaah/catatan/editData/:id/:idNote" element={<EditNotePageJamaah user={authedUser} />} />
           <Route path="/jamaah/catatan/addData/:id" element={<CreateNotePageJamaah />} />
 
           <Route path="/mz/listData" element={<ListPageMZ />} />
@@ -115,7 +115,7 @@ function App() {
           <Route path="/mz/catatan/addData/:id" element={<CreateNotePageMZ />} />
           <Route path="/mz/catatan/listData/:id" element={<NotePageMZ />} />
           <Route path="/mz/catatan/detailData/:id/:idNote" element={<DetailNotePageMZ />} />
-          <Route path="/mz/catatan/editData/:id/:idNote" element={<EditNotePageMZ />} />
+          <Route path="/mz/catatan/editData/:id/:idNote" element={<EditNotePageMZ user={authedUser} />} />
 
           <Route path="/fungsional/listData" element={<ListPageFungsional />} />
           <Route path="/fungsional/addData" element={<CreatePageFungsional />} />
