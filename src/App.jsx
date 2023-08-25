@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react';
@@ -34,6 +35,8 @@ import NotePageMZ from 'features/Note/MZ/ListPage';
 import DetailNotePageMZ from 'features/Note/MZ/DetailPage';
 import EditNotePageMZ from 'features/Note/MZ/EditPage';
 
+import ProfilPage from 'features/Profil';
+
 function App() {
   const [authedUser, setAuthedUser] = useState(null);
   const navigate = useNavigate();
@@ -54,12 +57,12 @@ function App() {
     return token;
   };
 
-  // const onLogoutHandler = async () => {
-  //   if (confirm('Apakah anda yakin ingin keluar?')) {
-  //     setAuthedUser(null)
-  //     putAccessToken('')
-  //   }
-  // }
+  const onLogoutHandler = async () => {
+    if (confirm('Apakah anda yakin ingin keluar?')) {
+      setAuthedUser(null);
+      putAccessToken('');
+    }
+  };
 
   useEffect(() => {
     const token = getTokenFromLocalStorage();
@@ -119,6 +122,8 @@ function App() {
           <Route path="/fungsional/detailData/:id" element={<DetailPageFungsional />} />
           <Route path="/fungsional/editData/:idFlock/:idFunc" element={<EditPageFungsional />} />
           <Route path="/fungsional/editData/:idFlock" element={<EditPageFungsional />} />
+
+          <Route path="/profil" element={<ProfilPage user={authedUser} onLogout={onLogoutHandler} />} />
         </Routes>
       </main>
     </div>

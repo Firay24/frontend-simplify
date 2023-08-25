@@ -1,11 +1,13 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-shadow */
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import LogoBar from './LogoBar';
 import MenuBar from './MenuBar';
 import ProfilBar from './ProfilBar';
 
-function index({ user }) {
+function SideBarSection({ user }) {
   const pages = [
     {
       path: 'jamaah',
@@ -20,6 +22,7 @@ function index({ user }) {
       headline: 'Data fungsional',
     },
   ];
+  const location = useLocation();
 
   return (
     <div>
@@ -39,7 +42,7 @@ function index({ user }) {
                 }
           </div>
         </div>
-        <div>
+        <div className={`${location.pathname === '/profil' ? 'bg-[#E6E9EC] border-l-2 border-gray-600' : ''} flex items-center py-3 hover:bg-[#E6E9EC] hover:border-l-2 hover:border-gray-600`}>
           <ProfilBar user={user} />
         </div>
       </div>
@@ -47,6 +50,8 @@ function index({ user }) {
   );
 }
 
-// index.propTypes = {}
+SideBarSection.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
-export default index;
+export default SideBarSection;
